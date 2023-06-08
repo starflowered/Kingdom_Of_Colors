@@ -9,6 +9,7 @@ project(Exercise01)
 include_directories( ${OpenCV_INCLUDE_DIRS} )
 
 set(Exercise01_SOURCES
-        Exercise-2.cpp)
+        MarkerTracker.cpp)
+        
 add_executable(Exercise01 ${Exercise01_SOURCES})
 target_link_libraries (Exercise01 ${OpenCV_LIBS})
