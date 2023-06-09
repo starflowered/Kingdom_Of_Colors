@@ -1,0 +1,93 @@
+\documentclass[a4paper]{article}
+\usepackage[margin=2mm]{geometry}
+\usepackage{tikz,nopageno}
+\usepackage{wasysym}
+\usepackage{array}
+\newcolumntype{C}{>{\centering\arraybackslash}p{\dimexpr0.32\textwidth-18\tabcolsep\relax}}
+
+% context: https://tex.stackexchange.com/questions/155668/tikz-tiling-hexagons-with-varying-content
+%1
+
+\usetikzlibrary{fit,backgrounds}
+
+\setlength{\parskip}{0mm}
+
+\setlength{\parskip}{0mm}
+\newlength{\mywidth}
+\setlength{\mywidth}{3.7cm}  %%% size of the hexagon adjusted so that three hexgons fit
+
+% General macro to draw a shape filled with a bitmap
+\newcommand\fillshape[1]{ % #1 = shape
+    \begin{scope}
+        \clip #1;
+    \end{scope}
+    \draw[line width=0.5mm] #1;
+}
+
+% Particularization for hexagonal shape
+\newcommand\fillhexagon{
+    \fillshape{(0:4) -- (60:4) -- (120:4) -- (180:4) -- (240:4) -- (300:4) -- cycle}
+}
+
+\newcommand\tile[6]{
+\begin{tikzpicture}
+    \fillhexagon{};
+    \node at (0,2.5) {#1};
+    \node at (2.1,1.3) {#2};
+    \node at (2.1,-1.3) {#3};
+    \node at (0,-2.5) {#4};
+    \node at (-2.1,1.3) {#5};
+    \node at (-2.1,-1.3) {#6};
+    
+\end{tikzpicture}
+}
+
+% Define a counter
+\newcounter{mycounter}
+
+\begin{document}
+
+\hspace{-0.5cm}
+\begin{tabular}{cCc}
+\tile{\includegraphics[scale=0.2,angle=0,origin=c]{markers/marker_\the\numexpr\value{mycounter}+0.png}}{\includegraphics[scale=0.2,angle=30,origin=c]{markers/marker_\the\numexpr\value{mycounter}+1.png}}{\includegraphics[scale=0.2,angle=60,origin=c]{markers/marker_\the\numexpr\value{mycounter}+2.png}}{\includegraphics[scale=0.2,angle=0,origin=c]{markers/marker_\the\numexpr\value{mycounter}+3.png}}{\includegraphics[scale=0.2,angle=60,origin=c]{markers/marker_\the\numexpr\value{mycounter}+4.png}}{\includegraphics[scale=0.2,angle=30,origin=c]{markers/marker_\the\numexpr\value{mycounter}+5.png}}
+\stepcounter{mycounter}\stepcounter{mycounter}\stepcounter{mycounter}\stepcounter{mycounter}\stepcounter{mycounter}\stepcounter{mycounter}&
+&
+\tile{\includegraphics[scale=0.2,angle=0,origin=c]{markers/marker_\the\numexpr\value{mycounter}+0.png}}{\includegraphics[scale=0.2,angle=30,origin=c]{markers/marker_\the\numexpr\value{mycounter}+1.png}}{\includegraphics[scale=0.2,angle=60,origin=c]{markers/marker_\the\numexpr\value{mycounter}+2.png}}{\includegraphics[scale=0.2,angle=0,origin=c]{markers/marker_\the\numexpr\value{mycounter}+3.png}}{\includegraphics[scale=0.2,angle=60,origin=c]{markers/marker_\the\numexpr\value{mycounter}+4.png}}{\includegraphics[scale=0.2,angle=30,origin=c]{markers/marker_\the\numexpr\value{mycounter}+5.png}}
+\stepcounter{mycounter}\stepcounter{mycounter}\stepcounter{mycounter}\stepcounter{mycounter}\stepcounter{mycounter}\stepcounter{mycounter}
+\end{tabular}
+\\[-3cm]
+\begin{center}
+\tile{\includegraphics[scale=0.2,angle=0,origin=c]{markers/marker_\the\numexpr\value{mycounter}+0.png}}{\includegraphics[scale=0.2,angle=30,origin=c]{markers/marker_\the\numexpr\value{mycounter}+1.png}}{\includegraphics[scale=0.2,angle=60,origin=c]{markers/marker_\the\numexpr\value{mycounter}+2.png}}{\includegraphics[scale=0.2,angle=0,origin=c]{markers/marker_\the\numexpr\value{mycounter}+3.png}}{\includegraphics[scale=0.2,angle=60,origin=c]{markers/marker_\the\numexpr\value{mycounter}+4.png}}{\includegraphics[scale=0.2,angle=30,origin=c]{markers/marker_\the\numexpr\value{mycounter}+5.png}}
+\stepcounter{mycounter}\stepcounter{mycounter}\stepcounter{mycounter}\stepcounter{mycounter}\stepcounter{mycounter}\stepcounter{mycounter}
+\end{center}
+\vspace{-2.7cm}
+\hspace{0.1cm}
+\begin{tabular}{cCc}
+\tile{\includegraphics[scale=0.2,angle=0,origin=c]{markers/marker_\the\numexpr\value{mycounter}+0.png}}{\includegraphics[scale=0.2,angle=30,origin=c]{markers/marker_\the\numexpr\value{mycounter}+1.png}}{\includegraphics[scale=0.2,angle=60,origin=c]{markers/marker_\the\numexpr\value{mycounter}+2.png}}{\includegraphics[scale=0.2,angle=0,origin=c]{markers/marker_\the\numexpr\value{mycounter}+3.png}}{\includegraphics[scale=0.2,angle=60,origin=c]{markers/marker_\the\numexpr\value{mycounter}+4.png}}{\includegraphics[scale=0.2,angle=30,origin=c]{markers/marker_\the\numexpr\value{mycounter}+5.png}}
+\stepcounter{mycounter}\stepcounter{mycounter}\stepcounter{mycounter}\stepcounter{mycounter}\stepcounter{mycounter}\stepcounter{mycounter}&
+& %2
+\tile{\includegraphics[scale=0.2,angle=0,origin=c]{markers/marker_\the\numexpr\value{mycounter}+0.png}}{\includegraphics[scale=0.2,angle=30,origin=c]{markers/marker_\the\numexpr\value{mycounter}+1.png}}{\includegraphics[scale=0.2,angle=60,origin=c]{markers/marker_\the\numexpr\value{mycounter}+2.png}}{\includegraphics[scale=0.2,angle=0,origin=c]{markers/marker_\the\numexpr\value{mycounter}+3.png}}{\includegraphics[scale=0.2,angle=60,origin=c]{markers/marker_\the\numexpr\value{mycounter}+4.png}}{\includegraphics[scale=0.2,angle=30,origin=c]{markers/marker_\the\numexpr\value{mycounter}+5.png}}
+\stepcounter{mycounter}\stepcounter{mycounter}\stepcounter{mycounter}\stepcounter{mycounter}\stepcounter{mycounter}\stepcounter{mycounter}
+\end{tabular}
+\\[-3cm]
+\begin{center}
+\tile{\includegraphics[scale=0.2,angle=0,origin=c]{markers/marker_\the\numexpr\value{mycounter}+0.png}}{\includegraphics[scale=0.2,angle=30,origin=c]{markers/marker_\the\numexpr\value{mycounter}+1.png}}{\includegraphics[scale=0.2,angle=60,origin=c]{markers/marker_\the\numexpr\value{mycounter}+2.png}}{\includegraphics[scale=0.2,angle=0,origin=c]{markers/marker_\the\numexpr\value{mycounter}+3.png}}{\includegraphics[scale=0.2,angle=60,origin=c]{markers/marker_\the\numexpr\value{mycounter}+4.png}}{\includegraphics[scale=0.2,angle=30,origin=c]{markers/marker_\the\numexpr\value{mycounter}+5.png}}
+\stepcounter{mycounter}\stepcounter{mycounter}\stepcounter{mycounter}\stepcounter{mycounter}\stepcounter{mycounter}\stepcounter{mycounter}
+\end{center}
+\vspace{-2.7cm}
+\hspace{0.1cm}
+\begin{tabular}{cCc}
+\tile{\includegraphics[scale=0.2,angle=0,origin=c]{markers/marker_\the\numexpr\value{mycounter}+0.png}}{\includegraphics[scale=0.2,angle=30,origin=c]{markers/marker_\the\numexpr\value{mycounter}+1.png}}{\includegraphics[scale=0.2,angle=60,origin=c]{markers/marker_\the\numexpr\value{mycounter}+2.png}}{\includegraphics[scale=0.2,angle=0,origin=c]{markers/marker_\the\numexpr\value{mycounter}+3.png}}{\includegraphics[scale=0.2,angle=60,origin=c]{markers/marker_\the\numexpr\value{mycounter}+4.png}}{\includegraphics[scale=0.2,angle=30,origin=c]{markers/marker_\the\numexpr\value{mycounter}+5.png}}
+\stepcounter{mycounter}\stepcounter{mycounter}\stepcounter{mycounter}\stepcounter{mycounter}\stepcounter{mycounter}\stepcounter{mycounter}&
+& %2
+\tile{\includegraphics[scale=0.2,angle=0,origin=c]{markers/marker_\the\numexpr\value{mycounter}+0.png}}{\includegraphics[scale=0.2,angle=30,origin=c]{markers/marker_\the\numexpr\value{mycounter}+1.png}}{\includegraphics[scale=0.2,angle=60,origin=c]{markers/marker_\the\numexpr\value{mycounter}+2.png}}{\includegraphics[scale=0.2,angle=0,origin=c]{markers/marker_\the\numexpr\value{mycounter}+3.png}}{\includegraphics[scale=0.2,angle=60,origin=c]{markers/marker_\the\numexpr\value{mycounter}+4.png}}{\includegraphics[scale=0.2,angle=30,origin=c]{markers/marker_\the\numexpr\value{mycounter}+5.png}}
+\stepcounter{mycounter}\stepcounter{mycounter}\stepcounter{mycounter}\stepcounter{mycounter}\stepcounter{mycounter}\stepcounter{mycounter}
+\end{tabular}
+\\[-3cm]
+\hspace{0.2cm}
+\begin{center}
+\tile{\includegraphics[scale=0.2,angle=0,origin=c]{markers/marker_\the\numexpr\value{mycounter}+0.png}}{\includegraphics[scale=0.2,angle=30,origin=c]{markers/marker_\the\numexpr\value{mycounter}+1.png}}{\includegraphics[scale=0.2,angle=60,origin=c]{markers/marker_\the\numexpr\value{mycounter}+2.png}}{\includegraphics[scale=0.2,angle=0,origin=c]{markers/marker_\the\numexpr\value{mycounter}+3.png}}{\includegraphics[scale=0.2,angle=60,origin=c]{markers/marker_\the\numexpr\value{mycounter}+4.png}}{\includegraphics[scale=0.2,angle=30,origin=c]{markers/marker_\the\numexpr\value{mycounter}+5.png}}
+\stepcounter{mycounter}\stepcounter{mycounter}\stepcounter{mycounter}\stepcounter{mycounter}\stepcounter{mycounter}\stepcounter{mycounter}
+\end{center}
+
+\end{document}
