@@ -2,6 +2,7 @@ import numpy as np
 import cv2
 from cv2 import aruco
 import matplotlib.pyplot as plt
+import matplotlib as mpl
 
 # install SPECIFICALLY the following opencv version: pip install opencv-contrib-python==4.6.0.66
 # much references from this notebook: https://mecaruco2.readthedocs.io/en/latest/notebooks_rst/Aruco/aruco_basics.html
@@ -27,7 +28,8 @@ def find_matching_rectangles(rectangles, identifier, radius_multiplier, MatPlotL
                 continue
 
             rect1_size = max(abs(rect1[0][0] - rect1[2][0]), abs(rect1[0][1] - rect1[2][1]))
-            radius = radius_multiplier * rect1_size
+            rect2_size = max(abs(rect2[0][0] - rect2[2][0]), abs(rect2[0][1] - rect2[2][1]))
+            radius = radius_multiplier * ((rect1_size + rect2_size) / 2)
 
             # Calculate the center points of the rectangles
             rect1_center = [(rect1[0][0] + rect1[2][0]) / 2, (rect1[0][1] + rect1[2][1]) / 2]
@@ -52,9 +54,10 @@ def evaluate_frame(frame, MatPlotLibCoordinates=False):
     aruco_dict = aruco.Dictionary_get(aruco.DICT_4X4_250)
     parameters =  aruco.DetectorParameters_create()
     corners, ids, rejectedImgPoints = aruco.detectMarkers(gray, aruco_dict, parameters=parameters)
-    frame_markers = aruco.drawDetectedMarkers(frame.copy(), corners, ids)
+    # frame_markers = aruco.drawDetectedMarkers(frame.copy(), corners, ids)
+    frame_markers = aruco.drawDetectedMarkers(frame.copy(), corners)
 
-    matches = find_matching_rectangles(rectangles=corners, identifier=ids, radius_multiplier=3, MatPlotLibCoordinates=MatPlotLibCoordinates)
+    matches = find_matching_rectangles(rectangles=corners, identifier=ids, radius_multiplier=1.5, MatPlotLibCoordinates=MatPlotLibCoordinates)
 
     return matches, corners, ids, frame_markers
 
@@ -72,7 +75,7 @@ def theoreticalMain():
         for match in matches:
             point1 = match[0][0]
             point2 = match[0][1]
-            cv2.line(img=frame, pt1=point1, pt2=point2, color=(255, 0, 0), thickness=5, lineType=8, shift=0)
+            cv2.line(img=frame, pt1=(int(point1[0]), int(point1[1])), pt2=(int(point2[0]), int(point2[1])), color=(255, 0, 0), thickness=5, lineType=8, shift=0)
 
         cv2.imshow("preview", frame)
         rval, frame = vc.read()
@@ -102,4 +105,29 @@ def testFrame(frame):
     plt.legend(loc=(1.04, 0))
     plt.show()  
 
+def generateMarkers(number):
+    aruco_dict = aruco.Dictionary_get(aruco.DICT_4X4_250)
+
+    for i in range(0, number):
+        # print(i)
+        fig = plt.figure(figsize=(4,4))  # Create a new figure for each image
+        ax = fig.add_subplot(1, 1, 1)  # Add a single subplot to the figure
+        img = aruco.drawMarker(aruco_dict, i, 700)
+        plt.imshow(img, cmap=mpl.cm.gray, interpolation="nearest")
+
+        ax.set_xlim([0, img.shape[1]])
+        ax.set_ylim([img.shape[0], 0])
+
+        plt.tight_layout()
+        ax.axis("off")
+        plt.savefig(f"_markers/marker_{i}.png", bbox_inches='tight')  # Save the figure as an image
+        plt.close(fig)
+
+
+# generateMarkers(78)
+
 testFrame(cv2.imread("AR_Marker_Hexagon_2cm_4x4.png"))
+
+# testFrame(cv2.imread("Hexagonal_Cards.png"))
+
+# theoreticalMain()
