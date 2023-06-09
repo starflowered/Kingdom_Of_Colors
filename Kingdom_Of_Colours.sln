@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Exercise01", "AR_T1\AR_T1.vcxproj", "{11775866-349A-44F0-A601-98F42BFEC3AF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Marker_Tracker", "Marker_Tracker\Marker_Tracker.vcxproj", "{11775866-349A-44F0-A601-98F42BFEC3AF}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGLTutoials", "OpenGLTutoials\OpenGLTutoials.vcxproj", "{728EE91E-31F8-4643-8D91-5240E5D32A67}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,14 @@ Global
 		{11775866-349A-44F0-A601-98F42BFEC3AF}.Release|x64.Build.0 = Release|x64
 		{11775866-349A-44F0-A601-98F42BFEC3AF}.Release|x86.ActiveCfg = Release|Win32
 		{11775866-349A-44F0-A601-98F42BFEC3AF}.Release|x86.Build.0 = Release|Win32
+		{728EE91E-31F8-4643-8D91-5240E5D32A67}.Debug|x64.ActiveCfg = Debug|x64
+		{728EE91E-31F8-4643-8D91-5240E5D32A67}.Debug|x64.Build.0 = Debug|x64
+		{728EE91E-31F8-4643-8D91-5240E5D32A67}.Debug|x86.ActiveCfg = Debug|Win32
+		{728EE91E-31F8-4643-8D91-5240E5D32A67}.Debug|x86.Build.0 = Debug|Win32
+		{728EE91E-31F8-4643-8D91-5240E5D32A67}.Release|x64.ActiveCfg = Release|x64
+		{728EE91E-31F8-4643-8D91-5240E5D32A67}.Release|x64.Build.0 = Release|x64
+		{728EE91E-31F8-4643-8D91-5240E5D32A67}.Release|x86.ActiveCfg = Release|Win32
+		{728EE91E-31F8-4643-8D91-5240E5D32A67}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

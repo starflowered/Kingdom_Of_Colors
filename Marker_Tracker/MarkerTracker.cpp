@@ -59,7 +59,7 @@ uchar sub_pixel_sample_safe(const Mat& p_src, const Point2d& p)
     /* Fairly complicated approach -> Why could this be a useful approach here? HINT: How of then is this function called? */
     /* If this is too complex, you can build your own solution by simply implementing the functions from slide 15+ */
 
-    Point2d point{p.x - fx, p.y - fy};
+    const Point2d point{p.x - fx, p.y - fy};
 
 
     // TASK: What do we do here? HINT: What are .data and .step? What is the result of this operation?
@@ -86,7 +86,7 @@ Mat calculate_stripe(const double dx, const double dy, stripe* s)
     s->stripe_length = l;
 
     const Size stripe_size{3, s->stripe_length};
-    Point2f stripe_vec_x, stripe_vec_y;
+    Point2d stripe_vec_x, stripe_vec_y;
 
     const double length = sqrt(dx * dx + dy * dy);
     stripe_vec_x.x = dx / length;
@@ -107,7 +107,7 @@ int main()
     VideoCapture cap(0);
 
 #if INPUT_IMAGE
-    frame = imread(samples::findFile("MarkerTest.jpg", false));
+    frame = imread(samples::findFile("SmallMarkers.png", false));
     bool frame_empty = frame.empty();
     Mat original_frame = frame.clone();
 
@@ -121,7 +121,7 @@ int main()
             if (cap.isOpened() == false)
             {
                 cout << "No video!" << endl;
-                exit(0);
+                return 0;
             }
         }
 #if INPUT_IMAGE
@@ -362,7 +362,7 @@ int main()
                 //   <-----100----->
                 /* TASK: Visualize the lines from both edges -> HINT: Comments above */
                 Point edge_start_point, edge_end_point;
-                constexpr int visualized_line_length = 250; // TODO try other values than 50
+                constexpr int visualized_line_length = 50;
                 edge_start_point.x = static_cast<int>(line_params[8 + i]) - static_cast<int>(visualized_line_length *
                     line_params[i]);
                 edge_start_point.y = static_cast<int>(line_params[12 + i]) - static_cast<int>(visualized_line_length *
