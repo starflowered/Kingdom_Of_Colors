@@ -5,8 +5,6 @@
 #include "DrawPrimitives.h"
 
 GLfloat angle = 0;
-double start_frame;
-double end_frame;
 
 // Program & OpenGL initialization
 void init(int argc, char* argv[])
@@ -20,7 +18,7 @@ void init(int argc, char* argv[])
     glEnable(GL_DEPTH_TEST);
     // Set the value back to 1 when there was a swap
     glClearDepth(1);
-    
+
     // face culling does not work with snowman
     // glEnable(GL_CULL_FACE);
 
@@ -68,17 +66,10 @@ void display(GLFWwindow* window)
     glTranslatef(0, -0.8f, -10);
     // push base position of snowman
     glPushMatrix();
+
+    angle = static_cast<GLfloat>(glfwGetTime()) * 50.0f;
+    glRotatef(angle, 0, 1, 0);
     
-    const double elapsedTime = glfwGetTime();
-
-    // [degree/sec]
-    const float degreePerSec = 90.0f;
-
-    /// ??? returns elapsed time counted from the program start in second
-    /* TODO: Find a way how to rotate around the own position */
-    const float angle = 45;
-    // glRotatef(45, 0, 1, 0);
-
     // Draw 3 white spheres
     glColor4f(1.0, 1.0, 1.0, 1.0);
     // draw big body ball
@@ -91,28 +82,27 @@ void display(GLFWwindow* window)
     // translate up for head ball
     glTranslatef(0, 0.8f, 0);
     draw_sphere(0.6, 20, 20);
-    
+
     // push position of head ball
     glPushMatrix();
 
     // Draw the eyes
     glColor4f(0, 0, 0, 1.0);
     glTranslatef(-0.3f, 0.18f, 0.45f);
-    draw_sphere(0.1, 20, 20);
+    draw_sphere(0.1, 12, 12);
     glTranslatef(0.6f, 0, 0);
-    draw_sphere(0.1, 20, 20);
-    
+    draw_sphere(0.1, 12, 12);
+
     // Pop -> go back to the last saved pose
-    glPopMatrix();
+    // glPopMatrix();
 
     // Draw a nose
-    glColor4f(1, 0.55f, 0.35f, 1);
-    glTranslatef(0, 0, 2);
-    // glRotatef(-90, 1, 0, 0);
-    draw_cone(0.5f, 1, 12);
+    glTranslatef(-0.3f, -0.18f, -0.5f);
+    glColor4f(1, 0.59f, 0.3f, 1);
+    glTranslatef(0, 0, 0.6f);
     // The cone needs to be rotated in y-direction because the tip is pointing backwards
-    /* ... */
-    /* ... */
+    // glRotatef(180, 0, 1, 0);
+    draw_cone(0.2f, 0.5, 12);
 }
 
 // System provides width and height
@@ -192,8 +182,6 @@ int main(int argc, char* argv[])
     // Loop until the user closes the window
     while (!glfwWindowShouldClose(window))
     {
-        start_frame = glfwGetTime();
-
         // Render here
         display(window);
 
@@ -203,8 +191,6 @@ int main(int argc, char* argv[])
         glfwSwapBuffers(window);
 
         glfwPollEvents();
-
-        end_frame = glfwGetTime();
     }
 
     // Free the memory (IMPORTANT to avoid memory leaks!!!)
