@@ -36,3 +36,46 @@ inline void draw_sphere(const double radius, const int lats, const int longs)
         glEnd();
     }
 }
+
+inline void draw_cone_top(const GLfloat radius, const GLdouble height, const GLint slices)
+{
+    const double angle = 2 * M_PI / slices;
+    
+    glBegin(GL_TRIANGLE_FAN);
+    glVertex3f(0, 0, static_cast<GLfloat>(height));
+
+    for (int i = 0; i <= slices; i++)
+    {
+        const auto total_angle = static_cast<float>(i * angle);
+        glVertex3f(radius * cosf(total_angle), radius * sinf(total_angle), 0.f);
+    }
+    
+    glEnd();
+}
+
+inline void draw_circle(const GLfloat radius, const GLint slices)
+{
+    glBegin(GL_TRIANGLE_FAN);
+    glVertex2f(0, 0);
+
+    const double angle = 2 * M_PI / slices;
+
+    for (int i = 0; i <= slices; i++)
+    {
+        const auto total_angle = static_cast<float>(i * angle);
+        glVertex2f(radius * cosf(total_angle), radius * sinf(total_angle));
+    }
+
+    glEnd();
+}
+
+
+inline void draw_cone(const GLfloat radius, const GLdouble height, const GLint slices)
+{
+    // draw cone top
+    draw_cone_top(radius, height, slices);
+
+    // draw cone bottom
+    draw_circle(radius, slices);
+}
+

@@ -22,8 +22,7 @@
     <ClInclude Include="DrawPrimitives.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Exercise-6.cpp" />
-    <ClCompile Include="Exercise_06_Template.cpp" />
+    <ClCompile Include="OpenGLSnowMan.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
