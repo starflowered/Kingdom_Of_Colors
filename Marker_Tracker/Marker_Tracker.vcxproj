@@ -133,15 +133,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="MarkerDetectionUtilities.cpp" />
     <ClCompile Include="MarkerTracker.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AR_Marker_Hexagon_2cm_4x4.png" />
     <Content Include="MarkerMovie.MP4" />
     <Content Include="MarkerTest.jpg" />
     <Content Include="SmallMarkers.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MarkerDetectionUtilities.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
