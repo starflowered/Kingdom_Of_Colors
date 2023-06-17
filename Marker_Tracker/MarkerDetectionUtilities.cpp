@@ -6,10 +6,12 @@ static void on_trackbar(const int pos, void* slider_value)
     *static_cast<int*>(slider_value) = pos;
 }
 
+
 void bw_trackbar_handler(const int pos, void* slider_value)
 {
     *static_cast<int*>(slider_value) = pos;
 }
+
 
 uchar sub_pixel_sample_safe(const Mat& p_src, const Point2f& p)
 {
@@ -35,6 +37,7 @@ uchar sub_pixel_sample_safe(const Mat& p_src, const Point2f& p)
 
     return intensity;
 }
+
 
 Mat compute_stripe(const double dx, const double dy, stripe* s)
 {
@@ -64,10 +67,11 @@ Mat compute_stripe(const double dx, const double dy, stripe* s)
     // return Mat{3, s->stripe_length, CV_8UC1};
 }
 
+
 int read_frame(Mat& frame, VideoCapture cap, bool& frame_empty, Mat& original_frame)
 {
 #if INPUT_IMAGE
-    frame = imread(samples::findFile("AR_Marker_Hexagon_2cm_4x4.png", false));
+    frame = imread(samples::findFile("SmallMarkers.png", false));
     frame_empty = frame.empty();
     original_frame = frame.clone();
 
@@ -90,19 +94,21 @@ int read_frame(Mat& frame, VideoCapture cap, bool& frame_empty, Mat& original_fr
     return 0;
 }
 
-void create_windows(bool& is_first_stripe, bool& is_first_marker)
+
+void create_windows()
 {
-    namedWindow(stripe_window, WINDOW_AUTOSIZE);
-    namedWindow(threshold_window, WINDOW_FREERATIO);
-    namedWindow(marker_window, WINDOW_AUTOSIZE);
+    // namedWindow(stripe_window, WINDOW_AUTOSIZE);
+    // namedWindow(threshold_window, WINDOW_FREERATIO);
+    // namedWindow(marker_window, WINDOW_AUTOSIZE);
     namedWindow(contours_window, WINDOW_FREERATIO);
 
-    is_first_stripe = true;
-    is_first_marker = true;
+    // is_first_stripe = true;
+    // is_first_marker = true;
 
-    createTrackbar(threshold_label, threshold_window, &thresh, 255, on_trackbar, &thresh);
-    createTrackbar(bw_threshold_label, threshold_window, &bw_thresh, 255, bw_trackbar_handler, &bw_thresh);
+    // createTrackbar(threshold_label, threshold_window, &thresh, 255, on_trackbar, &thresh);
+    // createTrackbar(bw_threshold_label, threshold_window, &bw_thresh, 255, bw_trackbar_handler, &bw_thresh);
 }
+
 
 void compute_stripe_intensities(const Mat& img_filtered, const stripe& stripe, Mat image_pixel_stripe, const Point2f p,
                                 const int height)
@@ -129,6 +135,7 @@ void compute_stripe_intensities(const Mat& img_filtered, const stripe& stripe, M
     }
 }
 
+
 void apply_sobel_y(const Mat& image_pixel_stripe, Mat& grad_y, int& max_intensity_index)
 {
     Sobel(image_pixel_stripe, grad_y, CV_8U, 0, 1);
@@ -149,7 +156,8 @@ void apply_sobel_y(const Mat& image_pixel_stripe, Mat& grad_y, int& max_intensit
     }
 }
 
-void compute_stripe_edge_center(Mat frame, const stripe& stripe, Point2f edge_point_centers[6], const int j,
+
+void compute_stripe_edge_center(Mat frame, const stripe& stripe, Point2f edge_point_centers[], const int j,
                                 const Point2f p, Mat grad_y, int& max_intensity_index)
 {
     // calculate point indices of point above and below max intensity point
@@ -190,8 +198,9 @@ void compute_stripe_edge_center(Mat frame, const stripe& stripe, Point2f edge_po
     edge_point_centers[j - 1] = edge_center;
 }
 
+
 void fit_line_to_edge(Mat frame, float line_params[16], const Mat& line_params_matrix, const int i,
-                      Point2f edge_point_centers[6])
+                      Point2f edge_point_centers[])
 {
     // We now have the array of exact edge centers stored in "points", every row has two values -> 2 channels!
     const Mat high_intensity_points(Size(1, 6), CV_32FC2, edge_point_centers);
@@ -223,6 +232,7 @@ void fit_line_to_edge(Mat frame, float line_params[16], const Mat& line_params_m
     // Draw line
     line(frame, edge_start_point, edge_end_point, CV_RGB(0, 255, 255), 1, 8, 0);
 }
+
 
 void compute_corners(Mat frame, float line_params[16], Point2f (&corners)[4])
 {
@@ -278,6 +288,7 @@ void compute_corners(Mat frame, float line_params[16], Point2f (&corners)[4])
     }
 }
 
+
 void map_marker_to_6x6_image(const Mat& img_filtered, Point2f corners[4], Mat& image_marker)
 {
     // Coordinates on the original marker images to go to the actual center of the first pixel -> 6x6
@@ -307,6 +318,7 @@ void map_marker_to_6x6_image(const Mat& img_filtered, Point2f corners[4], Mat& i
     // Now we have a B/W image of a supposed Marker
     threshold(image_marker, image_marker, bw_thresh, 255, THRESH_BINARY);
 }
+
 
 bool get_marker_bit_matrix(Mat image_marker, Mat& code_pixel_mat)
 {
@@ -424,6 +436,28 @@ bool get_marker_bit_matrix(Mat image_marker, Mat& code_pixel_mat)
     return false;
 }
 
+
+bool update_marker_list(Mat frame, const aruco::Dictionary& aruco_dict, vector<marker> marker_list, const Point2f* corners, const Mat& code_pixel_mat, const vector<Point2f>& img_marker_corners, bool& value1)
+{
+    // ---------------------- update marker list
+    int marker_id, marker_rotation;
+
+    if (!aruco_dict.identify(code_pixel_mat, marker_id, marker_rotation, 1))
+    {
+        cout << "Could not identify some marker" << endl;
+        circle(frame, corners[0], 6, CV_RGB(255, 0, 255), -1);
+        value1 = true;
+        return true;
+    }
+
+    Point2f marker_center = corners[2] + 0.5f * (corners[0] - corners[2]);
+    circle(frame, marker_center, 3, CV_RGB(255, 0, 0), -1);
+
+    marker_list.push_back({marker_id, marker_rotation, marker_center, img_marker_corners});
+    //--------------------------------------
+    return false;
+}
+
 bool compute_pnp(Mat frame, const aruco::Dictionary& aruco_dict, vector<marker> marker_list, Point2f corners[4],
                  const Mat& code_pixel_mat, Mat_<float>& t_vec)
 {
@@ -459,21 +493,9 @@ bool compute_pnp(Mat frame, const aruco::Dictionary& aruco_dict, vector<marker> 
     // marker corners in the image
     vector<Point2f> img_marker_corners = {corners[0], corners[1], corners[2], corners[3]};
 
-    // ---------------------- update marker list
-    int marker_id, marker_rotation;
-
-    if (!aruco_dict.identify(code_pixel_mat, marker_id, marker_rotation, 1))
-    {
-        cout << "Could not identify some marker" << endl;
-        circle(frame, corners[0], 6, CV_RGB(255, 0, 255), -1);
-        return true;
-    }
-
-    Point2f marker_center = corners[2] + 0.5f * (corners[0] - corners[2]);
-    circle(frame, marker_center, 3, CV_RGB(255, 0, 0), -1);
-
-    marker_list.push_back({marker_id, marker_rotation, marker_center, img_marker_corners});
-    //--------------------------------------
+    bool value1;
+    if (update_marker_list(frame, aruco_dict, marker_list, corners, code_pixel_mat, img_marker_corners, value1))
+        return value1;
 
     Mat r_vec_temp, t_vec_temp;
     solvePnP(model_marker_corners, img_marker_corners, k_mat, dist_coefficients, r_vec_temp, t_vec_temp, false);
@@ -496,7 +518,8 @@ bool compute_pnp(Mat frame, const aruco::Dictionary& aruco_dict, vector<marker> 
     return false;
 }
 
+
 vector<tuple<marker, marker>> compute_neighbours(vector<marker> marker_list)
 {
-    
+    return vector<tuple<marker, marker>>();
 }

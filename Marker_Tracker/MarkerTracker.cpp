@@ -1,4 +1,3 @@
-#include<opencv2/opencv.hpp>
 #include "MarkerDetectionUtilities.h"
 
 bool update(Mat frame, VideoCapture cap, bool frame_empty, Mat original_frame)
@@ -6,6 +5,7 @@ bool update(Mat frame, VideoCapture cap, bool frame_empty, Mat original_frame)
     // dictionary for mapping markers to their ids
     auto aruco_dict = getPredefinedDictionary(aruco::DICT_4X4_250);
     vector<marker> marker_list;
+    const int stripe_amount = 8;
 
 #if INPUT_IMAGE
     while (!frame_empty || cap.read(frame))
@@ -69,18 +69,18 @@ bool update(Mat frame, VideoCapture cap, bool frame_empty, Mat original_frame)
                 Point p1 = approx_contour[i];
                 Point p2 = approx_contour[(i + 1) % 4];
 
-                double dx = (p2.x - p1.x) / 7.0;
-                double dy = (p2.y - p1.y) / 7.0;
+                double dx = (p2.x - p1.x) / static_cast<double>(stripe_amount);
+                double dy = (p2.y - p1.y) / static_cast<double>(stripe_amount);
 
                 stripe stripe;
 
                 // Array for edge point centers
-                Point2f edge_point_centers[6];
+                Point2f edge_point_centers[stripe_amount - 1];
 
                 Mat image_pixel_stripe = compute_stripe(dx, dy, &stripe);
 
                 // First point already rendered, now the other 6 points
-                for (int j = 1; j < 7; j++)
+                for (int j = 1; j < stripe_amount; j++)
                 {
                     // position calculation of points between edges
                     double px = p1.x + j * dx;
@@ -149,7 +149,7 @@ bool update(Mat frame, VideoCapture cap, bool frame_empty, Mat original_frame)
         while (true)
         {
             imshow(contours_window, frame);
-            imshow(threshold_window, img_filtered);
+            // imshow(threshold_window, img_filtered);
 
             if (waitKey(10) == 27)
             {
@@ -159,7 +159,7 @@ bool update(Mat frame, VideoCapture cap, bool frame_empty, Mat original_frame)
 #endif
 
         imshow(contours_window, frame);
-        imshow(threshold_window, img_filtered);
+        // imshow(threshold_window, img_filtered);
 
         if (waitKey(10) == 27)
         {
@@ -182,11 +182,8 @@ int main()
 
     if (read_frame(frame, cap, frame_empty, original_frame) == 1)
         return 1; // 1 = no input found
-
-    bool is_first_stripe;
-    bool is_first_marker;
-
-    create_windows(is_first_stripe, is_first_marker);
+        
+    create_windows();
 
     if (update(frame, cap, frame_empty, original_frame))
         return 2;
