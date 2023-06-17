@@ -453,7 +453,7 @@ bool update_marker_list(Mat frame, const aruco::Dictionary& aruco_dict, vector<m
     Point2f marker_center = corners[2] + 0.5f * (corners[0] - corners[2]);
     circle(frame, marker_center, 3, CV_RGB(255, 0, 0), -1);
 
-    marker_list.push_back({marker_id, marker_rotation, marker_center, img_marker_corners});
+    marker_list.push_back({marker_id, marker_id / 6, marker_rotation, marker_center, img_marker_corners});
     //--------------------------------------
     return false;
 }
@@ -519,7 +519,45 @@ bool compute_pnp(Mat frame, const aruco::Dictionary& aruco_dict, vector<marker> 
 }
 
 
-vector<tuple<marker, marker>> compute_neighbours(vector<marker> marker_list)
+vector<tuple<marker, marker>> ◘compute_neighbours(vector<marker> marker_list)
 {
-    return vector<tuple<marker, marker>>();
+    vector<tuple<marker, marker>> neighbours;
+    map<int, vector<int>> matched_hexagon;
+
+    const int size = static_cast<int>(marker_list.size());
+    for (int id1 = 0; id1 < size; ++id1)
+    {
+        marker marker1 = marker_list[id1];
+        int hexagon_id_1 = marker1.hexagon_id;
+        
+        for (int id2 = 1; id2 < size; ++id2)
+        {
+            marker marker2 = marker_list[id2];
+            int hexagon_id_2 = marker2.hexagon_id;
+
+            // check for same hexagon
+            if (hexagon_id_1 == hexagon_id_2)
+                continue;
+
+            // or already matched hexagon
+            if (matched_hexagon.count(hexagon_id_1) == 1)
+            {
+                auto list = matched_hexagon[hexagon_id_1];
+                if (std::find(list.begin(), list.end(), id2) != list.end()) {
+                    continue;
+                } 
+            }
+            else
+            {
+                matched_hexagon.try_emplace(hexagon_id_1, vector<int>());
+            }
+
+            // probe distance
+
+            // if neighbours --> update both map entries
+        }
+        
+    }
+    
+    return neighbours;
 }

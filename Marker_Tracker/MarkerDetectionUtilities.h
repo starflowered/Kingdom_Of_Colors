@@ -19,6 +19,7 @@ struct stripe
 struct marker
 {
     int marker_id = -1;
+    int hexagon_id = -1;
     // rotation in degrees TODO ???
     int marker_rotation = 0;
     // all points in image space
