@@ -1,5 +1,7 @@
 ﻿#include "MarkerDetectionUtilities.h"
 
+#include <utility>
+
 
 static void on_trackbar(const int pos, void* slider_value)
 {
@@ -30,10 +32,13 @@ uchar sub_pixel_sample_safe(const Mat& p_src, const Point2f& p)
     // TASK: What do we do here? HINT: What are .data and .step? What is the result of this operation?
     const auto* i = p_src.data + fy * p_src.step + fx;
 
-    const uchar intensity = point.x * point.y * i[0]
-        + (1 - point.x * point.y) * i[1]
-        + (point.x * 1 - point.y) * i[p_src.cols]
-        + (1 - point.x * 1 - point.y) * i[p_src.cols + 1];
+    const auto point_x = static_cast<uchar>(point.x);
+    const auto point_y = static_cast<uchar>(point.y);
+    
+    const uchar intensity = point_x * point_y * i[0]
+        + (1 - point_x * point_y) * i[1]
+        + (point_x * 1 - point_y) * i[p_src.cols]
+        + (1 - point_x * 1 - point_y) * i[p_src.cols + 1];
 
     return intensity;
 }
@@ -437,7 +442,7 @@ bool get_marker_bit_matrix(Mat image_marker, Mat& code_pixel_mat)
 }
 
 
-bool update_marker_list(Mat frame, const aruco::Dictionary& aruco_dict, vector<marker> marker_list, const Point2f* corners, const Mat& code_pixel_mat, const vector<Point2f>& img_marker_corners, bool& value1)
+bool update_marker_list(Mat frame, const aruco::Dictionary& aruco_dict, vector<marker>& marker_list, const Point2f* corners, const Mat& code_pixel_mat, const vector<Point2f>& img_marker_corners, bool& value1)
 {
     // ---------------------- update marker list
     int marker_id, marker_rotation;
@@ -450,15 +455,15 @@ bool update_marker_list(Mat frame, const aruco::Dictionary& aruco_dict, vector<m
         return true;
     }
 
-    Point2f marker_center = corners[2] + 0.5f * (corners[0] - corners[2]);
-    circle(frame, marker_center, 3, CV_RGB(255, 0, 0), -1);
+    const Point2f marker_center = corners[2] + 0.5f * (corners[0] - corners[2]);
+    // circle(frame, marker_center, 3, CV_RGB(255, 0, 0), -1);
 
     marker_list.push_back({marker_id, marker_id / 6, marker_rotation, marker_center, img_marker_corners});
     //--------------------------------------
     return false;
 }
 
-bool compute_pnp(Mat frame, const aruco::Dictionary& aruco_dict, vector<marker> marker_list, Point2f corners[4],
+bool compute_pnp(const Mat& frame, const aruco::Dictionary& aruco_dict, vector<marker>& marker_list, Point2f corners[4],
                  const Mat& code_pixel_mat, Mat_<float>& t_vec)
 {
     // maximum dimension
@@ -479,7 +484,7 @@ bool compute_pnp(Mat frame, const aruco::Dictionary& aruco_dict, vector<marker> 
 
     auto dist_coefficients = Mat(1, 4, CV_64FC1, {0.0, 0.0, 0.0, 0.0}); // no distortions
 
-    float k_marker_size = 0.02f; // 100.0;
+    float k_marker_size = marker_size;
     float pos0 = k_marker_size / 2.0f; // half the marker size
 
     // calculate real-life size corner coordinates
@@ -519,21 +524,24 @@ bool compute_pnp(Mat frame, const aruco::Dictionary& aruco_dict, vector<marker> 
 }
 
 
-vector<tuple<marker, marker>> ◘compute_neighbours(vector<marker> marker_list)
+vector<tuple<marker, marker>> compute_neighbours(Mat frame, const vector<marker>& marker_list)
 {
     vector<tuple<marker, marker>> neighbours;
     map<int, vector<int>> matched_hexagon;
+    const float maximum_distance = 100; // sqrtf(2) * marker_size + 0.01f;
 
+    int comparison_amount = 0;
+    
     const int size = static_cast<int>(marker_list.size());
     for (int id1 = 0; id1 < size; ++id1)
     {
-        marker marker1 = marker_list[id1];
+        const marker& marker1 = marker_list[id1];
         int hexagon_id_1 = marker1.hexagon_id;
         
         for (int id2 = 1; id2 < size; ++id2)
         {
-            marker marker2 = marker_list[id2];
-            int hexagon_id_2 = marker2.hexagon_id;
+            const marker& marker2 = marker_list[id2];
+            const int hexagon_id_2 = marker2.hexagon_id;
 
             // check for same hexagon
             if (hexagon_id_1 == hexagon_id_2)
@@ -551,12 +559,36 @@ vector<tuple<marker, marker>> ◘compute_neighbours(vector<marker> marker_list)
             {
                 matched_hexagon.try_emplace(hexagon_id_1, vector<int>());
             }
-
+            
             // probe distance
-
+            const Point2f distance_vector = marker1.center_position - marker2.center_position;
+            const float distance = sqrtf(powf(distance_vector.x, 2) + powf(distance_vector.y, 2));
+            // cout << "Distance between Marker1 " << marker1.marker_id << "," << hexagon_id_1 << " and Marker2 "  << marker2.marker_id << "," << hexagon_id_2 << endl;
+            comparison_amount++;
+            
             // if neighbours --> update both map entries
+            if (distance < maximum_distance)
+            {
+                // add tuple of neighbours to list
+                neighbours.emplace_back(marker1, marker2);
+
+                // add hexagon ids to dictionary
+                matched_hexagon.at(hexagon_id_1).emplace_back(hexagon_id_2);
+
+                matched_hexagon.try_emplace(hexagon_id_2, vector<int>());
+                matched_hexagon.at(hexagon_id_2).emplace_back(hexagon_id_1);
+            }
         }
-        
+    }
+
+    cout << "Compared " << comparison_amount << " of 2916 possible times" << endl;
+
+    size_t neighbours_size = neighbours.size();
+    for (size_t i = 0; i < neighbours_size; ++i)
+    {
+        auto tuple = neighbours.at(i);
+        circle(frame, tuple._Myfirst._Val.center_position, 5, CV_RGB(0, 0, neighbours_size * i), -1);
+        circle(frame, tuple._Get_rest()._Myfirst._Val.center_position, 5, CV_RGB(0, 0, neighbours_size * i), -1);
     }
     
     return neighbours;

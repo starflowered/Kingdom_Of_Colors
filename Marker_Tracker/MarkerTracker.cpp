@@ -1,11 +1,11 @@
 #include "MarkerDetectionUtilities.h"
 
-bool update(Mat frame, VideoCapture cap, bool frame_empty, Mat original_frame)
+bool update(Mat frame, VideoCapture& cap, bool frame_empty, Mat original_frame)
 {
     // dictionary for mapping markers to their ids
     auto aruco_dict = getPredefinedDictionary(aruco::DICT_4X4_250);
     vector<marker> marker_list;
-    const int stripe_amount = 8;
+    constexpr int stripe_amount = 8;
 
 #if INPUT_IMAGE
     while (!frame_empty || cap.read(frame))
@@ -128,7 +128,8 @@ bool update(Mat frame, VideoCapture cap, bool frame_empty, Mat original_frame)
             map_marker_to_6x6_image(img_filtered, corners, image_marker);
 
             Mat code_pixel_mat;
-            if (get_marker_bit_matrix(image_marker, code_pixel_mat)) continue;
+            if (get_marker_bit_matrix(image_marker, code_pixel_mat))
+                continue;
 
             Mat_<float> t_vec;
             if (compute_pnp(frame, aruco_dict, marker_list, corners, code_pixel_mat, t_vec))
@@ -142,6 +143,8 @@ bool update(Mat frame, VideoCapture cap, bool frame_empty, Mat original_frame)
 
             // contour_counter++;
         }
+
+        compute_neighbours(frame, marker_list);
 
 #endif
 
@@ -180,13 +183,16 @@ int main()
     bool frame_empty;
     Mat original_frame;
 
-    if (read_frame(frame, cap, frame_empty, original_frame) == 1)
-        return 1; // 1 = no input found
+    while (true)
+    {
+        if (read_frame(frame, cap, frame_empty, original_frame) == 1)
+            return 1; // 1 = no input found
         
-    create_windows();
+        create_windows();
 
-    if (update(frame, cap, frame_empty, original_frame))
-        return 2;
+        if (update(frame, cap, frame_empty, original_frame))
+            return 2;
+    }
 
     destroyWindow(contours_window);
 

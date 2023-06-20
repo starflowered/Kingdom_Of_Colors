@@ -35,6 +35,7 @@ typedef vector<Point> contour_t;
 typedef vector<contour_t> contour_vector_t;
 
 constexpr int fps = 30;
+constexpr float marker_size = 0.02f;
 
 // const string stripe_window      = "Stripe Window";
 const string contours_window = "Contours Window";
@@ -79,7 +80,9 @@ void map_marker_to_6x6_image(const Mat& img_filtered, Point2f corners[4], Mat& i
 
 bool get_marker_bit_matrix(Mat image_marker, Mat& code_pixel_mat);
 
-bool compute_pnp(Mat frame, const aruco::Dictionary& aruco_dict, vector<marker> marker_list, Point2f corners[4],
+bool update_marker_list(Mat frame, const aruco::Dictionary& aruco_dict, vector<marker>& marker_list, const Point2f* corners, const Mat& code_pixel_mat, const vector<Point2f>& img_marker_corners, bool& value1);
+
+bool compute_pnp(const Mat& frame, const aruco::Dictionary& aruco_dict, vector<marker>& marker_list, Point2f corners[4],
                  const Mat& code_pixel_mat, Mat_<float>& t_vec);
 
-vector<tuple<marker, marker>> compute_neighbours(vector<marker> marker_list);
+vector<tuple<marker, marker>> compute_neighbours(Mat frame, const vector<marker>& marker_list);
