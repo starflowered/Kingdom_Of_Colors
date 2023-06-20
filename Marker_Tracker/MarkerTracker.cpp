@@ -4,7 +4,8 @@ bool update(Mat frame, VideoCapture& cap, bool frame_empty, Mat original_frame)
 {
     // dictionary for mapping markers to their ids
     auto aruco_dict = getPredefinedDictionary(aruco::DICT_4X4_250);
-    vector<marker> marker_list;
+    map<int, marker> marker_map;
+    map<int, hexagon> hexagon_map;
     constexpr int stripe_amount = 8;
 
 #if INPUT_IMAGE
@@ -132,7 +133,7 @@ bool update(Mat frame, VideoCapture& cap, bool frame_empty, Mat original_frame)
                 continue;
 
             Mat_<float> t_vec;
-            if (compute_pnp(frame, aruco_dict, marker_list, corners, code_pixel_mat, t_vec))
+            if (compute_pnp(frame, aruco_dict, marker_map, hexagon_map, corners, code_pixel_mat, t_vec))
                 continue;
 
             // float x, y, z;
@@ -144,7 +145,7 @@ bool update(Mat frame, VideoCapture& cap, bool frame_empty, Mat original_frame)
             // contour_counter++;
         }
 
-        compute_neighbours(frame, marker_list);
+        compute_neighbours(frame, marker_map, hexagon_map);
 
 #endif
 

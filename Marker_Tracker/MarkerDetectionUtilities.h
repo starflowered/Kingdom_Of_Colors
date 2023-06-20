@@ -4,6 +4,7 @@
 #define FIND_CONTOURS 1;
 #define INPUT_IMAGE 1;
 
+struct hexagon;
 using namespace cv;
 using namespace std;
 
@@ -19,13 +20,21 @@ struct stripe
 struct marker
 {
     int marker_id = -1;
-    int hexagon_id = -1;
+    hexagon* parent_hexagon = nullptr;
     // rotation in degrees TODO ???
     int marker_rotation = 0;
     // all points in image space
     Point2f center_position;
     // bottom left, bottom right, upper right, upper left TODO ???
     vector<Point2f> corner_positions;
+};
+
+struct hexagon
+{
+    int hexagon_id = -1;
+    vector<int> markers = vector<int>();
+    vector<int> neighbours = vector<int>();
+    Point2f center_position;
 };
 
 
@@ -80,9 +89,9 @@ void map_marker_to_6x6_image(const Mat& img_filtered, Point2f corners[4], Mat& i
 
 bool get_marker_bit_matrix(Mat image_marker, Mat& code_pixel_mat);
 
-bool update_marker_list(Mat frame, const aruco::Dictionary& aruco_dict, vector<marker>& marker_list, const Point2f* corners, const Mat& code_pixel_mat, const vector<Point2f>& img_marker_corners, bool& value1);
+bool update_marker_map(Mat frame, const aruco::Dictionary& aruco_dict, map<int, marker>& marker_map, map<int, hexagon>& hexagon_map, const Point2f* corners, const Mat& code_pixel_mat, const vector<Point2f>& img_marker_corners, bool& value1);
 
-bool compute_pnp(const Mat& frame, const aruco::Dictionary& aruco_dict, vector<marker>& marker_list, Point2f corners[4],
+bool compute_pnp(const Mat& frame, const aruco::Dictionary& aruco_dict, map<int, marker>& marker_map, map<int, hexagon>& hexagon_map, Point2f corners[4],
                  const Mat& code_pixel_mat, Mat_<float>& t_vec);
 
-vector<tuple<marker, marker>> compute_neighbours(Mat frame, const vector<marker>& marker_list);
+vector<tuple<marker, marker>> compute_neighbours(Mat frame, const map<int, marker>& marker_map, map<int, hexagon> hexagon_map);
