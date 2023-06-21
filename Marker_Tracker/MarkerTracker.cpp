@@ -4,8 +4,8 @@ bool update(Mat frame, VideoCapture& cap, bool frame_empty, Mat original_frame)
 {
     // dictionary for mapping markers to their ids
     auto aruco_dict = getPredefinedDictionary(aruco::DICT_4X4_250);
-    map<int, marker> marker_map;
-    map<int, hexagon> hexagon_map;
+    map<int, marker> marker_map{};
+    map<int, hexagon> hexagon_map{};
     constexpr int stripe_amount = 8;
 
 #if INPUT_IMAGE

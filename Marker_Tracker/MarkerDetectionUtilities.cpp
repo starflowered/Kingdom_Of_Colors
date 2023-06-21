@@ -442,6 +442,7 @@ bool get_marker_bit_matrix(Mat image_marker, Mat& code_pixel_mat)
     return false;
 }
 
+
 bool update_marker_map(Mat frame, const aruco::Dictionary& aruco_dict, map<int, marker>& marker_map, map<int, hexagon>& hexagon_map, const Point2f* corners, const Mat& code_pixel_mat, const vector<Point2f>& img_marker_corners, bool& value1)
 {
     // ---------------------- update marker list
@@ -466,6 +467,7 @@ bool update_marker_map(Mat frame, const aruco::Dictionary& aruco_dict, map<int, 
     {
         // first time we see this hexagon
          h = hexagon{hexagon_id, vector<int>(), vector<int>(), Point2f()};
+        hexagon_map.try_emplace(h.hexagon_id, h);
     }
     else
     {
@@ -473,9 +475,7 @@ bool update_marker_map(Mat frame, const aruco::Dictionary& aruco_dict, map<int, 
     }
     
     h.markers.push_back(marker_id);
-    
-    // TODO add marker to hexagon
-    marker_map.try_emplace(marker_id, marker{marker_id, &hexagon_map.at(marker_id / 6), marker_rotation, marker_center, img_marker_corners});
+    marker_map.try_emplace(marker_id, marker{marker_id, h.hexagon_id, marker_rotation, marker_center, img_marker_corners});
         
     //--------------------------------------
     return false;
@@ -542,7 +542,7 @@ bool compute_pnp(const Mat& frame, const aruco::Dictionary& aruco_dict, map<int,
     return false;
 }
 
-vector<tuple<marker, marker>> compute_neighbours(Mat frame, const map<int, marker>& marker_map, map<int, hexagon> hexagon_map)
+vector<tuple<marker, marker>> compute_neighbours(Mat frame, const map<int, marker>& marker_map, map<int, hexagon>& hexagon_map)
 {
     // NOTE hexagon map should already contain all hexagons as keys at this point ?
 
@@ -572,34 +572,41 @@ vector<tuple<marker, marker>> compute_neighbours(Mat frame, const map<int, marke
         -> two marker placed in front of each other must have id-distance of 3
         iterate over all hexagons, compute vector and take half
      */
-    for (int i = 0; i < marker_map.size(); i += 6)
+
+    int marker_map_size = static_cast<int>(marker_map.size());
+    for (int i = 0; i < marker_map_size; i += 6)
     {
         marker m1 = marker_map.at(i);
         marker m2 = marker_map.at(i+3);
 
-        Point2f distance_vector = m1.center_position - m2.center_position;
-        m1.parent_hexagon->center_position = m2.center_position + distance_vector / 2;
+        // circle(frame, m1.center_position, 5, CV_RGB(255, 0, 0), -1);
+        // circle(frame, m2.center_position, 5, CV_RGB(255, 0, 0), -1);
+        
+        Point2f distance_vector = (m1.center_position - m2.center_position) / 2;
+        Point2f hexagon_center_position = m2.center_position + distance_vector;
+        hexagon_map[m1.hexagon_id].center_position = hexagon_center_position;
+        // circle(frame, m1.parent_hexagon->center_position, 5, CV_RGB(0, 255, 0), -1);
     }
 
     int comparison_amount = 0;
-    int size = hexagon_map.size();
+    int hexagon_map_size = static_cast<int>(hexagon_map.size());
     
     // find neighboring hexagons
-    for (int id1 = 0; id1 < size; ++id1)
+    for (int id1 = 0; id1 < hexagon_map_size; ++id1)
     {
-        hexagon hexagon1 = hexagon_map[id1];
+        hexagon* hexagon1 = &hexagon_map[id1];
         // create an empty entry for all hexagons for future matching
         matched_hexagons.try_emplace(id1, vector<int>());
         
-        for (int id2 = 1; id2 < size; ++id2)
+        for (int id2 = 1; id2 < hexagon_map_size; ++id2)
         {
             if(id1 == id2)
                 continue;
             
-            hexagon hexagon2 = hexagon_map[id2];
+            hexagon* hexagon2 = &hexagon_map[id2];
             
             // probe distance
-            const Point2f distance_vector = hexagon1.center_position - hexagon2.center_position;
+            const Point2f distance_vector = hexagon1->center_position - hexagon2->center_position;
             const float distance = sqrtf(powf(distance_vector.x, 2) + powf(distance_vector.y, 2));
             
             comparison_amount++;
@@ -608,8 +615,8 @@ vector<tuple<marker, marker>> compute_neighbours(Mat frame, const map<int, marke
             if(distance > hexagon_distance_threshold)
                 continue;
             
-            hexagon1.neighbours.push_back(id2);
-            hexagon2.neighbours.push_back(id1);
+            hexagon1->neighbours.push_back(id2);
+            hexagon2->neighbours.push_back(id1);
         }
     }
     

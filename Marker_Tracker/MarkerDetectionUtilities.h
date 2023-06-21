@@ -20,7 +20,7 @@ struct stripe
 struct marker
 {
     int marker_id = -1;
-    hexagon* parent_hexagon = nullptr;
+    int hexagon_id = -1;
     // rotation in degrees TODO ???
     int marker_rotation = 0;
     // all points in image space
@@ -94,4 +94,4 @@ bool update_marker_map(Mat frame, const aruco::Dictionary& aruco_dict, map<int, 
 bool compute_pnp(const Mat& frame, const aruco::Dictionary& aruco_dict, map<int, marker>& marker_map, map<int, hexagon>& hexagon_map, Point2f corners[4],
                  const Mat& code_pixel_mat, Mat_<float>& t_vec);
 
-vector<tuple<marker, marker>> compute_neighbours(Mat frame, const map<int, marker>& marker_map, map<int, hexagon> hexagon_map);
+vector<tuple<marker, marker>> compute_neighbours(Mat frame, const map<int, marker>& marker_map, map<int, hexagon>& hexagon_map);
