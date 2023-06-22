@@ -145,19 +145,18 @@
     <Text Include="CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AR_Marker_Hexagon_2cm_4x4.png" />
-    <Content Include="Four_Markers_Fully_Visible.mp4" />
-    <Content Include="Four_Markers_Rein_Raus.mp4" />
+    <Content Include="..\Examples\real_life_markers\Four_Markers_Fully_Visible.mp4" />
+    <Content Include="..\Examples\real_life_markers\Four_Markers_Fully_Visible.png" />
+    <Content Include="..\Examples\real_life_markers\Four_Markers_Rein_Raus.mp4" />
+    <Content Include="..\Examples\real_life_markers\One_Marker_Fully_Visible.mp4" />
+    <Content Include="..\Examples\real_life_markers\One_Marker_Partly_Covered.mp4" />
+    <Content Include="..\Examples\real_life_markers\Test_One_Full_Marker.jpg" />
+    <Content Include="..\Examples\real_life_markers\Test_One_Marker_Full_One_Part.jpg" />
+    <Content Include="..\Examples\real_life_markers\Test_One_Marker_Part.jpg" />
+    <Content Include="..\Examples\real_life_markers\Test_Two_Full_Markers.jpg" />
+    <Content Include="..\Examples\real_life_markers\Test_Two_Markers_Partly.jpg" />
     <Content Include="MarkerMovie.MP4" />
     <Content Include="MarkerTest.jpg" />
-    <Content Include="One_Marker_Fully_Visible.mp4" />
-    <Content Include="One_Marker_Partly_Covered.mp4" />
-    <Content Include="SmallMarkers.png" />
-    <Content Include="Test_One_Full_Marker.jpg" />
-    <Content Include="Test_One_Marker_Full_One_Part.jpg" />
-    <Content Include="Test_One_Marker_Part.jpg" />
-    <Content Include="Test_Two_Full_Markers.jpg" />
-    <Content Include="Test_Two_Markers_Partly.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MarkerDetectionUtilities.h" />

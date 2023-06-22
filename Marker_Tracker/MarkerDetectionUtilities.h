@@ -89,9 +89,13 @@ void map_marker_to_6x6_image(const Mat& img_filtered, Point2f corners[4], Mat& i
 
 bool get_marker_bit_matrix(Mat image_marker, Mat& code_pixel_mat);
 
-bool update_marker_map(Mat frame, const aruco::Dictionary& aruco_dict, map<int, marker>& marker_map, map<int, hexagon>& hexagon_map, Point2f img_marker_corners[4], const Mat& code_pixel_mat, bool& value1);
+bool update_marker_map(Mat frame, const aruco::Dictionary& aruco_dict, map<int, marker>& marker_map, map<int, hexagon>& hexagon_map, Point2f img_marker_corners[4], const Mat& code_pixel_mat);
 
 bool compute_pnp(const Mat& frame, const aruco::Dictionary& aruco_dict, map<int, marker>& marker_map, map<int, hexagon>& hexagon_map, Point2f corners[4],
                  const Mat& code_pixel_mat, Mat_<float>& t_vec);
 
 vector<tuple<marker, marker>> compute_neighbours(Mat frame, const map<int, marker>& marker_map, map<int, hexagon>& hexagon_map);
+
+void draw_neighbouring_hexagon(Mat frame, map<int, hexagon>& hexagon_map);
+
+void draw_neighbouring_markers(Mat frame, const vector<tuple<marker, marker>>& neighbours);

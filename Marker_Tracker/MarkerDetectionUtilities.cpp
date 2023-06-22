@@ -77,7 +77,7 @@ Mat compute_stripe(const double dx, const double dy, stripe* s)
 int read_frame(Mat& frame, VideoCapture* cap, bool& frame_empty, Mat& original_frame)
 {
 #if INPUT_IMAGE
-    frame = imread(samples::findFile("Test_One_Marker_Part.jpg", false));
+    frame = imread(samples::findFile("../Examples/real_life_markers/Four_Markers_Fully_Visible.png", false));
     frame_empty = frame.empty();
     original_frame = frame.clone();
 
@@ -87,7 +87,7 @@ int read_frame(Mat& frame, VideoCapture* cap, bool& frame_empty, Mat& original_f
         if (!cap->isOpened())
         {
             cout << "No webcam, using video file" << endl;
-            cap->open("Four_Markers_Rein_Raus.mp4");
+            cap->open("../Examples/real_life_markers/Four_Markers_Rein_Raus.mp4");
             if (!cap->isOpened())
             {
                 cout << "No video!" << endl;
@@ -443,7 +443,7 @@ bool get_marker_bit_matrix(Mat image_marker, Mat& code_pixel_mat)
 }
 
 
-bool update_marker_map(Mat frame, const aruco::Dictionary& aruco_dict, map<int, marker>& marker_map, map<int, hexagon>& hexagon_map, Point2f img_marker_corners[4], const Mat& code_pixel_mat, bool& value1)
+bool update_marker_map(Mat frame, const aruco::Dictionary& aruco_dict, map<int, marker>& marker_map, map<int, hexagon>& hexagon_map, Point2f img_marker_corners[4], const Mat& code_pixel_mat)
 {
     // ---------------------- update marker list
     int marker_id, marker_rotation;
@@ -451,9 +451,8 @@ bool update_marker_map(Mat frame, const aruco::Dictionary& aruco_dict, map<int, 
     if (!aruco_dict.identify(code_pixel_mat, marker_id, marker_rotation, 1))
     {
         cout << "Could not identify some marker" << endl;
-        circle(frame, img_marker_corners[0], 6, CV_RGB(255, 0, 255), -1);
-        value1 = true;
-        return true;
+        circle(frame, img_marker_corners[0], 10, CV_RGB(0, 255, 255), -1);
+        return false;
     }
 
     const Point2f marker_center = img_marker_corners[2] + 0.5f * (img_marker_corners[0] - img_marker_corners[2]);
@@ -551,12 +550,11 @@ vector<tuple<marker, marker>> compute_neighbours(Mat frame, const map<int, marke
 
     // list of all marker-pairs computed to be neighbours
     vector<tuple<marker, marker>> neighbours{};
-
     
     // TODO test and check distances
     // TODO currently in pixel, distance only in image future branch working in world coord.
-    const float marker_distance_threshold = 100; // sqrtf(2) * marker_size + 0.01f;
-    const float hexagon_distance_threshold = 400; // sqrtf(2) * marker_size + 0.01f;
+    constexpr float marker_distance_threshold = 180; // sqrtf(2) * marker_size + 0.01f;
+    constexpr float hexagon_distance_threshold = 800; // sqrtf(2) * marker_size + 0.01f;
 
     // --------------------- optimization 1 ---------------------
     
@@ -573,9 +571,9 @@ vector<tuple<marker, marker>> compute_neighbours(Mat frame, const map<int, marke
         iterate over all hexagons, compute vector and take half
      */
 
-    int marker_map_size = static_cast<int>(marker_map.size());
+    const int marker_map_size = static_cast<int>(marker_map.size());
 
-    if (marker_map_size == 0 && marker_map_size % 6 != 0) return neighbours;
+    if (marker_map_size == 0 || marker_map_size % 6 != 0) return neighbours;
 
     for (auto &[id, marker1] : marker_map)
     {
@@ -587,11 +585,12 @@ vector<tuple<marker, marker>> compute_neighbours(Mat frame, const map<int, marke
         // circle(frame, m2.center_position, 5, CV_RGB(255, 0, 0), -1);
         
         Point2f distance_vector = (marker1.center_position - marker2.center_position) / 2;
-        Point2f hexagon_center_position = marker2.center_position + distance_vector;
+        const Point2f hexagon_center_position = marker2.center_position + distance_vector;
         hexagon_map[marker1.hexagon_id].center_position = hexagon_center_position;
         // circle(frame, m1.parent_hexagon->center_position, 5, CV_RGB(0, 255, 0), -1);
     }
-    
+
+    /*
     // for (int i = 0; i < marker_map_size; i += 6)
     // {
     //     marker m1 = marker_map.at(i);
@@ -605,23 +604,22 @@ vector<tuple<marker, marker>> compute_neighbours(Mat frame, const map<int, marke
     //     hexagon_map[m1.hexagon_id].center_position = hexagon_center_position;
     //     // circle(frame, m1.parent_hexagon->center_position, 5, CV_RGB(0, 255, 0), -1);
     // }
-
-    int comparison_amount = 0;
-    int hexagon_map_size = static_cast<int>(hexagon_map.size());
+    */
     
-    // find neighboring hexagons
-    for (int id1 = 0; id1 < hexagon_map_size; ++id1)
+    int comparison_amount = 0;
+
+    for (auto &[id1, hex1] : hexagon_map)
     {
-        hexagon* hexagon1 = &hexagon_map[id1];
+        hexagon* hexagon1 = &hex1;
+        // circle(frame, hexagon1->center_position, 10, CV_RGB(255, 0, 255), -1);
         // create an empty entry for all hexagons for future matching
         matched_hexagons.try_emplace(id1, vector<int>());
-        
-        for (int id2 = 1; id2 < hexagon_map_size; ++id2)
+
+        for (auto &[id2, hex2] : hexagon_map)
         {
-            if(id1 == id2)
-                continue;
+            if (id1 == id2) continue;
             
-            hexagon* hexagon2 = &hexagon_map[id2];
+            hexagon* hexagon2 = &hex2;
             
             // probe distance
             const Point2f distance_vector = hexagon1->center_position - hexagon2->center_position;
@@ -638,24 +636,57 @@ vector<tuple<marker, marker>> compute_neighbours(Mat frame, const map<int, marke
         }
     }
     
+    /*
+    // find neighboring hexagons
+    // for (int id1 = 0; id1 < hexagon_map_size; ++id1)
+    // {
+    //     hexagon* hexagon1 = &hexagon_map[id1];
+    //     circle(frame, hexagon1->center_position, 10, CV_RGB(255, 0, 255), -1);
+    //     // create an empty entry for all hexagons for future matching
+    //     matched_hexagons.try_emplace(id1, vector<int>());
+    //     
+    //     for (int id2 = 1; id2 < hexagon_map_size; ++id2)
+    //     {
+    //         if(id1 == id2)
+    //             continue;
+    //         
+    //         hexagon* hexagon2 = &hexagon_map[id2];
+    //         
+    //         // probe distance
+    //         const Point2f distance_vector = hexagon1->center_position - hexagon2->center_position;
+    //         const float distance = sqrtf(powf(distance_vector.x, 2) + powf(distance_vector.y, 2));
+    //         
+    //         comparison_amount++;
+    //
+    //         // update hexagons' neighbours list to later use as condition to check markers
+    //         if(distance > hexagon_distance_threshold)
+    //             continue;
+    //         
+    //         hexagon1->neighbours.push_back(id2);
+    //         hexagon2->neighbours.push_back(id1);
+    //     }
+    // }
+     */
+    
     /* TODO --------------------- optimization 2 ---------------------
         check with each hexagon-distance-vector whether neighbor is left/right/up/down
         -> select markers to check accordingly
     */ 
 
     // for each hexagon, go through markers of each neighboring hexagon and determine which one is neighbour to which own marker
-    for (const auto& [hexagon_id1, hexagon1] : hexagon_map)     // all hexagons in image
+    for (auto& [id1, hex1] : hexagon_map)     // all hexagons in image
     {
+        const hexagon* hexagon1 = &hex1;
+        
         // all neighbours of current hexagon
-        for (int hexagon_id2 : hexagon1.neighbours)                         // max 6
+        for (int hexagon_id2 : hexagon1->neighbours)                         // max 6
         {
             // check same hexagon
-            if(hexagon_id1 == hexagon_id2)
+            if(id1 == hexagon_id2)
                 continue;
 
             // check hexagons' markers already matched
-            
-            auto list = matched_hexagons[hexagon_id1];
+            auto list = matched_hexagons[id1];
             if (std::find(list.begin(), list.end(), hexagon_id2) != list.end()) {
                 continue;
             } 
@@ -664,7 +695,7 @@ vector<tuple<marker, marker>> compute_neighbours(Mat frame, const map<int, marke
             for(int marker_id1 : hexagon_map[hexagon_id2].markers)          // max 6
             {
                 // all markers of neighbour hexagon
-                for(int marker_id2 : hexagon1.markers)                      // max 6
+                for(int marker_id2 : hexagon1->markers)                      // max 6
                 {
                     marker marker1 = marker_map.at(marker_id1);
                     marker marker2 = marker_map.at(marker_id2);
@@ -681,8 +712,8 @@ vector<tuple<marker, marker>> compute_neighbours(Mat frame, const map<int, marke
                         neighbours.emplace_back(marker1, marker2);
 
                         // add hexagon ids to dictionary
-                        matched_hexagons[hexagon_id1].emplace_back(hexagon_id2);
-                        matched_hexagons[hexagon_id2].emplace_back(hexagon_id1);
+                        matched_hexagons[id1].emplace_back(hexagon_id2);
+                        matched_hexagons[hexagon_id2].emplace_back(id1);
                     }
                 }
             }
@@ -740,16 +771,33 @@ vector<tuple<marker, marker>> compute_neighbours(Mat frame, const map<int, marke
     }
     */
 
-    // cout << "Compared " << comparison_amount << " of 2916 possible times" << endl;
+    cout << "Compared " << comparison_amount << " of 2916 possible times" << endl;
+    
+    return neighbours;
+}
 
-    size_t neighbours_size = neighbours.size();
+void draw_neighbouring_hexagon(Mat frame, map<int, hexagon>& hexagon_map)
+{
+    for (auto &[id1, hex1] : hexagon_map)
+    {
+        // draw line to neighbours
+        for (int i = 0; i < hex1.neighbours.size(); ++i)
+        {
+            const int color_value = 255 - id1 * 20;
+            arrowedLine(frame, hex1.center_position, hexagon_map[hex1.neighbours[i]].center_position, CV_RGB(0, color_value, 0), 5, 8, 0);
+        }
+}
+}
+
+void draw_neighbouring_markers(Mat frame, const vector<tuple<marker, marker>>& neighbours)
+{
+    const size_t neighbours_size = neighbours.size();
     for (size_t i = 0; i < neighbours_size; ++i)
     {
         auto tuple = neighbours.at(i);
-        int color_value = i * 20;
-        circle(frame, tuple._Myfirst._Val.center_position, 5, CV_RGB(color_value, 0, color_value), -1);
-        circle(frame, tuple._Get_rest()._Myfirst._Val.center_position, 5, CV_RGB(color_value, 0, color_value), -1);
+        const int color_value = 255 - i * 40;
+        // circle(frame, tuple._Myfirst._Val.center_position, 5, CV_RGB(color_value, 0, color_value), -1);
+        // circle(frame, tuple._Get_rest()._Myfirst._Val.center_position, 5, CV_RGB(color_value, 0, color_value), -1);
+        line(frame, tuple._Myfirst._Val.center_position, tuple._Get_rest()._Myfirst._Val.center_position, CV_RGB(color_value, 0, color_value), 10, 8, 0);
     }
-    
-    return neighbours;
 }
