@@ -2,7 +2,7 @@
 #include<opencv2/opencv.hpp>
 
 #define FIND_CONTOURS 1;
-#define INPUT_IMAGE 1;
+#define INPUT_IMAGE 0;
 
 struct hexagon;
 using namespace cv;
@@ -26,7 +26,7 @@ struct marker
     // all points in image space
     Point2f center_position;
     // bottom left, bottom right, upper right, upper left TODO ???
-    vector<Point2f> corner_positions;
+    Point2f corner_positions[4];
 };
 
 struct hexagon
@@ -68,7 +68,7 @@ uchar sub_pixel_sample_safe(const Mat& p_src, const Point2f& p);
 
 Mat compute_stripe(const double dx, const double dy, stripe* s);
 
-int read_frame(Mat& frame, VideoCapture cap, bool& frame_empty, Mat& original_frame);
+int read_frame(Mat& frame, VideoCapture* cap, bool& frame_empty, Mat& original_frame);
 
 void create_windows();
 
@@ -89,7 +89,7 @@ void map_marker_to_6x6_image(const Mat& img_filtered, Point2f corners[4], Mat& i
 
 bool get_marker_bit_matrix(Mat image_marker, Mat& code_pixel_mat);
 
-bool update_marker_map(Mat frame, const aruco::Dictionary& aruco_dict, map<int, marker>& marker_map, map<int, hexagon>& hexagon_map, const Point2f* corners, const Mat& code_pixel_mat, const vector<Point2f>& img_marker_corners, bool& value1);
+bool update_marker_map(Mat frame, const aruco::Dictionary& aruco_dict, map<int, marker>& marker_map, map<int, hexagon>& hexagon_map, Point2f img_marker_corners[4], const Mat& code_pixel_mat, bool& value1);
 
 bool compute_pnp(const Mat& frame, const aruco::Dictionary& aruco_dict, map<int, marker>& marker_map, map<int, hexagon>& hexagon_map, Point2f corners[4],
                  const Mat& code_pixel_mat, Mat_<float>& t_vec);

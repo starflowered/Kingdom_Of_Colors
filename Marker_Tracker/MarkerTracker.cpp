@@ -1,6 +1,6 @@
 #include "MarkerDetectionUtilities.h"
 
-bool update(Mat frame, VideoCapture& cap, bool frame_empty, Mat original_frame)
+bool update(Mat frame, VideoCapture* cap, bool frame_empty, Mat original_frame)
 {
     // dictionary for mapping markers to their ids
     auto aruco_dict = getPredefinedDictionary(aruco::DICT_4X4_250);
@@ -15,7 +15,7 @@ bool update(Mat frame, VideoCapture& cap, bool frame_empty, Mat original_frame)
         Mat gray_scale;
         Mat img_filtered = frame_empty ? frame.clone() : original_frame.clone();
 #else
-    while (cap.read(frame))
+    while (cap->read(frame))
     {
         // --- Process Frame ---
         Mat gray_scale;
@@ -132,9 +132,13 @@ bool update(Mat frame, VideoCapture& cap, bool frame_empty, Mat original_frame)
             if (get_marker_bit_matrix(image_marker, code_pixel_mat))
                 continue;
 
-            Mat_<float> t_vec;
-            if (compute_pnp(frame, aruco_dict, marker_map, hexagon_map, corners, code_pixel_mat, t_vec))
-                continue;
+            bool value1;
+            if (update_marker_map(frame, aruco_dict, marker_map, hexagon_map, corners, code_pixel_mat, value1))
+                return value1;
+            
+            // Mat_<float> t_vec;
+            // if (compute_pnp(frame, aruco_dict, marker_map, hexagon_map, corners, code_pixel_mat, t_vec))
+            //     continue;
 
             // float x, y, z;
             // Translation values in the transformation matrix to calculate the distance between the marker and the camera
@@ -157,7 +161,7 @@ bool update(Mat frame, VideoCapture& cap, bool frame_empty, Mat original_frame)
 
             if (waitKey(10) == 27)
             {
-                return true;
+                return false;
             }
         }
 #endif
@@ -181,19 +185,18 @@ int main()
     Mat frame;
     VideoCapture cap(0);
 
+    auto cap_ptr = &cap;
+        
     bool frame_empty;
     Mat original_frame;
 
-    while (true)
-    {
-        if (read_frame(frame, cap, frame_empty, original_frame) == 1)
-            return 1; // 1 = no input found
-        
-        create_windows();
+    if (read_frame(frame, cap_ptr, frame_empty, original_frame) == 1)
+        return 1; // 1 = no input found
+    
+    create_windows();
 
-        if (update(frame, cap, frame_empty, original_frame))
-            return 2;
-    }
+    if (update(frame, cap_ptr, frame_empty, original_frame))
+        return 2;
 
     destroyWindow(contours_window);
 
