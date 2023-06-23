@@ -137,6 +137,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Exercise08_New.cpp" />
+    <ClCompile Include="GameLogic.cpp" />
     <ClCompile Include="MarkerDetectionUtilities.cpp" />
     <ClCompile Include="MarkerTracker.cpp" />
     <ClCompile Include="ogl_UI.cpp" />
@@ -159,6 +160,7 @@
     <Content Include="MarkerTest.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameLogic.h" />
     <ClInclude Include="MarkerDetectionUtilities.h" />
     <ClInclude Include="ogl_Routines.h" />
     <ClInclude Include="ogl_UI.h" />
