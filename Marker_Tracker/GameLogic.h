@@ -6,7 +6,6 @@
 
 using namespace std;
 
-
 // Forward declaration of the marker struct
 struct marker;
 
@@ -18,19 +17,19 @@ private:
 
     unordered_map<int, bool> marker_id_matches;
     unordered_map<int, int> marker_multipliers;
+    unordered_map<int, int> hex_tile_scores;
 
-    template <class MapType, typename t>
-    void saveValue(MapType& storage, int key, t value);
-    
-    template <class MapType, typename t>
-    t getValue(const MapType& storage, int key);
-    
-public:
-    // returns color 0-2 for marker determined by hexagon
-    int determine_marker_color(const int marker_id);
+    template <class MapType, class t>
+    static void saveValue(MapType& storage, int key, t value);
+
+    template <class MapType, class t>
+    t getValue(const MapType& storage, int key, t defaultValue);
 
     static int calc_single_multiplier(const bool boolList[], int card_type);
 
-    int calculate_multipliers(int max_hex_id);
-    float calculate_game_score(const vector<tuple<marker, marker>>& matches);
+public:
+    static int determine_marker_color(int marker_id);
+    
+    void calculate_multipliers(int max_hex_id);
+    int calculate_game_score(const vector<tuple<marker, marker>>& matches);
 };

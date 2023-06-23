@@ -14,7 +14,6 @@ def generateMarkers(number):
     aruco_dict = aruco.Dictionary_get(aruco.DICT_4X4_250)
 
     for i in range(0, number):
-        # print(i)
         fig = plt.figure(figsize=(4,4))  # Create a new figure for each image
         ax = fig.add_subplot(1, 1, 1)  # Add a single subplot to the figure
         img = aruco.drawMarker(aruco_dict, i, 700)
@@ -166,7 +165,7 @@ def evaluate_frame(frame, MatPlotLibCoordinates=False):
     corners, ids, rejectedImgPoints = aruco.detectMarkers(gray, aruco_dict, parameters=parameters)
     frame_markers = aruco.drawDetectedMarkers(frame.copy(), corners)
 
-    frame_markers = draw_all_triangles(corners, ids, frame=frame_markers, color_list=colors)
+    #frame_markers = draw_all_triangles(corners, ids, frame=frame_markers, color_list=colors)
 
     matches = find_matching_rectangles(rectangles=corners, identifier=ids, radius_multiplier=1.5, MatPlotLibCoordinates=MatPlotLibCoordinates)
 
@@ -233,7 +232,7 @@ def testFrame(frame):
 
 # generateMarkers(78)
 
-testFrame(cv2.imread("HexCards_MatchTest.png"))
+testFrame(cv2.imread("Hexagonal_Cards.png"))
 
 # currently we would need some camera calibration to correctly draw the triangles 
 # -> we could not do that if we have the camera perfectly above our playing board
