@@ -136,6 +136,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DrawUtilities.cpp" />
     <ClCompile Include="Exercise08_New.cpp" />
     <ClCompile Include="GameLogic.cpp" />
     <ClCompile Include="MarkerDetectionUtilities.cpp" />
@@ -161,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameLogic.h" />
+    <ClInclude Include="DrawUtilities.h" />
     <ClInclude Include="MarkerDetectionUtilities.h" />
     <ClInclude Include="ogl_Routines.h" />
     <ClInclude Include="ogl_UI.h" />

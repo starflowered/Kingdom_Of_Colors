@@ -30,16 +30,16 @@
 #define YELLOW 1.0f, 1.0f, 0.0f, 1.0f
 
 void ogl_initGL(GLFWwindow* window);
-void ogl_drawBackgroundImage(const cv::Mat& img, int winWidth, int winHeight);
+void ogl_draw_background_image(const cv::Mat& img, int win_width, int win_height);
 void ogl_initWindow(GLFWwindow* window);
-void ogl_display_pnp(GLFWwindow* window, const cv::Mat& img_bgr, std::vector<int> MarkerID, std::vector<cv::Mat> MarkerPmat);
-void ogl_setViewportAndFrustum_pnp(GLFWwindow* window, int width = 0, int height = 0);
+void ogl_display_pnp(GLFWwindow* window, const cv::Mat& img_bgr, const std::vector<int>& marker_id, const std::vector<cv::Mat>& marker_p_mat);
+void ogl_set_viewport_and_frustum_pnp(GLFWwindow* window, int width = 0, int height = 0);
 
-void ogl_setupCoordSys_pnp(cv::Mat Pmat);
+void ogl_setup_coord_sys_pnp(cv::Mat ocv_pmat);
 
-void ogl_drawTriangle();
-void ogl_drawSphere(float radius, float r, float g, float b, float a);
-void ogl_drawCube(float size, float r, float g, float b, float a);
-void ogl_drawSnowman();
+void ogl_draw_triangle();
+void ogl_draw_sphere(float radius, float r, float g, float b, float a);
+void ogl_draw_cube(float size, float r, float g, float b, float a);
+void ogl_draw_snowman();
 
 #endif

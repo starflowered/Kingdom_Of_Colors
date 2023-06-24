@@ -4,7 +4,6 @@
 #define FIND_CONTOURS 1;
 #define INPUT_IMAGE 0;
 
-struct hexagon;
 using namespace cv;
 using namespace std;
 
