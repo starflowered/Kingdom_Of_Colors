@@ -38,7 +38,7 @@ void ogl_set_viewport_and_frustum_pnp(GLFWwindow* window, int width = 0, int hei
 void ogl_setup_coord_sys_pnp(cv::Mat ocv_pmat);
 
 void ogl_draw_triangle();
-void ogl_draw_sphere(float radius, float r, float g, float b, float a);
+void draw_sphere(float radius, float r, float g, float b, float a);
 void ogl_draw_cube(float size, float r, float g, float b, float a);
 void ogl_draw_snowman();
 

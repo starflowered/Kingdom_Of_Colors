@@ -21,7 +21,7 @@ void ogl_draw_background_image(const Mat& img, const int win_width, const int wi
 
     // Render the camera picture as background texture
     // Making a raster of the image -> -1 otherwise overflow
-    glRasterPos2i(0, img_height * img_scale_height - 1);
+    glRasterPos2i(0, img_height * img_scale_height - 1); // select pixel from which to start drawing (here top left)
     // scale according to current window size
     glPixelZoom(img_scale_width, -img_scale_height);
 
@@ -33,23 +33,23 @@ void ogl_draw_background_image(const Mat& img, const int win_width, const int wi
     glEnable(GL_DEPTH_TEST);
 }
 
-void ocv_initVideoStream(VideoCapture& cap)
-{
-    if (cap.isOpened())
-        cap.release();
-
-    cap.open(0, CAP_DSHOW);
-    if (cap.isOpened() == false)
-    {
-        std::cout << "No webcam found, using a video file" << std::endl;
-        cap.open("MarkerMovie.mp4");
-        if (cap.isOpened() == false)
-        {
-            std::cout << "No video file found. Exiting." << std::endl;
-            exit(0);
-        }
-    }
-}
+// void ocv_init_video_stream(VideoCapture& cap)
+// {
+//     if (cap.isOpened())
+//         cap.release();
+//
+//     cap.open(0, CAP_DSHOW);
+//     if (cap.isOpened() == false)
+//     {
+//         std::cout << "No webcam found, using a video file" << std::endl;
+//         cap.open("MarkerMovie.mp4");
+//         if (cap.isOpened() == false)
+//         {
+//             std::cout << "No video file found. Exiting." << std::endl;
+//             exit(0);
+//         }
+//     }
+// }
 
 void init_gl(int argc, char* argv[])
 {
@@ -87,8 +87,8 @@ void init_gl(int argc, char* argv[])
     glEnable(GL_LIGHT0);
 }
 
-void ogl_display_pnp(GLFWwindow* window, const Mat& img_bgr, const std::vector<int>& marker_id, const std::vector<Mat>& marker_p_mat)
-//----------------------------------------------------------------------------------------------------------------------
+void ogl_display_pnp(GLFWwindow* window, const Mat& img_bgr, const std::vector<int>& marker_id,
+                     const std::vector<Mat>& marker_p_mat)
 {
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
@@ -96,8 +96,8 @@ void ogl_display_pnp(GLFWwindow* window, const Mat& img_bgr, const std::vector<i
     glfwGetFramebufferSize(window, &win_width, &win_height);
     ogl_draw_background_image(img_bgr, win_width, win_height);
 
-    ogl_set_viewport_and_frustum_pnp(window);
-    int marker_ids_size = static_cast<int>(marker_id.size());
+    ogl_set_viewport_and_frustum_pnp(window, win_width, win_height);
+    const int marker_ids_size = static_cast<int>(marker_id.size());
     for (int m = 0; m < marker_ids_size; m++)
     {
         const Mat& p_mat = marker_p_mat[m];
@@ -114,7 +114,7 @@ void ogl_display_pnp(GLFWwindow* window, const Mat& img_bgr, const std::vector<i
             ogl_draw_triangle();
             break;
         case 0x005a:
-            ogl_draw_sphere(0.5f, CARROT_COLOR);
+            draw_sphere(0.5f, CARROT_COLOR);
             break;
         case 0x0690:
             ogl_draw_cube(0.5f, CYAN);
@@ -123,7 +123,7 @@ void ogl_display_pnp(GLFWwindow* window, const Mat& img_bgr, const std::vector<i
             ogl_draw_cube(0.25f, CYAN);
             break;
         case 0x0b44:
-            ogl_draw_sphere(0.75f, YELLOW);
+            draw_sphere(0.75f, YELLOW);
             break;
         default: ;
         }
@@ -187,16 +187,16 @@ void ogl_setup_coord_sys_pnp(Mat ocv_pmat)
     //
     // also: transpose matrix to account for colum-major order of oGL arrays
     float ogl_p_mat[16];
-    ogl_p_mat[0]  = static_cast<float>(ocv_pmat.at<double>(0, 0));
-    ogl_p_mat[1]  = static_cast<float>(-ocv_pmat.at<double>(1, 0));
-    ogl_p_mat[2]  = static_cast<float>(-ocv_pmat.at<double>(2, 0));
-    ogl_p_mat[3]  = 0.0f;
-    ogl_p_mat[4]  = static_cast<float>(ocv_pmat.at<double>(0, 1));
-    ogl_p_mat[5]  = static_cast<float>(-ocv_pmat.at<double>(1, 1));
-    ogl_p_mat[6]  = static_cast<float>(-ocv_pmat.at<double>(2, 1));
-    ogl_p_mat[7]  = 0.0f;
-    ogl_p_mat[8]  = static_cast<float>(ocv_pmat.at<double>(0, 2));
-    ogl_p_mat[9]  = static_cast<float>(-ocv_pmat.at<double>(1, 2));
+    ogl_p_mat[0] = static_cast<float>(ocv_pmat.at<double>(0, 0));
+    ogl_p_mat[1] = static_cast<float>(-ocv_pmat.at<double>(1, 0));
+    ogl_p_mat[2] = static_cast<float>(-ocv_pmat.at<double>(2, 0));
+    ogl_p_mat[3] = 0.0f;
+    ogl_p_mat[4] = static_cast<float>(ocv_pmat.at<double>(0, 1));
+    ogl_p_mat[5] = static_cast<float>(-ocv_pmat.at<double>(1, 1));
+    ogl_p_mat[6] = static_cast<float>(-ocv_pmat.at<double>(2, 1));
+    ogl_p_mat[7] = 0.0f;
+    ogl_p_mat[8] = static_cast<float>(ocv_pmat.at<double>(0, 2));
+    ogl_p_mat[9] = static_cast<float>(-ocv_pmat.at<double>(1, 2));
     ogl_p_mat[10] = static_cast<float>(-ocv_pmat.at<double>(2, 2));
     ogl_p_mat[11] = 0.0f;
     ogl_p_mat[12] = static_cast<float>(ocv_pmat.at<double>(0, 3));
@@ -236,27 +236,37 @@ void ogl_draw_triangle()
     glPopMatrix();
 }
 
-//-------------------------------------------------------------------
-void ogl_draw_sphere(float radius, const float r, const float g, const float b, const float a)
-//-------------------------------------------------------------------
+// //-------------------------------------------------------------------
+// void ogl_draw_sphere(float radius, float r, float g, float b, float a)
+// //-------------------------------------------------------------------
+// {
+//     glMatrixMode(GL_MODELVIEW);
+//     glPushMatrix();
+//     {
+//         constexpr float scale = 0.03f;
+//
+//         //----------------
+//         // draw the sphere
+//         //----------------
+//
+//         GLUquadricObj* quadratic = gluNewQuadric();
+//         glColor4f(r, g, b, a);
+//         radius *= scale;
+//         glTranslatef(0.0, 0.0, radius);
+//         gluSphere(quadratic, radius, 20, 20);
+//     }
+//     glPopMatrix();
+// }
+
+// alternate function supposed to replace ogl_draw_sphere bc deprecated and shit
+void draw_sphere(const float radius, const float r, const float g, const float b, const float a)
 {
-    glMatrixMode(GL_MODELVIEW);
-    glPushMatrix();
-    {
-        constexpr float scale = 0.03f;
-
-        //----------------
-        // draw the sphere
-        //----------------
-
-        GLUquadricObj* quadratic = gluNewQuadric();
-        glColor4f(r, g, b, a);
-        radius *= scale;
-        glTranslatef(0.0, 0.0, radius);
-        gluSphere(quadratic, radius, 20, 20);
-    }
-    glPopMatrix();
+    // change colour
+    glColor4f(r, g, b, a);
+    // call own draw_sphere
+    draw_sphere(radius, 20, 20);
 }
+
 
 //---------------------------------------------------------------
 void ogl_draw_cube(const float size, float r, float g, float b, float a)
@@ -371,4 +381,35 @@ void ogl_draw_snowman()
         draw_cone(0.1f, 0.3, 10);
     }
     glPopMatrix();
+}
+
+void draw_hexagon(hexagon& hexagon)
+{
+    switch (hexagon.type)
+    {
+    default:
+    case none: cout << "hexagon.type not initialized for hexagon " << hexagon.hexagon_id << "!" << endl;
+        break;
+    case full: draw_hexagon_full(hexagon);
+        break;
+    case half: draw_hexagon_half(hexagon);
+        break;
+    case third: draw_hexagon_third(hexagon);
+        break;
+    }
+}
+
+void draw_hexagon_full(hexagon& hexagon)
+{
+    // draw 6 triangles, share center point and one corner each
+    // -> draw circle with 6 fans
+    draw_circle(hexagon.radius, 6);
+}
+
+void draw_hexagon_half(hexagon& hexagon)
+{
+}
+
+void draw_hexagon_third(hexagon& hexagon)
+{
 }

@@ -16,6 +16,14 @@ struct stripe
     Point2f stripe_vec_y;
 };
 
+// specifies whether hexagon is composed of 1,2 or 3 colors
+enum hexagon_type {none, full, half, third};
+
+struct color
+{
+    float r, g, b, a;
+};
+
 struct marker
 {
     int marker_id = -1;
@@ -26,6 +34,7 @@ struct marker
     Point2f center_position;
     // bottom left, bottom right, upper right, upper left TODO ???
     Point2f corner_positions[4];
+    color color = {0, 0, 0, 1};
 };
 
 struct hexagon
@@ -34,6 +43,8 @@ struct hexagon
     vector<int> markers = vector<int>();
     vector<int> neighbours = vector<int>();
     Point2f center_position;
+    hexagon_type type = none;
+    float radius = 0;
 };
 
 
