@@ -35,7 +35,7 @@
 // VideoCapture cap;
 //
 // //----------------------------------------------
-// void ogl_drawBackgroundImage(const Mat& img, int winWidth, int winHeight)
+// void ogl_draw_background_image(const Mat& img, int win_width, int win_height)
 // //----------------------------------------------
 // {
 //     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
@@ -47,8 +47,8 @@
 //     int imgWidth = img.cols;
 //     int imgHeight = img.rows;
 //     //float imgscale = (float)winWidth / (float)imgWidth;
-//     float imgscaleWidth = (float)winWidth / (float)imgWidth;
-//     float imgscaleHeight = (float)winHeight / (float)imgHeight;
+//     float imgscaleWidth = (float)win_width / (float)imgWidth;
+//     float imgscaleHeight = (float)win_height / (float)imgHeight;
 //
 //     // In the ortho view all objects stay the same size at every distance
 //     glOrtho(0.0, imgWidth * imgscaleWidth, 0.0, imgHeight * imgscaleHeight, -1, 1);
@@ -72,7 +72,7 @@
 //     if (cap.isOpened())
 //         cap.release();
 //
-//     cap.open(CAM, cv::CAP_DSHOW);
+//     cap.open(0, cv::CAP_DSHOW);
 //     if (cap.isOpened() == false) {
 //         std::cout << "No webcam found, using a video file" << std::endl;
 //         cap.open("MarkerMovie.mp4");
@@ -83,7 +83,7 @@
 //     }
 // }
 //
-// void initGL(int argc, char *argv[]) {
+// void init_gl(int argc, char *argv[]) {
 //
 // // Added in Exercise 8 - End *****************************************************************
 //
@@ -166,7 +166,7 @@
 //     UI.setCallbacks(window);
 //     
 //     // Initialize the GL library
-//     initGL(argc, argv);
+//     init_gl(argc, argv);
 //
 //     //--------------
 //     // general stuff
@@ -233,34 +233,34 @@
 //
 //     int winWidth, winHeight;
 //     glfwGetFramebufferSize(window, &winWidth, &winHeight);
-//     ogl_drawBackgroundImage(img_bgr, winWidth, winHeight);
+//     ogl_draw_background_image(img_bgr, winWidth, winHeight);
 //
-//     ogl_setViewportAndFrustum_pnp(window);
+//     ogl_set_viewport_and_frustum_pnp(window);
 //     for (int m = 0; m < MarkerID.size(); m++)
 //     {
 //         Mat Pmat = MarkerPmat[m];
 //         glMatrixMode(GL_MODELVIEW);
 //         glPushMatrix();
-//         ogl_setupCoordSys_pnp(Pmat);
+//         ogl_setup_coord_sys_pnp(Pmat);
 //
 //         switch (MarkerID[m]) {
 //         case 0x272:
-//             ogl_drawSnowman();
+//             ogl_draw_snowman();
 //             break;
 //         case 0x1c44:
-//             ogl_drawTriangle();
+//             ogl_draw_triangle();
 //             break;
 //         case 0x005a:
-//             ogl_drawSphere(0.5f, CARROT_COLOR);
+//             ogl_draw_sphere(0.5f, CARROT_COLOR);
 //             break;
 //         case 0x0690:
-//             ogl_drawCube(0.5f, CYAN);
+//             ogl_draw_cube(0.5f, CYAN);
 //             break;
 //         case 0x1228:
-//             ogl_drawCube(0.25f, CYAN);
+//             ogl_draw_cube(0.25f, CYAN);
 //             break;
 //         case 0x0b44:
-//             ogl_drawSphere(0.75f, YELLOW);
+//             ogl_draw_sphere(0.75f, YELLOW);
 //             break;
 //         }
 //
@@ -269,7 +269,7 @@
 // }
 //
 // //---------------------------------------------------------------------------
-// void ogl_setViewportAndFrustum_pnp(GLFWwindow* window, int width, int height)
+// void ogl_set_viewport_and_frustum_pnp(GLFWwindow* window, int width, int height)
 // //---------------------------------------------------------------------------
 // {
 //     if (width == 0)
@@ -312,7 +312,7 @@
 // }
 //
 // //--------------------------------------
-// void ogl_setupCoordSys_pnp(Mat ocv_Pmat)
+// void ogl_setup_coord_sys_pnp(Mat ocv_pmat)
 // //--------------------------------------
 // {
 //     // flip y-axis and z-axis
@@ -322,21 +322,21 @@
 //     //
 //     // also: transpose matrix to account for colum-major order of oGL arrays
 //     float ogl_Pmat[16];
-//     ogl_Pmat[0] = ocv_Pmat.at<double>(0,0);
-//     ogl_Pmat[1] = -ocv_Pmat.at<double>(1,0);
-//     ogl_Pmat[2] = -ocv_Pmat.at<double>(2,0);
+//     ogl_Pmat[0] = ocv_pmat.at<double>(0,0);
+//     ogl_Pmat[1] = -ocv_pmat.at<double>(1,0);
+//     ogl_Pmat[2] = -ocv_pmat.at<double>(2,0);
 //     ogl_Pmat[3] = 0.0f;
-//     ogl_Pmat[4] = ocv_Pmat.at<double>(0,1);
-//     ogl_Pmat[5] = -ocv_Pmat.at<double>(1,1);
-//     ogl_Pmat[6] = -ocv_Pmat.at<double>(2,1);
+//     ogl_Pmat[4] = ocv_pmat.at<double>(0,1);
+//     ogl_Pmat[5] = -ocv_pmat.at<double>(1,1);
+//     ogl_Pmat[6] = -ocv_pmat.at<double>(2,1);
 //     ogl_Pmat[7] = 0.0f;
-//     ogl_Pmat[8] = ocv_Pmat.at<double>(0,2);
-//     ogl_Pmat[9] = -ocv_Pmat.at<double>(1,2);
-//     ogl_Pmat[10] = -ocv_Pmat.at<double>(2,2);
+//     ogl_Pmat[8] = ocv_pmat.at<double>(0,2);
+//     ogl_Pmat[9] = -ocv_pmat.at<double>(1,2);
+//     ogl_Pmat[10] = -ocv_pmat.at<double>(2,2);
 //     ogl_Pmat[11] = 0.0f;
-//     ogl_Pmat[12] = ocv_Pmat.at<double>(0,3);
-//     ogl_Pmat[13] = -ocv_Pmat.at<double>(1,3);
-//     ogl_Pmat[14] = -ocv_Pmat.at<double>(2,3);
+//     ogl_Pmat[12] = ocv_pmat.at<double>(0,3);
+//     ogl_Pmat[13] = -ocv_pmat.at<double>(1,3);
+//     ogl_Pmat[14] = -ocv_pmat.at<double>(2,3);
 //     ogl_Pmat[15] = 1.0f;
 //
 //     // Load the transposed matrix
@@ -346,7 +346,7 @@
 //
 //
 // //---------------------
-// void ogl_drawTriangle()
+// void ogl_draw_triangle()
 // //---------------------
 // {
 //     glMatrixMode(GL_MODELVIEW);
@@ -372,7 +372,7 @@
 // }
 //
 // //-------------------------------------------------------------------
-// void ogl_drawSphere(float radius, float r, float g, float b, float a)
+// void ogl_draw_sphere(float radius, float r, float g, float b, float a)
 // //-------------------------------------------------------------------
 // {
 //     glMatrixMode(GL_MODELVIEW);
@@ -394,7 +394,7 @@
 // }
 //
 // //---------------------------------------------------------------
-// void ogl_drawCube(float size, float r, float g, float b, float a)
+// void ogl_draw_cube(float size, float r, float g, float b, float a)
 // //---------------------------------------------------------------
 // {
 //     glMatrixMode(GL_MODELVIEW);
@@ -465,7 +465,7 @@
 // }
 //
 // //--------------------
-// void ogl_drawSnowman()
+// void ogl_draw_snowman()
 // //--------------------
 // {
 //     glMatrixMode(GL_MODELVIEW);
