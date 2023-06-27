@@ -3,67 +3,25 @@
 
 #include "MarkerDetectionUtilities.h"
 
-/**
- * \brief Determines the color for a specific marker based on its ArUco marker ID.
- * \param marker_id ArUco marker ID
- * \return color value between 0-2 corresponding to the specific marker's hex card
- */
-int GameLogic::determine_marker_color(const int marker_id)
+
+
+#define CARD_TYPE_ONE_COLOR 0
+#define CARD_TYPE_HALF_COLOR 1
+#define CARD_TYPE_TRIPLE_COLOR 2
+#define MULTIPLIER_ONE_COLOR 12
+#define MULTIPLIER_HALF_CARD 4
+#define MULTIPLIER_TRIPLE_CARD 2
+#define DEFAULT_MAX_HEX_ID 10
+
+
+
+
+void GameLogic::reset_maps()
 {
-    // full_color card_type: 0, 1, 2
-    // half_color card_type: 3, 4, 5
-    // triple_color card_type: 6, 7, 8
-    int card_type = (marker_id / 6) % 9;
-
-    switch (card_type / 3) {
-        case 0: {
-                //returns (full_color[id] + 0/1/2) depending on which of the three full color cards we have
-                //full_color is always 0 because every Marker in that hexagon has same color
-                return (card_type % 3);
-        }
-        case 1: {
-                //returns (half_color[id] + 0/1/2) depending on which of the three full color cards we have
-                return (half_color[marker_id%6] + (card_type % 3));
-        }
-        case 2: {
-                //returns (triple_color[id] + 0/1/2) depending on which of the three full color cards we have
-                return (triple_color[marker_id%6] + (card_type % 3));
-        }
-        default:
-            return -1;
-    }
+    marker_multipliers.clear();
+    hex_tile_scores.clear();
 }
 
-/**
- * \brief saves value to specified map via key
- * \tparam MapType template map as unordered_map<key_type, value_type>
- * \tparam t value_type for value
- * \param storage unordered_map to save key and value in
- * \param key key to save value as
- * \param value value to save
- */
-template <typename MapType, typename t>
-void GameLogic::saveValue(MapType& storage, int key, t value) {
-    storage[key] = value;
-}
-
-/**
- * \brief returns value from map via specified key; if value is not found returns defaultValue
- * \tparam MapType template map as unordered_map<key_type, value_type>
- * \tparam t value_type for value and return
- * \param storage unordered_map to check key
- * \param key key for specified value
- * \param defaultValue default return value in case key doesnt exist
- * \return either matching value for key or default value if not found
- */
-template <typename MapType, typename t>
-t GameLogic::getValue(const MapType& storage, int key, t defaultValue) {
-    auto it = storage.find(key);
-    if (it != storage.end()) {
-        return it->second;
-    }
-    return defaultValue;
-}
 
 /**
  * \brief calculates a single multiplier score for one hex-tile
@@ -73,37 +31,40 @@ t GameLogic::getValue(const MapType& storage, int key, t defaultValue) {
  */
 int GameLogic::calc_single_multiplier(const bool boolList[], int card_type)
 {
+    // full_color card_type: 0, 1, 2
+    // half_color card_type: 3, 4, 5
+    // triple_color card_type: 6, 7, 8
     switch (card_type / 3)
     {
-    case 0: {
+    case CARD_TYPE_ONE_COLOR: {
             // full color card
             if(boolList[0] && boolList[1] && boolList[2] && boolList[3] && boolList[4] && boolList[5])
-                return 6;
+                return MULTIPLIER_ONE_COLOR;
             return 1;
     }
-    case 1: {
+    case CARD_TYPE_HALF_COLOR: {
             // half color card
             const bool first_half = boolList[0] && boolList[1] && boolList[2];
             const bool second_half = boolList[3] && boolList[4] && boolList[5];
 
             if (first_half && second_half)
-                return 6;
+                return MULTIPLIER_HALF_CARD*2;
             else if (first_half || second_half) 
-                return 3;
+                return MULTIPLIER_HALF_CARD;
             return 1;
     }
-    case 2: {
+    case CARD_TYPE_TRIPLE_COLOR: {
             // triple color card
             const bool first_third = boolList[0] && boolList[1];
             const bool second_third = boolList[2] && boolList[3];
             const bool third_third = boolList[4] && boolList[5];
 
             if (first_third && second_third && third_third)
-                return 6;
+                return MULTIPLIER_TRIPLE_CARD*3;
             else if ((first_third && second_third) || (second_third && third_third) || (first_third && third_third))
-                return 4;
+                return MULTIPLIER_TRIPLE_CARD*2;
             else if (first_third || second_third || third_third)
-                return 2;
+                return MULTIPLIER_TRIPLE_CARD;
             return 1;
     }
     default:
@@ -117,6 +78,8 @@ int GameLogic::calc_single_multiplier(const bool boolList[], int card_type)
  */
 void GameLogic::calculate_multipliers(int max_hex_id)
 {
+    if (max_hex_id <= 0)
+        max_hex_id = DEFAULT_MAX_HEX_ID;
     bool marker_bools[6] = {false, false, false, false, false, false};
     int card_id = -1;
     int marker_id = -1;
@@ -124,6 +87,7 @@ void GameLogic::calculate_multipliers(int max_hex_id)
     for(int cur_hex = 0; cur_hex <= max_hex_id; cur_hex++)
     {
         card_id = (cur_hex * 6);
+        //card_id = cur_hex;
         fill_n(marker_bools, 6, false);
         
         for(int cur_marker = 0; cur_marker < 6; cur_marker++)
@@ -163,8 +127,8 @@ int GameLogic::calculate_game_score(const vector<tuple<marker, marker>>& matches
         hex_1 = mark_1.hexagon_id;
         hex_2 = mark_2.hexagon_id;
         
-        color_1 = determine_marker_color(id_1);
-        color_2 = determine_marker_color(id_2);
+        color_1 = GameLogic_Utilities::determine_marker_color(id_1);
+        color_2 = GameLogic_Utilities::determine_marker_color(id_2);
 
         // check if current match has a higher hex id than current max so we dont unnecessarily iterate in calculate multipliers later
         if(hex_1> max_hex_id)
@@ -197,8 +161,16 @@ int GameLogic::calculate_game_score(const vector<tuple<marker, marker>>& matches
 
         GameScore += (score * getValue<unordered_map<int, int>, int>(marker_multipliers, key, 1));
     }
-    
+    missions.update_tile_matches(matches,max_hex_id);
+    GameScore += missions.computeMissionScore();
     return GameScore;
 }
+
+std::array<std::tuple<std::string, std::function<int(int)>, int>, 3> GameLogic::get_current_missions()
+{
+    return missions.get_current_random_missions();
+}
+
+
 
 

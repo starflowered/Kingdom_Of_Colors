@@ -21,10 +21,9 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{11775866-349a-44f0-a601-98f42bfec3af}</ProjectGuid>
-    <RootNamespace>ART1</RootNamespace>
+    <ProjectGuid>{36c07fd0-77bb-4cd9-889f-ce78203c5a97}</ProjectGuid>
+    <RootNamespace>GameLogicTests</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>Exercise01</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -71,10 +70,6 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\OpenCV_4_7_0\opencv\build\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\OpenCV_4_7_0\opencv\build\x64\vc16\lib;$(LibraryPath)</LibraryPath>
-  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -109,14 +104,10 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\Libraries\glew-2.1.0\include;C:\Libraries\glfw-3.3.8.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opencv_world470d.lib;%(AdditionalDependencies);glfw3.lib;opengl32.lib;user32.lib;gdi32.lib;shell32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Libraries\glfw-3.3.8.bin.WIN64\lib-vc2022;C:\Libraries\glew-2.1.0\lib\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -136,38 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Exercise08_New.cpp" />
-    <ClCompile Include="GameLogic.cpp" />
-    <ClCompile Include="GameLogic_Utilities.cpp" />
-    <ClCompile Include="MarkerDetectionUtilities.cpp" />
-    <ClCompile Include="MarkerTracker.cpp" />
-    <ClCompile Include="Missions.cpp" />
-    <ClCompile Include="ogl_UI.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="CMakeLists.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\Examples\real_life_markers\Four_Markers_Fully_Visible.mp4" />
-    <Content Include="..\Examples\real_life_markers\Four_Markers_Fully_Visible.png" />
-    <Content Include="..\Examples\real_life_markers\Four_Markers_Rein_Raus.mp4" />
-    <Content Include="..\Examples\real_life_markers\One_Marker_Fully_Visible.mp4" />
-    <Content Include="..\Examples\real_life_markers\One_Marker_Partly_Covered.mp4" />
-    <Content Include="..\Examples\real_life_markers\Test_One_Full_Marker.jpg" />
-    <Content Include="..\Examples\real_life_markers\Test_One_Marker_Full_One_Part.jpg" />
-    <Content Include="..\Examples\real_life_markers\Test_One_Marker_Part.jpg" />
-    <Content Include="..\Examples\real_life_markers\Test_Two_Full_Markers.jpg" />
-    <Content Include="..\Examples\real_life_markers\Test_Two_Markers_Partly.jpg" />
-    <Content Include="MarkerMovie.MP4" />
-    <Content Include="MarkerTest.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="GameLogic.h" />
-    <ClInclude Include="GameLogic_Utilities.h" />
-    <ClInclude Include="MarkerDetectionUtilities.h" />
-    <ClInclude Include="Missions.h" />
-    <ClInclude Include="ogl_Routines.h" />
-    <ClInclude Include="ogl_UI.h" />
+    <ClCompile Include="GameLogic_Tests.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,0 +1,4092 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.12) (preloaded format=pdflatex 2021.2.8)  27 JUN 2023 04:14
+entering extended mode
+**./main.tex
+(main.tex
+LaTeX2e <2020-10-01> patch level 2
+L3 programming layer <2020-12-07> xparse <2020-03-03>
+("C:\Program Files\MiKTeX\tex/latex/base\article.cls"
+Document Class: article 2020/04/10 v1.4m Standard LaTeX document class
+("C:\Program Files\MiKTeX\tex/latex/base\size10.clo"
+File: size10.clo 2020/04/10 v1.4m Standard LaTeX file (size option)
+)
+\c@part=\count177
+\c@section=\count178
+\c@subsection=\count179
+\c@subsubsection=\count180
+\c@paragraph=\count181
+\c@subparagraph=\count182
+\c@figure=\count183
+\c@table=\count184
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen138
+)
+("C:\Program Files\MiKTeX\tex/latex/geometry\geometry.sty"
+Package: geometry 2020/01/02 v5.9 Page Geometry
+
+("C:\Program Files\MiKTeX\tex/latex/graphics\keyval.sty"
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks15
+)
+("C:\Program Files\MiKTeX\tex/generic/iftex\ifvtex.sty"
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+
+("C:\Program Files\MiKTeX\tex/generic/iftex\iftex.sty"
+Package: iftex 2020/03/06 v1.0d TeX engine tests
+))
+\Gm@cnth=\count185
+\Gm@cntv=\count186
+\c@Gm@tempcnt=\count187
+\Gm@bindingoffset=\dimen139
+\Gm@wd@mp=\dimen140
+\Gm@odd@mp=\dimen141
+\Gm@even@mp=\dimen142
+\Gm@layoutwidth=\dimen143
+\Gm@layoutheight=\dimen144
+\Gm@layouthoffset=\dimen145
+\Gm@layoutvoffset=\dimen146
+\Gm@dimlist=\toks16
+
+("C:\Program Files\MiKTeX\tex/latex/geometry\geometry.cfg"))
+("C:\Program Files\MiKTeX\tex/latex/pgf/frontendlayer\tikz.sty"
+("C:\Program Files\MiKTeX\tex/latex/pgf/basiclayer\pgf.sty"
+("C:\Program Files\MiKTeX\tex/latex/pgf/utilities\pgfrcs.sty"
+("C:\Program Files\MiKTeX\tex/generic/pgf/utilities\pgfutil-common.tex"
+\pgfutil@everybye=\toks17
+\pgfutil@tempdima=\dimen147
+\pgfutil@tempdimb=\dimen148
+
+("C:\Program Files\MiKTeX\tex/generic/pgf/utilities\pgfutil-common-lists.tex"))
+("C:\Program Files\MiKTeX\tex/generic/pgf/utilities\pgfutil-latex.def"
+\pgfutil@abb=\box47
+)
+("C:\Program Files\MiKTeX\tex/generic/pgf/utilities\pgfrcs.code.tex"
+("C:\Program Files\MiKTeX\tex/generic/pgf\pgf.revision.tex")
+Package: pgfrcs 2020/12/01 v3.1.7a (3.1.7a)
+))
+Package: pgf 2020/12/01 v3.1.7a (3.1.7a)
+
+("C:\Program Files\MiKTeX\tex/latex/pgf/basiclayer\pgfcore.sty"
+("C:\Program Files\MiKTeX\tex/latex/graphics\graphicx.sty"
+Package: graphicx 2020/09/09 v1.2b Enhanced LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files\MiKTeX\tex/latex/graphics\graphics.sty"
+Package: graphics 2020/08/30 v1.4c Standard LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files\MiKTeX\tex/latex/graphics\trig.sty"
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+("C:\Program Files\MiKTeX\tex/latex/graphics-cfg\graphics.cfg"
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 105.
+
+("C:\Program Files\MiKTeX\tex/latex/graphics-def\pdftex.def"
+File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen149
+\Gin@req@width=\dimen150
+)
+("C:\Program Files\MiKTeX\tex/latex/pgf/systemlayer\pgfsys.sty"
+("C:\Program Files\MiKTeX\tex/generic/pgf/systemlayer\pgfsys.code.tex"
+Package: pgfsys 2020/12/01 v3.1.7a (3.1.7a)
+
+("C:\Program Files\MiKTeX\tex/generic/pgf/utilities\pgfkeys.code.tex"
+\pgfkeys@pathtoks=\toks18
+\pgfkeys@temptoks=\toks19
+
+("C:\Program Files\MiKTeX\tex/generic/pgf/utilities\pgfkeysfiltered.code.tex"
+\pgfkeys@tmptoks=\toks20
+))
+\pgf@x=\dimen151
+\pgf@y=\dimen152
+\pgf@xa=\dimen153
+\pgf@ya=\dimen154
+\pgf@xb=\dimen155
+\pgf@yb=\dimen156
+\pgf@xc=\dimen157
+\pgf@yc=\dimen158
+\pgf@xd=\dimen159
+\pgf@yd=\dimen160
+\w@pgf@writea=\write3
+\r@pgf@reada=\read2
+\c@pgf@counta=\count188
+\c@pgf@countb=\count189
+\c@pgf@countc=\count190
+\c@pgf@countd=\count191
+\t@pgf@toka=\toks21
+\t@pgf@tokb=\toks22
+\t@pgf@tokc=\toks23
+\pgf@sys@id@count=\count192
+("C:\Program Files\MiKTeX\tex/generic/pgf/systemlayer\pgf.cfg"
+File: pgf.cfg 2020/12/01 v3.1.7a (3.1.7a)
+)
+Driver file for pgf: pgfsys-pdftex.def
+
+("C:\Program Files\MiKTeX\tex/generic/pgf/systemlayer\pgfsys-pdftex.def"
+File: pgfsys-pdftex.def 2020/12/01 v3.1.7a (3.1.7a)
+
+("C:\Program Files\MiKTeX\tex/generic/pgf/systemlayer\pgfsys-common-pdf.def"
+File: pgfsys-common-pdf.def 2020/12/01 v3.1.7a (3.1.7a)
+))) ("C:\Program Files\MiKTeX\tex/generic/pgf/systemlayer\pgfsyssoftpath.code.t
+ex"
+File: pgfsyssoftpath.code.tex 2020/12/01 v3.1.7a (3.1.7a)
+\pgfsyssoftpath@smallbuffer@items=\count193
+\pgfsyssoftpath@bigbuffer@items=\count194
+) ("C:\Program Files\MiKTeX\tex/generic/pgf/systemlayer\pgfsysprotocol.code.tex
+"
+File: pgfsysprotocol.code.tex 2020/12/01 v3.1.7a (3.1.7a)
+)) ("C:\Program Files\MiKTeX\tex/latex/xcolor\xcolor.sty"
+Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
+
+("C:\Program Files\MiKTeX\tex/latex/graphics-cfg\color.cfg"
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
+Package xcolor Info: Model `RGB' extended on input line 1364.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
+)
+("C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcore.code.tex"
+Package: pgfcore 2020/12/01 v3.1.7a (3.1.7a)
+
+("C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmath.code.tex"
+("C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathcalc.code.tex"
+("C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathutil.code.tex")
+("C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathparser.code.tex"
+\pgfmath@dimen=\dimen161
+\pgfmath@count=\count195
+\pgfmath@box=\box48
+\pgfmath@toks=\toks24
+\pgfmath@stack@operand=\toks25
+\pgfmath@stack@operation=\toks26
+)
+("C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.code.tex"
+("C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.basic.code.tex"
+)
+("C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.trigonometric.c
+ode.tex")
+("C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.random.code.tex
+")
+("C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.comparison.code
+.tex")
+("C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.base.code.tex")
+("C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.round.code.tex"
+) ("C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.misc.code.tex
+")
+("C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.integerarithmet
+ics.code.tex")))
+("C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathfloat.code.tex"
+\c@pgfmathroundto@lastzeros=\count196
+))
+("C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfint.code.tex")
+("C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepoints.code.tex"
+File: pgfcorepoints.code.tex 2020/12/01 v3.1.7a (3.1.7a)
+\pgf@picminx=\dimen162
+\pgf@picmaxx=\dimen163
+\pgf@picminy=\dimen164
+\pgf@picmaxy=\dimen165
+\pgf@pathminx=\dimen166
+\pgf@pathmaxx=\dimen167
+\pgf@pathminy=\dimen168
+\pgf@pathmaxy=\dimen169
+\pgf@xx=\dimen170
+\pgf@xy=\dimen171
+\pgf@yx=\dimen172
+\pgf@yy=\dimen173
+\pgf@zx=\dimen174
+\pgf@zy=\dimen175
+)
+("C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepathconstruct.code.
+tex"
+File: pgfcorepathconstruct.code.tex 2020/12/01 v3.1.7a (3.1.7a)
+\pgf@path@lastx=\dimen176
+\pgf@path@lasty=\dimen177
+)
+("C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepathusage.code.tex"
+File: pgfcorepathusage.code.tex 2020/12/01 v3.1.7a (3.1.7a)
+\pgf@shorten@end@additional=\dimen178
+\pgf@shorten@start@additional=\dimen179
+) ("C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorescopes.code.tex"
+File: pgfcorescopes.code.tex 2020/12/01 v3.1.7a (3.1.7a)
+\pgfpic=\box49
+\pgf@hbox=\box50
+\pgf@layerbox@main=\box51
+\pgf@picture@serial@count=\count197
+)
+("C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcoregraphicstate.code.t
+ex"
+File: pgfcoregraphicstate.code.tex 2020/12/01 v3.1.7a (3.1.7a)
+\pgflinewidth=\dimen180
+)
+("C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcoretransformations.cod
+e.tex"
+File: pgfcoretransformations.code.tex 2020/12/01 v3.1.7a (3.1.7a)
+\pgf@pt@x=\dimen181
+\pgf@pt@y=\dimen182
+\pgf@pt@temp=\dimen183
+)
+("C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorequick.code.tex"
+File: pgfcorequick.code.tex 2020/12/01 v3.1.7a (3.1.7a)
+)
+("C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcoreobjects.code.tex"
+File: pgfcoreobjects.code.tex 2020/12/01 v3.1.7a (3.1.7a)
+)
+("C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepathprocessing.code
+.tex"
+File: pgfcorepathprocessing.code.tex 2020/12/01 v3.1.7a (3.1.7a)
+)
+("C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorearrows.code.tex"
+File: pgfcorearrows.code.tex 2020/12/01 v3.1.7a (3.1.7a)
+\pgfarrowsep=\dimen184
+)
+("C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcoreshade.code.tex"
+File: pgfcoreshade.code.tex 2020/12/01 v3.1.7a (3.1.7a)
+\pgf@max=\dimen185
+\pgf@sys@shading@range@num=\count198
+\pgf@shadingcount=\count199
+)
+("C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcoreimage.code.tex"
+File: pgfcoreimage.code.tex 2020/12/01 v3.1.7a (3.1.7a)
+
+("C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcoreexternal.code.tex"
+File: pgfcoreexternal.code.tex 2020/12/01 v3.1.7a (3.1.7a)
+\pgfexternal@startupbox=\box52
+)) ("C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorelayers.code.tex"
+File: pgfcorelayers.code.tex 2020/12/01 v3.1.7a (3.1.7a)
+)
+("C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcoretransparency.code.t
+ex"
+File: pgfcoretransparency.code.tex 2020/12/01 v3.1.7a (3.1.7a)
+)
+("C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepatterns.code.tex"
+File: pgfcorepatterns.code.tex 2020/12/01 v3.1.7a (3.1.7a)
+) ("C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorerdf.code.tex"
+File: pgfcorerdf.code.tex 2020/12/01 v3.1.7a (3.1.7a)
+)))
+("C:\Program Files\MiKTeX\tex/generic/pgf/modules\pgfmoduleshapes.code.tex"
+File: pgfmoduleshapes.code.tex 2020/12/01 v3.1.7a (3.1.7a)
+\pgfnodeparttextbox=\box53
+)
+("C:\Program Files\MiKTeX\tex/generic/pgf/modules\pgfmoduleplot.code.tex"
+File: pgfmoduleplot.code.tex 2020/12/01 v3.1.7a (3.1.7a)
+)
+("C:\Program Files\MiKTeX\tex/latex/pgf/compatibility\pgfcomp-version-0-65.sty"
+Package: pgfcomp-version-0-65 2020/12/01 v3.1.7a (3.1.7a)
+\pgf@nodesepstart=\dimen186
+\pgf@nodesepend=\dimen187
+) ("C:\Program Files\MiKTeX\tex/latex/pgf/compatibility\pgfcomp-version-1-18.st
+y"
+Package: pgfcomp-version-1-18 2020/12/01 v3.1.7a (3.1.7a)
+)) ("C:\Program Files\MiKTeX\tex/latex/pgf/utilities\pgffor.sty"
+("C:\Program Files\MiKTeX\tex/latex/pgf/utilities\pgfkeys.sty"
+("C:\Program Files\MiKTeX\tex/generic/pgf/utilities\pgfkeys.code.tex"))
+("C:\Program Files\MiKTeX\tex/latex/pgf/math\pgfmath.sty"
+("C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmath.code.tex"))
+("C:\Program Files\MiKTeX\tex/generic/pgf/utilities\pgffor.code.tex"
+Package: pgffor 2020/12/01 v3.1.7a (3.1.7a)
+
+("C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmath.code.tex")
+\pgffor@iter=\dimen188
+\pgffor@skip=\dimen189
+\pgffor@stack=\toks27
+\pgffor@toks=\toks28
+))
+("C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz\tikz.code.tex"
+Package: tikz 2020/12/01 v3.1.7a (3.1.7a)
+
+("C:\Program Files\MiKTeX\tex/generic/pgf/libraries\pgflibraryplothandlers.code
+.tex"
+File: pgflibraryplothandlers.code.tex 2020/12/01 v3.1.7a (3.1.7a)
+\pgf@plot@mark@count=\count266
+\pgfplotmarksize=\dimen190
+)
+\tikz@lastx=\dimen191
+\tikz@lasty=\dimen192
+\tikz@lastxsaved=\dimen193
+\tikz@lastysaved=\dimen194
+\tikz@lastmovetox=\dimen195
+\tikz@lastmovetoy=\dimen196
+\tikzleveldistance=\dimen197
+\tikzsiblingdistance=\dimen198
+\tikz@figbox=\box54
+\tikz@figbox@bg=\box55
+\tikz@tempbox=\box56
+\tikz@tempbox@bg=\box57
+\tikztreelevel=\count267
+\tikznumberofchildren=\count268
+\tikznumberofcurrentchild=\count269
+\tikz@fig@count=\count270
+
+("C:\Program Files\MiKTeX\tex/generic/pgf/modules\pgfmodulematrix.code.tex"
+File: pgfmodulematrix.code.tex 2020/12/01 v3.1.7a (3.1.7a)
+\pgfmatrixcurrentrow=\count271
+\pgfmatrixcurrentcolumn=\count272
+\pgf@matrix@numberofcolumns=\count273
+)
+\tikz@expandcount=\count274
+
+("C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibr
+arytopaths.code.tex"
+File: tikzlibrarytopaths.code.tex 2020/12/01 v3.1.7a (3.1.7a)
+)))
+("C:\Program Files\MiKTeX\tex/latex/nopageno\nopageno.sty"
+Package: nopageno 1989/01/01 no page numbers (DPC)
+)
+("C:\Program Files\MiKTeX\tex/latex/wasysym\wasysym.sty"
+Package: wasysym 2020/01/19 v2.4 Wasy-2 symbol support package
+\symwasy=\mathgroup4
+LaTeX Font Info:    Overwriting symbol font `wasy' in version `bold'
+(Font)                  U/wasy/m/n --> U/wasy/b/n on input line 93.
+)
+("C:\Program Files\MiKTeX\tex/latex/tools\array.sty"
+Package: array 2019/08/31 v2.4l Tabular extension package (FMi)
+\col@sep=\dimen199
+\ar@mcellbox=\box58
+\extrarowheight=\dimen256
+\NC@list=\toks29
+\extratabsurround=\skip49
+\backup@length=\skip50
+\ar@cellbox=\box59
+)
+("C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibr
+aryfit.code.tex"
+File: tikzlibraryfit.code.tex 2020/12/01 v3.1.7a (3.1.7a)
+)
+("C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibr
+arybackgrounds.code.tex"
+File: tikzlibrarybackgrounds.code.tex 2020/12/01 v3.1.7a (3.1.7a)
+\pgf@layerbox@background=\box60
+\pgf@layerboxsaved@background=\box61
+)
+\mywidth=\skip51
+\c@mycounter=\count275
+
+("C:\Program Files\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def"
+File: l3backend-pdftex.def 2020-09-24 L3 backend support: PDF output (pdfTeX)
+\l__kernel_color_stack_int=\count276
+\l__pdf_internal_box=\box62
+)
+No file main.aux.
+\openout1 = `main.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(5.69054pt, 586.1268pt, 5.69054pt)
+* v-part:(T,H,B)=(5.69054pt, 833.66577pt, 5.69054pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=586.1268pt
+* \textheight=833.66577pt
+* \oddsidemargin=-66.57945pt
+* \evensidemargin=-66.57945pt
+* \topmargin=-103.57945pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=10.0pt
+* \footskip=30.0pt
+* \marginparwidth=57.0pt
+* \marginparsep=11.0pt
+* \columnsep=10.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+("C:\Program Files\MiKTeX\tex/context/base/mkii\supp-pdf.mkii"
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count277
+\scratchdimen=\dimen257
+\scratchbox=\box63
+\nofMPsegments=\count278
+\nofMParguments=\count279
+\everyMPshowfont=\toks30
+\MPscratchCnt=\count280
+\MPscratchDim=\dimen258
+\MPnumerator=\count281
+\makeMPintoPDFobject=\count282
+\everyMPtoPDFconversion=\toks31
+) ("C:\Program Files\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty"
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+)
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 51.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 51.
+LaTeX Font Info:    Trying to load font information for U+wasy on input line 51
+.
+
+("C:\Program Files\MiKTeX\tex/latex/wasysym\uwasy.fd"
+File: uwasy.fd 2020/01/19 v2.4 Wasy-2 symbol font definitions
+)
+Missing character: There is no ; in font nullfont!
+
+
+LaTeX Warning: File `markers/marker_0.png' not found on input line 52.
+
+
+! Package pdftex.def Error: File `markers/marker_0.png' not found: using draft 
+setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.52 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_1.png' not found on input line 52.
+
+
+! Package pdftex.def Error: File `markers/marker_1.png' not found: using draft 
+setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.52 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_2.png' not found on input line 52.
+
+
+! Package pdftex.def Error: File `markers/marker_2.png' not found: using draft 
+setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.52 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_3.png' not found on input line 52.
+
+
+! Package pdftex.def Error: File `markers/marker_3.png' not found: using draft 
+setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.52 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_5.png' not found on input line 52.
+
+
+! Package pdftex.def Error: File `markers/marker_5.png' not found: using draft 
+setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.52 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_4.png' not found on input line 52.
+
+
+! Package pdftex.def Error: File `markers/marker_4.png' not found: using draft 
+setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.52 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no ; in font nullfont!
+
+LaTeX Warning: File `markers/marker_6.png' not found on input line 55.
+
+
+! Package pdftex.def Error: File `markers/marker_6.png' not found: using draft 
+setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.55 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_7.png' not found on input line 55.
+
+
+! Package pdftex.def Error: File `markers/marker_7.png' not found: using draft 
+setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.55 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_8.png' not found on input line 55.
+
+
+! Package pdftex.def Error: File `markers/marker_8.png' not found: using draft 
+setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.55 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_9.png' not found on input line 55.
+
+
+! Package pdftex.def Error: File `markers/marker_9.png' not found: using draft 
+setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.55 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_11.png' not found on input line 55.
+
+
+! Package pdftex.def Error: File `markers/marker_11.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.55 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_10.png' not found on input line 55.
+
+
+! Package pdftex.def Error: File `markers/marker_10.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.55 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Overfull \hbox (0.52304pt too wide) in paragraph at lines 50--59
+[]  [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 50--59
+
+ []
+
+Missing character: There is no ; in font nullfont!
+
+LaTeX Warning: File `markers/marker_12.png' not found on input line 60.
+
+
+! Package pdftex.def Error: File `markers/marker_12.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.60 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_13.png' not found on input line 60.
+
+
+! Package pdftex.def Error: File `markers/marker_13.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.60 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_14.png' not found on input line 60.
+
+
+! Package pdftex.def Error: File `markers/marker_14.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.60 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_15.png' not found on input line 60.
+
+
+! Package pdftex.def Error: File `markers/marker_15.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.60 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_17.png' not found on input line 60.
+
+
+! Package pdftex.def Error: File `markers/marker_17.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.60 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_16.png' not found on input line 60.
+
+
+! Package pdftex.def Error: File `markers/marker_16.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.60 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no ; in font nullfont!
+
+LaTeX Warning: File `markers/marker_18.png' not found on input line 66.
+
+
+! Package pdftex.def Error: File `markers/marker_18.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.66 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_19.png' not found on input line 66.
+
+
+! Package pdftex.def Error: File `markers/marker_19.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.66 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_20.png' not found on input line 66.
+
+
+! Package pdftex.def Error: File `markers/marker_20.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.66 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_21.png' not found on input line 66.
+
+
+! Package pdftex.def Error: File `markers/marker_21.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.66 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_23.png' not found on input line 66.
+
+
+! Package pdftex.def Error: File `markers/marker_23.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.66 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_22.png' not found on input line 66.
+
+
+! Package pdftex.def Error: File `markers/marker_22.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.66 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no ; in font nullfont!
+
+LaTeX Warning: File `markers/marker_24.png' not found on input line 69.
+
+
+! Package pdftex.def Error: File `markers/marker_24.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.69 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_25.png' not found on input line 69.
+
+
+! Package pdftex.def Error: File `markers/marker_25.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.69 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_26.png' not found on input line 69.
+
+
+! Package pdftex.def Error: File `markers/marker_26.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.69 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_27.png' not found on input line 69.
+
+
+! Package pdftex.def Error: File `markers/marker_27.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.69 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_29.png' not found on input line 69.
+
+
+! Package pdftex.def Error: File `markers/marker_29.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.69 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_28.png' not found on input line 69.
+
+
+! Package pdftex.def Error: File `markers/marker_28.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.69 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Overfull \hbox (2.59485pt too wide) in paragraph at lines 64--73
+  [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 64--73
+
+ []
+
+Missing character: There is no ; in font nullfont!
+
+LaTeX Warning: File `markers/marker_30.png' not found on input line 74.
+
+
+! Package pdftex.def Error: File `markers/marker_30.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.74 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_31.png' not found on input line 74.
+
+
+! Package pdftex.def Error: File `markers/marker_31.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.74 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_32.png' not found on input line 74.
+
+
+! Package pdftex.def Error: File `markers/marker_32.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.74 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_33.png' not found on input line 74.
+
+
+! Package pdftex.def Error: File `markers/marker_33.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.74 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_35.png' not found on input line 74.
+
+
+! Package pdftex.def Error: File `markers/marker_35.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.74 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_34.png' not found on input line 74.
+
+
+! Package pdftex.def Error: File `markers/marker_34.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.74 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no ; in font nullfont!
+
+LaTeX Warning: File `markers/marker_36.png' not found on input line 80.
+
+
+! Package pdftex.def Error: File `markers/marker_36.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.80 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_37.png' not found on input line 80.
+
+
+! Package pdftex.def Error: File `markers/marker_37.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.80 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_38.png' not found on input line 80.
+
+
+! Package pdftex.def Error: File `markers/marker_38.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.80 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_39.png' not found on input line 80.
+
+
+! Package pdftex.def Error: File `markers/marker_39.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.80 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_41.png' not found on input line 80.
+
+
+! Package pdftex.def Error: File `markers/marker_41.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.80 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_40.png' not found on input line 80.
+
+
+! Package pdftex.def Error: File `markers/marker_40.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.80 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no ; in font nullfont!
+
+LaTeX Warning: File `markers/marker_42.png' not found on input line 83.
+
+
+! Package pdftex.def Error: File `markers/marker_42.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.83 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_43.png' not found on input line 83.
+
+
+! Package pdftex.def Error: File `markers/marker_43.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.83 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_44.png' not found on input line 83.
+
+
+! Package pdftex.def Error: File `markers/marker_44.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.83 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_45.png' not found on input line 83.
+
+
+! Package pdftex.def Error: File `markers/marker_45.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.83 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_47.png' not found on input line 83.
+
+
+! Package pdftex.def Error: File `markers/marker_47.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.83 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_46.png' not found on input line 83.
+
+
+! Package pdftex.def Error: File `markers/marker_46.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.83 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Overfull \hbox (2.59485pt too wide) in paragraph at lines 78--88
+  [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 78--88
+
+ []
+
+Missing character: There is no ; in font nullfont!
+
+LaTeX Warning: File `markers/marker_48.png' not found on input line 89.
+
+
+! Package pdftex.def Error: File `markers/marker_48.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.89 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_49.png' not found on input line 89.
+
+
+! Package pdftex.def Error: File `markers/marker_49.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.89 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_50.png' not found on input line 89.
+
+
+! Package pdftex.def Error: File `markers/marker_50.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.89 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_51.png' not found on input line 89.
+
+
+! Package pdftex.def Error: File `markers/marker_51.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.89 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_53.png' not found on input line 89.
+
+
+! Package pdftex.def Error: File `markers/marker_53.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.89 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_52.png' not found on input line 89.
+
+
+! Package pdftex.def Error: File `markers/marker_52.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.89 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+[1
+
+{C:/Users/marin/AppData/Local/MiKTeX/pdftex/config/pdftex.map}]
+Missing character: There is no ; in font nullfont!
+
+
+LaTeX Warning: File `markers/marker_54.png' not found on input line 97.
+
+
+! Package pdftex.def Error: File `markers/marker_54.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.97 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_55.png' not found on input line 97.
+
+
+! Package pdftex.def Error: File `markers/marker_55.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.97 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_56.png' not found on input line 97.
+
+
+! Package pdftex.def Error: File `markers/marker_56.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.97 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_57.png' not found on input line 97.
+
+
+! Package pdftex.def Error: File `markers/marker_57.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.97 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_59.png' not found on input line 97.
+
+
+! Package pdftex.def Error: File `markers/marker_59.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.97 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_58.png' not found on input line 97.
+
+
+! Package pdftex.def Error: File `markers/marker_58.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.97 ...rker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no ; in font nullfont!
+
+LaTeX Warning: File `markers/marker_60.png' not found on input line 100.
+
+
+! Package pdftex.def Error: File `markers/marker_60.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.100 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_61.png' not found on input line 100.
+
+
+! Package pdftex.def Error: File `markers/marker_61.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.100 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_62.png' not found on input line 100.
+
+
+! Package pdftex.def Error: File `markers/marker_62.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.100 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_63.png' not found on input line 100.
+
+
+! Package pdftex.def Error: File `markers/marker_63.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.100 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_65.png' not found on input line 100.
+
+
+! Package pdftex.def Error: File `markers/marker_65.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.100 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_64.png' not found on input line 100.
+
+
+! Package pdftex.def Error: File `markers/marker_64.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.100 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Overfull \hbox (0.52304pt too wide) in paragraph at lines 95--104
+[]  [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 95--104
+
+ []
+
+Missing character: There is no ; in font nullfont!
+
+LaTeX Warning: File `markers/marker_66.png' not found on input line 105.
+
+
+! Package pdftex.def Error: File `markers/marker_66.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.105 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_67.png' not found on input line 105.
+
+
+! Package pdftex.def Error: File `markers/marker_67.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.105 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_68.png' not found on input line 105.
+
+
+! Package pdftex.def Error: File `markers/marker_68.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.105 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_69.png' not found on input line 105.
+
+
+! Package pdftex.def Error: File `markers/marker_69.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.105 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_71.png' not found on input line 105.
+
+
+! Package pdftex.def Error: File `markers/marker_71.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.105 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_70.png' not found on input line 105.
+
+
+! Package pdftex.def Error: File `markers/marker_70.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.105 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no ; in font nullfont!
+
+LaTeX Warning: File `markers/marker_72.png' not found on input line 111.
+
+
+! Package pdftex.def Error: File `markers/marker_72.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.111 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_73.png' not found on input line 111.
+
+
+! Package pdftex.def Error: File `markers/marker_73.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.111 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_74.png' not found on input line 111.
+
+
+! Package pdftex.def Error: File `markers/marker_74.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.111 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_75.png' not found on input line 111.
+
+
+! Package pdftex.def Error: File `markers/marker_75.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.111 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_77.png' not found on input line 111.
+
+
+! Package pdftex.def Error: File `markers/marker_77.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.111 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_76.png' not found on input line 111.
+
+
+! Package pdftex.def Error: File `markers/marker_76.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.111 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no ; in font nullfont!
+
+LaTeX Warning: File `markers/marker_78.png' not found on input line 114.
+
+
+! Package pdftex.def Error: File `markers/marker_78.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.114 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_79.png' not found on input line 114.
+
+
+! Package pdftex.def Error: File `markers/marker_79.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.114 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_80.png' not found on input line 114.
+
+
+! Package pdftex.def Error: File `markers/marker_80.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.114 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_81.png' not found on input line 114.
+
+
+! Package pdftex.def Error: File `markers/marker_81.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.114 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_83.png' not found on input line 114.
+
+
+! Package pdftex.def Error: File `markers/marker_83.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.114 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_82.png' not found on input line 114.
+
+
+! Package pdftex.def Error: File `markers/marker_82.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.114 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Overfull \hbox (2.59485pt too wide) in paragraph at lines 109--118
+  [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 109--118
+
+ []
+
+Missing character: There is no ; in font nullfont!
+
+LaTeX Warning: File `markers/marker_84.png' not found on input line 119.
+
+
+! Package pdftex.def Error: File `markers/marker_84.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.119 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_85.png' not found on input line 119.
+
+
+! Package pdftex.def Error: File `markers/marker_85.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.119 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_86.png' not found on input line 119.
+
+
+! Package pdftex.def Error: File `markers/marker_86.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.119 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_87.png' not found on input line 119.
+
+
+! Package pdftex.def Error: File `markers/marker_87.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.119 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_89.png' not found on input line 119.
+
+
+! Package pdftex.def Error: File `markers/marker_89.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.119 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_88.png' not found on input line 119.
+
+
+! Package pdftex.def Error: File `markers/marker_88.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.119 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no ; in font nullfont!
+
+LaTeX Warning: File `markers/marker_90.png' not found on input line 125.
+
+
+! Package pdftex.def Error: File `markers/marker_90.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.125 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_91.png' not found on input line 125.
+
+
+! Package pdftex.def Error: File `markers/marker_91.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.125 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_92.png' not found on input line 125.
+
+
+! Package pdftex.def Error: File `markers/marker_92.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.125 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_93.png' not found on input line 125.
+
+
+! Package pdftex.def Error: File `markers/marker_93.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.125 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_95.png' not found on input line 125.
+
+
+! Package pdftex.def Error: File `markers/marker_95.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.125 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_94.png' not found on input line 125.
+
+
+! Package pdftex.def Error: File `markers/marker_94.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.125 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no ; in font nullfont!
+
+LaTeX Warning: File `markers/marker_96.png' not found on input line 128.
+
+
+! Package pdftex.def Error: File `markers/marker_96.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.128 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_97.png' not found on input line 128.
+
+
+! Package pdftex.def Error: File `markers/marker_97.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.128 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_98.png' not found on input line 128.
+
+
+! Package pdftex.def Error: File `markers/marker_98.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.128 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_99.png' not found on input line 128.
+
+
+! Package pdftex.def Error: File `markers/marker_99.png' not found: using draft
+ setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.128 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_101.png' not found on input line 128.
+
+
+! Package pdftex.def Error: File `markers/marker_101.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.128 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_100.png' not found on input line 128.
+
+
+! Package pdftex.def Error: File `markers/marker_100.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.128 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Overfull \hbox (2.59485pt too wide) in paragraph at lines 123--133
+  [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 123--133
+
+ []
+
+Missing character: There is no ; in font nullfont!
+
+LaTeX Warning: File `markers/marker_102.png' not found on input line 134.
+
+
+! Package pdftex.def Error: File `markers/marker_102.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.134 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_103.png' not found on input line 134.
+
+
+! Package pdftex.def Error: File `markers/marker_103.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.134 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_104.png' not found on input line 134.
+
+
+! Package pdftex.def Error: File `markers/marker_104.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.134 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_105.png' not found on input line 134.
+
+
+! Package pdftex.def Error: File `markers/marker_105.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.134 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_107.png' not found on input line 134.
+
+
+! Package pdftex.def Error: File `markers/marker_107.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.134 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_106.png' not found on input line 134.
+
+
+! Package pdftex.def Error: File `markers/marker_106.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.134 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+[2]
+Missing character: There is no ; in font nullfont!
+
+
+LaTeX Warning: File `markers/marker_108.png' not found on input line 142.
+
+
+! Package pdftex.def Error: File `markers/marker_108.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.142 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_109.png' not found on input line 142.
+
+
+! Package pdftex.def Error: File `markers/marker_109.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.142 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_110.png' not found on input line 142.
+
+
+! Package pdftex.def Error: File `markers/marker_110.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.142 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_111.png' not found on input line 142.
+
+
+! Package pdftex.def Error: File `markers/marker_111.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.142 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_113.png' not found on input line 142.
+
+
+! Package pdftex.def Error: File `markers/marker_113.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.142 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_112.png' not found on input line 142.
+
+
+! Package pdftex.def Error: File `markers/marker_112.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.142 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no ; in font nullfont!
+
+LaTeX Warning: File `markers/marker_114.png' not found on input line 145.
+
+
+! Package pdftex.def Error: File `markers/marker_114.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.145 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_115.png' not found on input line 145.
+
+
+! Package pdftex.def Error: File `markers/marker_115.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.145 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_116.png' not found on input line 145.
+
+
+! Package pdftex.def Error: File `markers/marker_116.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.145 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_117.png' not found on input line 145.
+
+
+! Package pdftex.def Error: File `markers/marker_117.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.145 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_119.png' not found on input line 145.
+
+
+! Package pdftex.def Error: File `markers/marker_119.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.145 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_118.png' not found on input line 145.
+
+
+! Package pdftex.def Error: File `markers/marker_118.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.145 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Overfull \hbox (0.52304pt too wide) in paragraph at lines 140--149
+[]  [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 140--149
+
+ []
+
+Missing character: There is no ; in font nullfont!
+
+LaTeX Warning: File `markers/marker_120.png' not found on input line 150.
+
+
+! Package pdftex.def Error: File `markers/marker_120.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.150 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_121.png' not found on input line 150.
+
+
+! Package pdftex.def Error: File `markers/marker_121.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.150 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_122.png' not found on input line 150.
+
+
+! Package pdftex.def Error: File `markers/marker_122.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.150 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_123.png' not found on input line 150.
+
+
+! Package pdftex.def Error: File `markers/marker_123.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.150 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_125.png' not found on input line 150.
+
+
+! Package pdftex.def Error: File `markers/marker_125.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.150 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_124.png' not found on input line 150.
+
+
+! Package pdftex.def Error: File `markers/marker_124.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.150 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no ; in font nullfont!
+
+LaTeX Warning: File `markers/marker_126.png' not found on input line 156.
+
+
+! Package pdftex.def Error: File `markers/marker_126.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.156 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_127.png' not found on input line 156.
+
+
+! Package pdftex.def Error: File `markers/marker_127.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.156 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_128.png' not found on input line 156.
+
+
+! Package pdftex.def Error: File `markers/marker_128.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.156 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_129.png' not found on input line 156.
+
+
+! Package pdftex.def Error: File `markers/marker_129.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.156 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_131.png' not found on input line 156.
+
+
+! Package pdftex.def Error: File `markers/marker_131.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.156 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_130.png' not found on input line 156.
+
+
+! Package pdftex.def Error: File `markers/marker_130.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.156 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no ; in font nullfont!
+
+LaTeX Warning: File `markers/marker_132.png' not found on input line 159.
+
+
+! Package pdftex.def Error: File `markers/marker_132.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.159 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_133.png' not found on input line 159.
+
+
+! Package pdftex.def Error: File `markers/marker_133.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.159 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_134.png' not found on input line 159.
+
+
+! Package pdftex.def Error: File `markers/marker_134.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.159 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_135.png' not found on input line 159.
+
+
+! Package pdftex.def Error: File `markers/marker_135.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.159 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_137.png' not found on input line 159.
+
+
+! Package pdftex.def Error: File `markers/marker_137.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.159 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_136.png' not found on input line 159.
+
+
+! Package pdftex.def Error: File `markers/marker_136.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.159 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Overfull \hbox (2.59485pt too wide) in paragraph at lines 154--163
+  [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 154--163
+
+ []
+
+Missing character: There is no ; in font nullfont!
+
+LaTeX Warning: File `markers/marker_138.png' not found on input line 164.
+
+
+! Package pdftex.def Error: File `markers/marker_138.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.164 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_139.png' not found on input line 164.
+
+
+! Package pdftex.def Error: File `markers/marker_139.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.164 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_140.png' not found on input line 164.
+
+
+! Package pdftex.def Error: File `markers/marker_140.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.164 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_141.png' not found on input line 164.
+
+
+! Package pdftex.def Error: File `markers/marker_141.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.164 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_143.png' not found on input line 164.
+
+
+! Package pdftex.def Error: File `markers/marker_143.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.164 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_142.png' not found on input line 164.
+
+
+! Package pdftex.def Error: File `markers/marker_142.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.164 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no ; in font nullfont!
+
+LaTeX Warning: File `markers/marker_144.png' not found on input line 170.
+
+
+! Package pdftex.def Error: File `markers/marker_144.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.170 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_145.png' not found on input line 170.
+
+
+! Package pdftex.def Error: File `markers/marker_145.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.170 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_146.png' not found on input line 170.
+
+
+! Package pdftex.def Error: File `markers/marker_146.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.170 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_147.png' not found on input line 170.
+
+
+! Package pdftex.def Error: File `markers/marker_147.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.170 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_149.png' not found on input line 170.
+
+
+! Package pdftex.def Error: File `markers/marker_149.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.170 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_148.png' not found on input line 170.
+
+
+! Package pdftex.def Error: File `markers/marker_148.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.170 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no ; in font nullfont!
+
+LaTeX Warning: File `markers/marker_150.png' not found on input line 173.
+
+
+! Package pdftex.def Error: File `markers/marker_150.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.173 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_151.png' not found on input line 173.
+
+
+! Package pdftex.def Error: File `markers/marker_151.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.173 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_152.png' not found on input line 173.
+
+
+! Package pdftex.def Error: File `markers/marker_152.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.173 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_153.png' not found on input line 173.
+
+
+! Package pdftex.def Error: File `markers/marker_153.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.173 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_155.png' not found on input line 173.
+
+
+! Package pdftex.def Error: File `markers/marker_155.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.173 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_154.png' not found on input line 173.
+
+
+! Package pdftex.def Error: File `markers/marker_154.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.173 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Overfull \hbox (2.59485pt too wide) in paragraph at lines 168--178
+  [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 168--178
+
+ []
+
+Missing character: There is no ; in font nullfont!
+
+LaTeX Warning: File `markers/marker_156.png' not found on input line 179.
+
+
+! Package pdftex.def Error: File `markers/marker_156.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.179 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_157.png' not found on input line 179.
+
+
+! Package pdftex.def Error: File `markers/marker_157.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.179 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_158.png' not found on input line 179.
+
+
+! Package pdftex.def Error: File `markers/marker_158.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.179 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_159.png' not found on input line 179.
+
+
+! Package pdftex.def Error: File `markers/marker_159.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.179 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_161.png' not found on input line 179.
+
+
+! Package pdftex.def Error: File `markers/marker_161.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.179 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_160.png' not found on input line 179.
+
+
+! Package pdftex.def Error: File `markers/marker_160.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.179 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+[3]
+Missing character: There is no ; in font nullfont!
+
+
+LaTeX Warning: File `markers/marker_162.png' not found on input line 187.
+
+
+! Package pdftex.def Error: File `markers/marker_162.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.187 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_163.png' not found on input line 187.
+
+
+! Package pdftex.def Error: File `markers/marker_163.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.187 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_164.png' not found on input line 187.
+
+
+! Package pdftex.def Error: File `markers/marker_164.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.187 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_165.png' not found on input line 187.
+
+
+! Package pdftex.def Error: File `markers/marker_165.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.187 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_167.png' not found on input line 187.
+
+
+! Package pdftex.def Error: File `markers/marker_167.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.187 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_166.png' not found on input line 187.
+
+
+! Package pdftex.def Error: File `markers/marker_166.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.187 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no ; in font nullfont!
+
+LaTeX Warning: File `markers/marker_168.png' not found on input line 190.
+
+
+! Package pdftex.def Error: File `markers/marker_168.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.190 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_169.png' not found on input line 190.
+
+
+! Package pdftex.def Error: File `markers/marker_169.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.190 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_170.png' not found on input line 190.
+
+
+! Package pdftex.def Error: File `markers/marker_170.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.190 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_171.png' not found on input line 190.
+
+
+! Package pdftex.def Error: File `markers/marker_171.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.190 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_173.png' not found on input line 190.
+
+
+! Package pdftex.def Error: File `markers/marker_173.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.190 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_172.png' not found on input line 190.
+
+
+! Package pdftex.def Error: File `markers/marker_172.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.190 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Overfull \hbox (0.52304pt too wide) in paragraph at lines 185--194
+[]  [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 185--194
+
+ []
+
+Missing character: There is no ; in font nullfont!
+
+LaTeX Warning: File `markers/marker_174.png' not found on input line 195.
+
+
+! Package pdftex.def Error: File `markers/marker_174.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.195 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_175.png' not found on input line 195.
+
+
+! Package pdftex.def Error: File `markers/marker_175.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.195 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_176.png' not found on input line 195.
+
+
+! Package pdftex.def Error: File `markers/marker_176.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.195 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_177.png' not found on input line 195.
+
+
+! Package pdftex.def Error: File `markers/marker_177.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.195 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_179.png' not found on input line 195.
+
+
+! Package pdftex.def Error: File `markers/marker_179.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.195 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_178.png' not found on input line 195.
+
+
+! Package pdftex.def Error: File `markers/marker_178.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.195 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no ; in font nullfont!
+
+LaTeX Warning: File `markers/marker_180.png' not found on input line 201.
+
+
+! Package pdftex.def Error: File `markers/marker_180.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.201 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_181.png' not found on input line 201.
+
+
+! Package pdftex.def Error: File `markers/marker_181.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.201 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_182.png' not found on input line 201.
+
+
+! Package pdftex.def Error: File `markers/marker_182.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.201 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_183.png' not found on input line 201.
+
+
+! Package pdftex.def Error: File `markers/marker_183.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.201 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_185.png' not found on input line 201.
+
+
+! Package pdftex.def Error: File `markers/marker_185.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.201 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_184.png' not found on input line 201.
+
+
+! Package pdftex.def Error: File `markers/marker_184.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.201 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no ; in font nullfont!
+
+LaTeX Warning: File `markers/marker_186.png' not found on input line 204.
+
+
+! Package pdftex.def Error: File `markers/marker_186.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.204 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_187.png' not found on input line 204.
+
+
+! Package pdftex.def Error: File `markers/marker_187.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.204 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_188.png' not found on input line 204.
+
+
+! Package pdftex.def Error: File `markers/marker_188.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.204 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_189.png' not found on input line 204.
+
+
+! Package pdftex.def Error: File `markers/marker_189.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.204 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_191.png' not found on input line 204.
+
+
+! Package pdftex.def Error: File `markers/marker_191.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.204 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_190.png' not found on input line 204.
+
+
+! Package pdftex.def Error: File `markers/marker_190.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.204 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Overfull \hbox (2.59485pt too wide) in paragraph at lines 199--208
+  [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 199--208
+
+ []
+
+Missing character: There is no ; in font nullfont!
+
+LaTeX Warning: File `markers/marker_192.png' not found on input line 209.
+
+
+! Package pdftex.def Error: File `markers/marker_192.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.209 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_193.png' not found on input line 209.
+
+
+! Package pdftex.def Error: File `markers/marker_193.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.209 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_194.png' not found on input line 209.
+
+
+! Package pdftex.def Error: File `markers/marker_194.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.209 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_195.png' not found on input line 209.
+
+
+! Package pdftex.def Error: File `markers/marker_195.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.209 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_197.png' not found on input line 209.
+
+
+! Package pdftex.def Error: File `markers/marker_197.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.209 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_196.png' not found on input line 209.
+
+
+! Package pdftex.def Error: File `markers/marker_196.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.209 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no ; in font nullfont!
+
+LaTeX Warning: File `markers/marker_198.png' not found on input line 215.
+
+
+! Package pdftex.def Error: File `markers/marker_198.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.215 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_199.png' not found on input line 215.
+
+
+! Package pdftex.def Error: File `markers/marker_199.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.215 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_200.png' not found on input line 215.
+
+
+! Package pdftex.def Error: File `markers/marker_200.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.215 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_201.png' not found on input line 215.
+
+
+! Package pdftex.def Error: File `markers/marker_201.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.215 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_203.png' not found on input line 215.
+
+
+! Package pdftex.def Error: File `markers/marker_203.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.215 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_202.png' not found on input line 215.
+
+
+! Package pdftex.def Error: File `markers/marker_202.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.215 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no ; in font nullfont!
+
+LaTeX Warning: File `markers/marker_204.png' not found on input line 218.
+
+
+! Package pdftex.def Error: File `markers/marker_204.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.218 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_205.png' not found on input line 218.
+
+
+! Package pdftex.def Error: File `markers/marker_205.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.218 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_206.png' not found on input line 218.
+
+
+! Package pdftex.def Error: File `markers/marker_206.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.218 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_207.png' not found on input line 218.
+
+
+! Package pdftex.def Error: File `markers/marker_207.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.218 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_209.png' not found on input line 218.
+
+
+! Package pdftex.def Error: File `markers/marker_209.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.218 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_208.png' not found on input line 218.
+
+
+! Package pdftex.def Error: File `markers/marker_208.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.218 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Overfull \hbox (2.59485pt too wide) in paragraph at lines 213--223
+  [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 213--223
+
+ []
+
+Missing character: There is no ; in font nullfont!
+
+LaTeX Warning: File `markers/marker_210.png' not found on input line 224.
+
+
+! Package pdftex.def Error: File `markers/marker_210.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.224 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_211.png' not found on input line 224.
+
+
+! Package pdftex.def Error: File `markers/marker_211.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.224 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_212.png' not found on input line 224.
+
+
+! Package pdftex.def Error: File `markers/marker_212.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.224 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_213.png' not found on input line 224.
+
+
+! Package pdftex.def Error: File `markers/marker_213.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.224 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_215.png' not found on input line 224.
+
+
+! Package pdftex.def Error: File `markers/marker_215.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.224 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `markers/marker_214.png' not found on input line 224.
+
+
+! Package pdftex.def Error: File `markers/marker_214.png' not found: using draf
+t setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.224 ...ker_\the\numexpr\value{mycounter}+5.png}}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+[4] (main.aux) ) 
+Here is how much of TeX's memory you used:
+ 16113 strings out of 479697
+ 339552 string characters out of 2877010
+ 537261 words of memory out of 3000000
+ 32562 multiletter control sequences out of 15000+200000
+ 404256 words of font info for 31 fonts, out of 3000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 108i,15n,111p,658b,682s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.
+pfb>
+Output written on main.pdf (4 pages, 26508 bytes).
+PDF statistics:
+ 22 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 13 words of extra memory for PDF output out of 10000 (max. 10000000)
+
