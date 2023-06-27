@@ -9,7 +9,7 @@
 #endif
 
 
-inline void draw_sphere(const double radius, const int lats, const int longs)
+inline void draw_sphere(const float radius, const int lats, const int longs)
 {
     for (int i = 0; i <= lats; i++)
     {

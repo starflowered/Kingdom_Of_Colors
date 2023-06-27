@@ -29,11 +29,16 @@ bool update(Mat frame, VideoCapture* cap, bool frame_empty, Mat original_frame)
 
 #if FIND_CONTOURS
 
-#if !INPUT_IMAGE
         frame_count++;
+#if !INPUT_IMAGE
         if (frame_count == max_frame_count)
         {
 #endif
+
+            marker_map.clear();
+            hexagon_map.clear();
+            marker_neighbours.clear();
+            
             frame_count = 0;
             cvtColor(img_filtered, gray_scale, COLOR_BGR2GRAY);
 
@@ -219,7 +224,7 @@ int main()
         return 1; // 1 = no input found
 
     create_windows();
-
+    
     if (update(frame, cap_ptr, frame_empty, original_frame))
         return 2;
 
