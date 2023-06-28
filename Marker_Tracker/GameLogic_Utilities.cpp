@@ -19,11 +19,11 @@ int GameLogic_Utilities::determine_marker_color(const int marker_id)
     }
     case CARD_TYPE_HALF_COLOR: {
         //returns (half_color[id] + 0/1/2) depending on which of the three full color cards we have
-        return (half_color[marker_id % 6] + (card_type % 3));
+        return (half_color[marker_id % 6] + (card_type % 3))%3;
     }
     case  CARD_TYPE_TRIPLE_COLOR: {
         //returns (triple_color[id] + 0/1/2) depending on which of the three full color cards we have
-        return (triple_color[marker_id % 6] + (card_type % 3));
+        return (triple_color[marker_id % 6] + (card_type % 3)) %3;
     }
     default:
         return -1;
