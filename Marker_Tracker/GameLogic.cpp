@@ -20,6 +20,7 @@ void GameLogic::reset_maps()
 {
     marker_multipliers.clear();
     hex_tile_scores.clear();
+    marker_id_matches.clear();
 }
 
 
@@ -78,16 +79,16 @@ int GameLogic::calc_single_multiplier(const bool boolList[], int card_type)
  */
 void GameLogic::calculate_multipliers(int max_hex_id)
 {
-    if (max_hex_id <= 0)
-        max_hex_id = DEFAULT_MAX_HEX_ID;
+ 
     bool marker_bools[6] = {false, false, false, false, false, false};
     int card_id = -1;
     int marker_id = -1;
     
     for(int cur_hex = 0; cur_hex <= max_hex_id; cur_hex++)
     {
+        //TODO Florence why *6? macht nicht %9 mehr sinn?
         card_id = (cur_hex * 6);
-        //card_id = cur_hex;
+        //card_id = cur_hex % 9;
         fill_n(marker_bools, 6, false);
         
         for(int cur_marker = 0; cur_marker < 6; cur_marker++)
@@ -108,6 +109,7 @@ void GameLogic::calculate_multipliers(int max_hex_id)
  */
 int GameLogic::calculate_game_score(const vector<tuple<marker, marker>>& matches)
 {
+    reset_maps();
     // variable declarations for loop overwriting
     marker mark_1, mark_2;
     int id_1, id_2;
@@ -166,9 +168,42 @@ int GameLogic::calculate_game_score(const vector<tuple<marker, marker>>& matches
     return GameScore;
 }
 
-std::array<std::tuple<std::string, std::function<int(int)>, int>, 3> GameLogic::get_current_missions()
+std::array<std::tuple<std::string, std::function<int(int, std::unordered_map<int, std::array<bool, 6>>)>, int>, 3> GameLogic::get_current_missions()
 {
     return missions.get_current_random_missions();
+}
+
+
+
+/**
+ * \brief saves value to specified map via key
+ * \tparam MapType template map as unordered_map<key_type, value_type>
+ * \tparam t value_type for value
+ * \param storage unordered_map to save key and value in
+ * \param key key to save value as
+ * \param value value to save
+ */
+template <typename MapType, typename t>
+void GameLogic::saveValue(MapType& storage, int key, t value) {
+    storage[key] = value;
+}
+
+/**
+ * \brief returns value from map via specified key; if value is not found returns defaultValue
+ * \tparam MapType template map as unordered_map<key_type, value_type>
+ * \tparam t value_type for value and return
+ * \param storage unordered_map to check key
+ * \param key key for specified value
+ * \param defaultValue default return value in case key doesnt exist
+ * \return either matching value for key or default value if not found
+ */
+template <typename MapType, typename t>
+t GameLogic::getValue(const MapType& storage, int key, t defaultValue) {
+    auto it = storage.find(key);
+    if (it != storage.end()) {
+        return it->second;
+    }
+    return defaultValue;
 }
 
 

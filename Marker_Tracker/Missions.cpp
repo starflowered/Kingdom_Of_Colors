@@ -1,7 +1,7 @@
 #include "Missions.h"
 
 
-std::array<std::tuple<std::string, std::function<int(int)>, int>, 3> Missions::get_current_random_missions()
+std::array<std::tuple<std::string, std::function<int(int, std::unordered_map<int, std::array<bool, 6>>)>, int>, 3> Missions::get_current_random_missions()
 {
 	return current_missions;
 }
@@ -10,20 +10,15 @@ std::array<std::tuple<std::string, std::function<int(int)>, int>, 3> Missions::g
 //chooses 3 random questions for our missions, and returns <question, function of question, color of that mission>
 Missions::Missions()
 {
-	std::array<std::tuple<std::string, std::function<int(int)>, int>, 3> result;
+	std::array<std::tuple<std::string, std::function<int(int, std::unordered_map<int, std::array<bool, 6>>)>, int>, 3> result;
 	for (int i = 0; i < 3; i++)
 	{
 		int selected_question = std::rand() % possible_missions.size();
-		int selected_color = std::rand() % GameLogic_Utilities::get_number_of_colors();
+		int selected_color = i;
 		auto chosen_question = possible_missions.at(selected_question);
 
 		auto next_tuple = std::make_tuple(std::get<0>(chosen_question)+GameLogic_Utilities::get_name_of_color_by_index(selected_color),
 			std::get<1>(chosen_question), selected_color);
-		while (std::find(std::begin(result), std::end(result), next_tuple) != std::end(result))
-		{
-			next_tuple = std::make_tuple(std::get<0>(chosen_question)+ GameLogic_Utilities::get_name_of_color_by_index(selected_color),
-				std::get<1>(chosen_question), (++selected_color) % GameLogic_Utilities::get_number_of_colors());
-		}
 		result[i] = next_tuple;
 
 	}
@@ -36,7 +31,7 @@ Missions::Missions()
 	and then match the marker opposite of that match again with the same color with a third tile. Requires 
 	the tile in the middle to be full color, so that the two opposing markers are of the same color.
 */
-int Missions::three_tiles_in_a_row(int color)
+int Missions::three_tiles_in_a_row(int color, std::unordered_map<int, std::array<bool, 6>> matches_of_tiles)
 {
 	//check for each tile, if it is the middle of a row
 	for (auto tiles : matches_of_tiles)
@@ -62,7 +57,7 @@ int Missions::three_tiles_in_a_row(int color)
 	We want that in the game, there are three half-color tiles that are matched with all sides 
 	All three of those tiles should have one side with the given color
 */
-int Missions::three_half_color(int color)
+int Missions::three_half_color(int color, std::unordered_map<int, std::array<bool, 6>> matches_of_tiles)
 {
 	int number_of_matched_tiles = 0;
 	for (auto tiles : matches_of_tiles)
@@ -88,7 +83,7 @@ int Missions::three_half_color(int color)
 }
 
 //We want to check whether 7 independent tiles have all their sides of a certain color matched
-int Missions::seven_of_color(int color)
+int Missions::seven_of_color(int color, std::unordered_map<int, std::array<bool, 6>> matches_of_tiles)
 {
 	int number_of_matched_tiles = 0;
 	for (auto tiles : matches_of_tiles)
@@ -119,7 +114,7 @@ int Missions::computeMissionScore()
 {
 	int score = 0;
 	for (auto mission : current_missions)
-		score += std::get<1>(mission)(std::get<2>(mission));
+		score += std::get<1>(mission)(std::get<2>(mission), matches_of_tiles);
 	return score;
 }
 
@@ -137,8 +132,12 @@ void Missions::update_tile_matches(const std::vector<std::tuple<marker, marker>>
 	{
 		auto left_side = std::get<0>(match);
 		auto right_side = std::get<1>(match);
-		matches_of_tiles[left_side.hexagon_id][left_side.marker_id % 6] = true;
-		matches_of_tiles[right_side.hexagon_id][right_side.marker_id % 6] = true;
+		int color_1 = GameLogic_Utilities::determine_marker_color(left_side.marker_id);
+		int color_2 = GameLogic_Utilities::determine_marker_color(right_side.marker_id);
+		if (color_1 == color_2) {
+			matches_of_tiles[left_side.hexagon_id][left_side.marker_id % 6] = true;
+			matches_of_tiles[right_side.hexagon_id][right_side.marker_id % 6] = true;
+		}
 	}
 }
 

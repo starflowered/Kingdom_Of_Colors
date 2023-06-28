@@ -135,6 +135,8 @@ void key_callback(GLFWwindow* window, const int key, int scancode, const int act
     }
 }
 
+
+
 /* Arguments for the configuration of the app
 	@argc: number of arguments
 	@argv: array of arguments

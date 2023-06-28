@@ -22,11 +22,6 @@ public:
 	static std::string get_name_of_color_by_index(int idx);
 	static int get_number_of_colors();
 
-	template <class MapType, class t>
-	static void saveValue(MapType& storage, int key, t value);
-
-	template <class MapType, class t>
-	static t getValue(const MapType& storage, int key, t defaultValue);
-
+	
 };
 

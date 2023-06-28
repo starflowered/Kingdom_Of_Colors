@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include<opencv2/opencv.hpp>
+#include <opencv2/opencv.hpp>
 
 #define FIND_CONTOURS 1;
 #define INPUT_IMAGE 0;

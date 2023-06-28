@@ -207,9 +207,10 @@ bool update(Mat frame, VideoCapture* cap, bool frame_empty, Mat original_frame)
 
     return false;
 }
-
+/*
 int main()
 {
+    
     vector<tuple<marker, marker>> neighbours;
 
     Mat frame;
@@ -231,4 +232,4 @@ int main()
     destroyWindow(contours_window);
 
     return 0;
-}
+}*/
