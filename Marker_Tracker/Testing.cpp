@@ -8,12 +8,6 @@ void viewMissions(GameLogic& game_logic)
 	}
 }
 
-void gameScore(GameLogic& game_logic)
-{
-	
-	game_logic.calculate_game_score();
-}
-
 void marker_color_output()
 {
 	for (int i = 0; i < 100; i++)

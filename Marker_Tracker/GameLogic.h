@@ -27,6 +27,12 @@ private:
     void reset_maps();
     void calculate_multipliers(int max_hex_id);
 
+    
+    template <class MapType, class t>
+    static void saveValue(MapType& storage, int key, t value);
+
+    template <class MapType, class t>
+    static t getValue(const MapType& storage, int key, t defaultValue);
 public:
     
     //why is this public? is this needed for the console text?
