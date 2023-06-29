@@ -1,8 +1,5 @@
 #include "GameLogic_Utilities.h"
 
-
- const std::unordered_map<int, std::string> GameLogic_Utilities::color_names = { {0, "blue"}, { 1, "yellow" }, { 2, "purple" } };
-
 /**
  * \brief Determines the color for a specific marker based on its ArUco marker ID.
  * \param marker_id ArUco marker ID
@@ -28,6 +25,37 @@ int GameLogic_Utilities::determine_marker_color(const int marker_id)
     default:
         return -1;
     }
+}
+
+/**
+ * \brief saves value to specified map via key
+ * \tparam MapType template map as unordered_map<key_type, value_type>
+ * \tparam t value_type for value
+ * \param storage unordered_map to save key and value in
+ * \param key key to save value as
+ * \param value value to save
+ */
+template <typename MapType, typename t>
+void GameLogic_Utilities::saveValue(MapType& storage, int key, t value) {
+    storage[key] = value;
+}
+
+/**
+ * \brief returns value from map via specified key; if value is not found returns defaultValue
+ * \tparam MapType template map as unordered_map<key_type, value_type>
+ * \tparam t value_type for value and return
+ * \param storage unordered_map to check key
+ * \param key key for specified value
+ * \param defaultValue default return value in case key doesnt exist
+ * \return either matching value for key or default value if not found
+ */
+template <typename MapType, typename t>
+t GameLogic_Utilities::getValue(const MapType& storage, int key, t defaultValue) {
+    auto it = storage.find(key);
+    if (it != storage.end()) {
+        return it->second;
+    }
+    return defaultValue;
 }
 
 

@@ -1,17 +1,19 @@
 #include "Testing.h"
-void viewMissions(GameLogic& gamelogic)
+
+void viewMissions(GameLogic& game_logic)
 {
-	for (auto mission : gamelogic.get_current_missions())
+	for (auto mission : game_logic.get_current_missions())
 	{
 		std::cout << std::get<0>(mission) << std::endl;
 	}
 }
 
-
-void missionScore()
+void gameScore(GameLogic& game_logic)
 {
 	
+	game_logic.calculate_game_score();
 }
+
 void marker_color_output()
 {
 	for (int i = 0; i < 100; i++)
@@ -21,14 +23,10 @@ void marker_color_output()
 	}
 	
 }
-void TESTING()
-{
-	GameLogic gamelogic;
-	viewMissions(gamelogic);
-	marker_color_output();
-}
 
 int main()
 {
-	TESTING();
+	GameLogic game_logic;
+	viewMissions(game_logic);
+	marker_color_output();
 }

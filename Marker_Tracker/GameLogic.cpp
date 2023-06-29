@@ -1,21 +1,8 @@
-﻿// ReSharper disable All
-#include "GameLogic.h"
+﻿#include "GameLogic.h"
 
-#include "MarkerDetectionUtilities.h"
-
-
-
-#define CARD_TYPE_ONE_COLOR 0
-#define CARD_TYPE_HALF_COLOR 1
-#define CARD_TYPE_TRIPLE_COLOR 2
-#define MULTIPLIER_ONE_COLOR 12
-#define MULTIPLIER_HALF_CARD 4
-#define MULTIPLIER_TRIPLE_CARD 2
-#define DEFAULT_MAX_HEX_ID 10
-
-
-
-
+/**
+ * \brief resets unordered maps for every game logic calculation
+ */
 void GameLogic::reset_maps()
 {
     marker_multipliers.clear();
@@ -23,6 +10,14 @@ void GameLogic::reset_maps()
     marker_id_matches.clear();
 }
 
+/**
+ * \brief return missions?
+ * \return array of missions to fulfill
+ */
+std::array<std::tuple<std::string, std::function<int(int, std::unordered_map<int, std::array<bool, 6>>)>, int>, 3> GameLogic::get_current_missions()
+{
+    return missions.get_current_random_missions();
+}
 
 /**
  * \brief calculates a single multiplier score for one hex-tile
@@ -94,11 +89,11 @@ void GameLogic::calculate_multipliers(int max_hex_id)
         for(int cur_marker = 0; cur_marker < 6; cur_marker++)
         {
             marker_id = card_id + cur_marker;
-            if(getValue<unordered_map<int, bool>, bool>(marker_id_matches, marker_id, false))
+            if(GameLogic_Utilities::getValue<unordered_map<int, bool>, bool>(marker_id_matches, marker_id, false))
                 marker_bools[cur_marker] = true;
         }
 
-        saveValue(marker_multipliers, cur_hex, calc_single_multiplier(marker_bools, (cur_hex % 9)));
+        GameLogic_Utilities::saveValue(marker_multipliers, cur_hex, calc_single_multiplier(marker_bools, (cur_hex % 9)));
     }
 }
 
@@ -142,12 +137,12 @@ int GameLogic::calculate_game_score(const vector<tuple<marker, marker>>& matches
         if(color_1 == color_2)
         {
             // true (as in "has a match") for the specific AR Marker
-            saveValue(marker_id_matches, id_1, true);
-            saveValue(marker_id_matches, id_2, true);
+            GameLogic_Utilities::saveValue(marker_id_matches, id_1, true);
+            GameLogic_Utilities::saveValue(marker_id_matches, id_2, true);
 
             // get Current Value for one hex tile and add +1 for every additional match found in this tile
-            saveValue(hex_tile_scores, hex_1, 1 + getValue<unordered_map<int, int>, int>(hex_tile_scores, hex_1, 0));
-            saveValue(hex_tile_scores, hex_2, 1 + getValue<unordered_map<int, int>, int>(hex_tile_scores, hex_2, 0));
+            GameLogic_Utilities::saveValue(hex_tile_scores, hex_1, 1 + GameLogic_Utilities::getValue<unordered_map<int, int>, int>(hex_tile_scores, hex_1, 0));
+            GameLogic_Utilities::saveValue(hex_tile_scores, hex_2, 1 + GameLogic_Utilities::getValue<unordered_map<int, int>, int>(hex_tile_scores, hex_2, 0));
         }
     }
 
@@ -161,51 +156,9 @@ int GameLogic::calculate_game_score(const vector<tuple<marker, marker>>& matches
         int key = pair.first;
         int score = pair.second;
 
-        GameScore += (score * getValue<unordered_map<int, int>, int>(marker_multipliers, key, 1));
+        GameScore += (score * GameLogic_Utilities::getValue<unordered_map<int, int>, int>(marker_multipliers, key, 1));
     }
     missions.update_tile_matches(matches,max_hex_id);
     GameScore += missions.computeMissionScore();
     return GameScore;
 }
-
-std::array<std::tuple<std::string, std::function<int(int, std::unordered_map<int, std::array<bool, 6>>)>, int>, 3> GameLogic::get_current_missions()
-{
-    return missions.get_current_random_missions();
-}
-
-
-
-/**
- * \brief saves value to specified map via key
- * \tparam MapType template map as unordered_map<key_type, value_type>
- * \tparam t value_type for value
- * \param storage unordered_map to save key and value in
- * \param key key to save value as
- * \param value value to save
- */
-template <typename MapType, typename t>
-void GameLogic::saveValue(MapType& storage, int key, t value) {
-    storage[key] = value;
-}
-
-/**
- * \brief returns value from map via specified key; if value is not found returns defaultValue
- * \tparam MapType template map as unordered_map<key_type, value_type>
- * \tparam t value_type for value and return
- * \param storage unordered_map to check key
- * \param key key for specified value
- * \param defaultValue default return value in case key doesnt exist
- * \return either matching value for key or default value if not found
- */
-template <typename MapType, typename t>
-t GameLogic::getValue(const MapType& storage, int key, t defaultValue) {
-    auto it = storage.find(key);
-    if (it != storage.end()) {
-        return it->second;
-    }
-    return defaultValue;
-}
-
-
-
-

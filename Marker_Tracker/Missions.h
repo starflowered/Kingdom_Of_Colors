@@ -10,6 +10,8 @@
 #include "GameLogic_Utilities.h"
 #include "MarkerDetectionUtilities.h"
 
+// Forward declaration of the marker struct
+struct marker;
 
 #define SCORE_PER_MISSION 100
 class Missions
