@@ -22,8 +22,10 @@ public:
 	int computeMissionScore();
 	Missions();
 	void update_tile_matches(const std::vector<std::tuple<marker, marker>>& matches, int max_hex_id);
+	void output_missions();
 
 private:
+	std::array<bool, 3> finished_missions;
 	std::unordered_map<int, std::array<bool, 6>> matches_of_tiles;
 	std::array<std::tuple<std::string, std::function<int(int, std::unordered_map<int, std::array<bool, 6>>)>, int>, 3> current_missions;
 	static int three_tiles_in_a_row(int color, std::unordered_map<int, std::array<bool, 6>> matches_of_tiles);

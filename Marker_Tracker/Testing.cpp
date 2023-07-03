@@ -18,9 +18,14 @@ void marker_color_output()
 	
 }
 
+void testCalcSingleMultiplier()
+{
+
+}
+
 int main()
 {
 	GameLogic game_logic;
-	viewMissions(game_logic);
-	marker_color_output();
+	//viewMissions(game_logic);
+	//marker_color_output();
 }

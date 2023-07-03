@@ -24,6 +24,7 @@ Missions::Missions()
 	}
 
 	current_missions = result;
+	output_missions();
 }
 
 /*
@@ -109,16 +110,35 @@ int Missions::seven_of_color(int color, std::unordered_map<int, std::array<bool,
 	return 0;
 }
 
-
+//computes how many points you get for achieved missions
 int Missions::computeMissionScore()
 {
 	int score = 0;
+	std::array<bool, 3> prevAchievedMissions = finished_missions;
+	int i = 0;
 	for (auto mission : current_missions)
-		score += std::get<1>(mission)(std::get<2>(mission), matches_of_tiles);
+	{
+		int missionScore = std::get<1>(mission)(std::get<2>(mission), matches_of_tiles);
+		score += missionScore;
+		if (missionScore > 0)
+			finished_missions[i] = true;
+		else
+			finished_missions[i] = false;
+		i++;
+	}
+	for (i = 0; i < 3; i++) 
+	{
+		if (prevAchievedMissions[i] != finished_missions[i])
+		{
+			output_missions();
+			break;
+		}
+	}
 	return score;
 }
 
-
+//updates which tiles are matched depending on the current gameboard
+//input is list of current matches (can be not the same color) and the highest id of all hexagon cards on the field
 void Missions::update_tile_matches(const std::vector<std::tuple<marker, marker>>& matches, int max_hex_id)
 {
 	matches_of_tiles.clear();
@@ -139,6 +159,24 @@ void Missions::update_tile_matches(const std::vector<std::tuple<marker, marker>>
 			matches_of_tiles[right_side.hexagon_id][right_side.marker_id % 6] = true;
 		}
 	}
+}
+
+//console output of mission status
+void Missions::output_missions()
+{
+	std::cout << "---------Update of current mission status----------" << std::endl;
+	int i = 0;
+	for (auto m : current_missions)
+	{
+		std::string status;
+		if (finished_missions[i])
+			status = "DONE";
+		else
+			status = "TODO";
+
+		std::cout << "Mission " << ++i << ": " << std::get<0>(m) << " (" << status << "), Points for Mission: " << SCORE_PER_MISSION << std::endl;
+	}
+	std::cout << "---------------------------------------------------" << std::endl;
 }
 
 

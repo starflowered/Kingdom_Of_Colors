@@ -11,7 +11,7 @@ void GameLogic::reset_maps()
 }
 
 /**
- * \brief return missions?
+ * \brief returns three random missions for a new game
  * \return array of missions to fulfill
  */
 std::array<std::tuple<std::string, std::function<int(int, std::unordered_map<int, std::array<bool, 6>>)>, int>, 3> GameLogic::get_current_missions()
