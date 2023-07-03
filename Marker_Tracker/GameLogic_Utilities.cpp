@@ -39,7 +39,7 @@ int GameLogic_Utilities::determine_card_type(int hex_id)
     return (hex_id % 9) / 3;
 }
 
-
+// alternative (really ugly) function, since for some odd reason the getValue function didnt work
 std::string GameLogic_Utilities::get_name_of_color_by_index(int idx)
 {
     if (color_names.contains(idx))
@@ -47,6 +47,7 @@ std::string GameLogic_Utilities::get_name_of_color_by_index(int idx)
     return "no color name found";
    
 }
+
 int GameLogic_Utilities::get_number_of_colors()
 {
     return color_names.size();

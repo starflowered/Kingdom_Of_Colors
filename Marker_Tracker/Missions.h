@@ -14,6 +14,8 @@
 struct marker;
 
 #define SCORE_PER_MISSION 100
+
+
 class Missions
 {
 public:
@@ -25,8 +27,12 @@ public:
 	void output_missions();
 
 private:
+	//state of current missions (has the player completed them or not?)
 	std::array<bool, 3> finished_missions;
+	//for every tile, the array is true at ith position if the ith marker is successfully matched, 0 otherwise
 	std::unordered_map<int, std::array<bool, 6>> matches_of_tiles;
+	//array with the current missions of this game's playthrough. stores their formulation, the function to check whether mission is successfully
+	//achieved and the color index of the mission (e.g. mission uses red tiles -> stores color index for red)
 	std::array<std::tuple<std::string, std::function<int(int, std::unordered_map<int, std::array<bool, 6>>)>, int>, 3> current_missions;
 	static int three_tiles_in_a_row(int color, std::unordered_map<int, std::array<bool, 6>> matches_of_tiles);
 	static int three_half_color(int color, std::unordered_map<int, std::array<bool, 6>> matches_of_tiles);
