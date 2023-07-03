@@ -10,14 +10,7 @@ void GameLogic::reset_maps()
     marker_id_matches.clear();
 }
 
-/**
- * \brief returns three random missions for a new game
- * \return array of missions to fulfill
- */
-std::array<std::tuple<std::string, std::function<int(int, std::unordered_map<int, std::array<bool, 6>>)>, int>, 3> GameLogic::get_current_missions()
-{
-    return missions.get_current_random_missions();
-}
+
 
 /**
  * \brief saves value to specified map via key

@@ -22,7 +22,7 @@ private:
     
     Missions missions;
     
-    static int calc_single_multiplier(const bool boolList[], int card_type);
+    
 
     void reset_maps();
     void calculate_multipliers(int max_hex_id);
@@ -35,9 +35,7 @@ private:
     static t getValue(const MapType& storage, int key, t defaultValue);
 public:
     
-    //why is this public? is this needed for the console text?
-    std::array<std::tuple<std::string, std::function<int(int, std::unordered_map<int, std::array<bool, 6>>)>, int>, 3> get_current_missions();
-    
+    static int calc_single_multiplier(const bool boolList[], int card_type);
     int calculate_game_score(const vector<tuple<marker, marker>>& matches);
     
 };
