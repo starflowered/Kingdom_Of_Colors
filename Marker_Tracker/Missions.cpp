@@ -7,7 +7,7 @@ std::array<std::tuple<std::string, std::function<int(int, std::unordered_map<int
 }
 
 //initializes the missions object with 3 random questions of the form
-//chooses 3 random questions for our missions, and returns <question, function of question, color of that mission>
+//chooses 3 random questions for our missions, and returns <question text, function of question, color of that mission>
 Missions::Missions()
 {
 	std::array<std::tuple<std::string, std::function<int(int, std::unordered_map<int, std::array<bool, 6>>)>, int>, 3> result;
@@ -89,19 +89,22 @@ int Missions::seven_of_color(int color, std::unordered_map<int, std::array<bool,
 	int number_of_matched_tiles = 0;
 	for (auto tiles : matches_of_tiles)
 	{
-		bool contains_color = false;
+		bool valid_tile = false;
 		//check all sides (markers)
 		for (int i = 0; i < 6; i++)
 		{
-			int color_of_marker = GameLogic_Utilities::determine_marker_color(tiles.first + i);
+			int color_of_marker = GameLogic_Utilities::determine_marker_color(tiles.first*6 + i);
 			if (color_of_marker == color)
 			{
-				contains_color = true;
+				valid_tile = true;
 				if (!tiles.second[i])
+				{
+					valid_tile = false;
 					break;
+				}
 			}
 		}
-		if (contains_color)
+		if (valid_tile)
 			number_of_matched_tiles++;
 		if (number_of_matched_tiles >= 7)
 			return SCORE_PER_MISSION;
@@ -118,7 +121,7 @@ int Missions::computeMissionScore()
 	int i = 0;
 	for (auto mission : current_missions)
 	{
-		int missionScore = std::get<1>(mission)(std::get<2>(mission), matches_of_tiles);
+		int missionScore = std::get<1>(mission)(std::get<2>(mission), GameLogic_Utilities::get_current_matched_markers_per_tiles());
 		score += missionScore;
 		if (missionScore > 0)
 			finished_missions[i] = true;
@@ -137,29 +140,7 @@ int Missions::computeMissionScore()
 	return score;
 }
 
-//updates which tiles are matched depending on the current gameboard
-//input is list of current matches (can be not the same color) and the highest id of all hexagon cards on the field
-void Missions::update_tile_matches(const std::vector<std::tuple<marker, marker>>& matches, int max_hex_id)
-{
-	matches_of_tiles.clear();
-	for (int i = 0; i <= max_hex_id; i++)
-	{
-		std::array<bool, 6> a{};
-		matches_of_tiles[i] =a;
-	}
 
-	for (auto match : matches)
-	{
-		auto left_side = std::get<0>(match);
-		auto right_side = std::get<1>(match);
-		int color_1 = GameLogic_Utilities::determine_marker_color(left_side.marker_id);
-		int color_2 = GameLogic_Utilities::determine_marker_color(right_side.marker_id);
-		if (color_1 == color_2) {
-			matches_of_tiles[left_side.hexagon_id][left_side.marker_id % 6] = true;
-			matches_of_tiles[right_side.hexagon_id][right_side.marker_id % 6] = true;
-		}
-	}
-}
 
 //console output of mission status
 void Missions::output_missions()
@@ -173,8 +154,8 @@ void Missions::output_missions()
 			status = "DONE";
 		else
 			status = "TODO";
-
-		std::cout << "Mission " << ++i << ": " << std::get<0>(m) << " (" << status << "), Points for Mission: " << SCORE_PER_MISSION << std::endl;
+		i++;
+		std::cout << "Mission " << i << ": " << std::get<0>(m) << " (" << status << "), Points for Mission: " << SCORE_PER_MISSION << std::endl;
 	}
 	std::cout << "---------------------------------------------------" << std::endl;
 }

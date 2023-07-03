@@ -23,20 +23,17 @@ public:
 	std::array<std::tuple<std::string, std::function<int(int, std::unordered_map<int, std::array<bool, 6>>)>, int> ,3> get_current_random_missions();
 	int computeMissionScore();
 	Missions();
-	void update_tile_matches(const std::vector<std::tuple<marker, marker>>& matches, int max_hex_id);
 	void output_missions();
+
 
 private:
 	//state of current missions (has the player completed them or not?)
 	std::array<bool, 3> finished_missions;
-	//for every tile, the array is true at ith position if the ith marker is successfully matched, 0 otherwise
-	std::unordered_map<int, std::array<bool, 6>> matches_of_tiles;
+
 	//array with the current missions of this game's playthrough. stores their formulation, the function to check whether mission is successfully
 	//achieved and the color index of the mission (e.g. mission uses red tiles -> stores color index for red)
 	std::array<std::tuple<std::string, std::function<int(int, std::unordered_map<int, std::array<bool, 6>>)>, int>, 3> current_missions;
-	static int three_tiles_in_a_row(int color, std::unordered_map<int, std::array<bool, 6>> matches_of_tiles);
-	static int three_half_color(int color, std::unordered_map<int, std::array<bool, 6>> matches_of_tiles);
-	static int seven_of_color( int color, std::unordered_map<int, std::array<bool, 6>> matches_of_tiles);
+	
 	
 	std::function<int(int, std::unordered_map<int, std::array<bool, 6>>)> f_three_tiles= std::bind(&three_tiles_in_a_row, std::placeholders::_1, std::placeholders::_2);
 	std::function<int(int, std::unordered_map<int, std::array<bool, 6>>)> f_triangle = std::bind(&three_half_color,  std::placeholders::_1,  std::placeholders::_2);
@@ -50,8 +47,10 @@ private:
 		std::make_tuple("Match all sides of the following color of at least 7 different tiles: ",f_7_of_color)
 	
 	};
-	
 
 
+	static int three_tiles_in_a_row(int color, std::unordered_map<int, std::array<bool, 6>> matches_of_tiles);
+	static int three_half_color(int color, std::unordered_map<int, std::array<bool, 6>> matches_of_tiles);
+	static int seven_of_color(int color, std::unordered_map<int, std::array<bool, 6>> matches_of_tiles);
 };
 

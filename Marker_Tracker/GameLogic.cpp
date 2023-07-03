@@ -96,28 +96,18 @@ int GameLogic::calc_single_multiplier(const bool boolList[], int card_type)
  * \brief Iterates through all hex-tiles, up to max_hex_id and saves all multipliers to marker_multipliers
  * \param max_hex_id max hex tile id up to which we iterate
  */
+
 void GameLogic::calculate_multipliers(int max_hex_id)
 {
  
-    bool marker_bools[6] = {false, false, false, false, false, false};
-    int card_id = -1;
-    int marker_id = -1;
-    
     for(int cur_hex = 0; cur_hex <= max_hex_id; cur_hex++)
     {
-        //TODO Florence why *6? macht nicht %9 mehr sinn?
-        card_id = (cur_hex * 6);
-        //card_id = cur_hex % 9;
-        fill_n(marker_bools, 6, false);
-        
-        for(int cur_marker = 0; cur_marker < 6; cur_marker++)
-        {
-            marker_id = card_id + cur_marker;
-            if(getValue<unordered_map<int, bool>, bool>(marker_id_matches, marker_id, false))
-                marker_bools[cur_marker] = true;
-        }
-
-        saveValue(marker_multipliers, cur_hex, calc_single_multiplier(marker_bools, (cur_hex % 9)));
+        std::array<bool, 6> defaultValue = { false,false,false,false,false,false };
+        std::array<bool,6> marker_bools = getValue<unordered_map<int, std::array<bool, 6>>, std::array<bool, 6>>
+            (GameLogic_Utilities::get_current_matched_markers_per_tiles(), cur_hex, defaultValue);
+        bool c_style_array[6];
+        std::copy(std::begin(marker_bools), std::end(marker_bools), std::begin(c_style_array));
+        saveValue(marker_multipliers, cur_hex, calc_single_multiplier(c_style_array, (cur_hex % 9)));
     }
 }
 
@@ -129,47 +119,8 @@ void GameLogic::calculate_multipliers(int max_hex_id)
 int GameLogic::calculate_game_score(const vector<tuple<marker, marker>>& matches)
 {
     reset_maps();
-    // variable declarations for loop overwriting
-    marker mark_1, mark_2;
-    int id_1, id_2;
-    int hex_1, hex_2;
-    
-    int color_1, color_2;
-    int max_hex_id = -1;
-    
-    for (auto match : matches)
-    {
-        mark_1 = get<0>(match);
-        mark_2 = get<1>(match);
-
-        id_1 = mark_1.marker_id;
-        id_2 = mark_2.marker_id;
-
-        hex_1 = mark_1.hexagon_id;
-        hex_2 = mark_2.hexagon_id;
-        
-        color_1 = GameLogic_Utilities::determine_marker_color(id_1);
-        color_2 = GameLogic_Utilities::determine_marker_color(id_2);
-
-        // check if current match has a higher hex id than current max so we dont unnecessarily iterate in calculate multipliers later
-        if(hex_1> max_hex_id)
-            max_hex_id = hex_1;
-        else if(hex_2 > max_hex_id)
-            max_hex_id = hex_2;
-
-        // Actual Match!
-        if(color_1 == color_2)
-        {
-            // true (as in "has a match") for the specific AR Marker
-            saveValue(marker_id_matches, id_1, true);
-            saveValue(marker_id_matches, id_2, true);
-
-            // get Current Value for one hex tile and add +1 for every additional match found in this tile
-            saveValue(hex_tile_scores, hex_1, 1 + getValue<unordered_map<int, int>, int>(hex_tile_scores, hex_1, 0));
-            saveValue(hex_tile_scores, hex_2, 1 + getValue<unordered_map<int, int>, int>(hex_tile_scores, hex_2, 0));
-        }
-    }
-
+    int max_hex_id = process_matches_of_next_frame(matches);
+    update_tile_matches_per_marker(max_hex_id);
     // calculate unordered map for all multipliers
     calculate_multipliers(max_hex_id);
 
@@ -182,7 +133,96 @@ int GameLogic::calculate_game_score(const vector<tuple<marker, marker>>& matches
 
         GameScore += (score * getValue<unordered_map<int, int>, int>(marker_multipliers, key, 1));
     }
-    missions.update_tile_matches(matches,max_hex_id);
     GameScore += missions.computeMissionScore();
     return GameScore;
+}
+
+/*
+* \brief processes the matches that we get per frame, checks whether they are "actual matches" (same color)
+* \param matches list of matching markers
+* \return highest hexagon id that got a match
+*/
+int GameLogic::process_matches_of_next_frame(const vector<tuple<marker, marker>>& matches)
+{
+    // variable declarations for loop overwriting
+    marker mark_1, mark_2;
+    int id_1, id_2;
+    int hex_1, hex_2;
+
+    int color_1, color_2;
+    int max_hex_id = -1;
+
+    for (auto match : matches)
+    {
+        mark_1 = get<0>(match);
+        mark_2 = get<1>(match);
+
+        id_1 = mark_1.marker_id;
+        id_2 = mark_2.marker_id;
+
+        hex_1 = mark_1.hexagon_id;
+        hex_2 = mark_2.hexagon_id;
+
+        if (id_1 / 6 != hex_1 || id_2 / 6 != hex_2)
+        {
+            std::cerr << "Issue between marker id and hexagon ids " << std::endl;
+            std::cerr<< "Marker 1: " << id_1 << ", supposed hex: " << (id_1 / 6) << ", actual hex: " << hex_1 << std::endl;
+            std::cerr << "Marker 2: " << id_2 << ", supposed hex: " << (id_2 / 6) << ", actual hex: " << hex_2 << std::endl;
+        }
+        
+
+        color_1 = GameLogic_Utilities::determine_marker_color(id_1);
+        color_2 = GameLogic_Utilities::determine_marker_color(id_2);
+
+        // check if current match has a higher hex id than current max so we dont unnecessarily iterate in calculate multipliers later
+        if (hex_1 > max_hex_id)
+            max_hex_id = hex_1;
+        if (hex_2 > max_hex_id)
+            max_hex_id = hex_2;
+
+        if (hex_1 == hex_2)
+            continue;
+
+        // Actual Match!
+        if (color_1 == color_2)
+        {
+            // true (as in "has a match") for the specific AR Marker
+            saveValue(marker_id_matches, id_1, true);
+            saveValue(marker_id_matches, id_2, true);
+
+            // get Current Value for one hex tile and add +1 for every additional match found in this tile
+            saveValue(hex_tile_scores, hex_1, 1 + getValue<unordered_map<int, int>, int>(hex_tile_scores, hex_1, 0));
+            saveValue(hex_tile_scores, hex_2, 1 + getValue<unordered_map<int, int>, int>(hex_tile_scores, hex_2, 0));
+        }
+    }
+    return max_hex_id;
+}
+
+/**
+ * \brief creates an unordered map <int, std::array<bool, 6>> that stores which markers are matched per hexagon
+ * \param max_hex_id current maximal hexagon id on the game field
+ *
+ * */
+void GameLogic::update_tile_matches_per_marker(int max_hex_id)
+{
+    std::array<bool,6> marker_bools = { false, false, false, false, false, false };
+    int first_marker_of_card_id = -1;
+    int marker_id = -1;
+    std::unordered_map<int, std::array<bool, 6>> result;
+
+    for (int cur_hex = 0; cur_hex <= max_hex_id; cur_hex++)
+    {
+        first_marker_of_card_id = (cur_hex * 6);
+        marker_bools = { false,false,false,false,false,false };
+
+        for (int cur_marker = 0; cur_marker < 6; cur_marker++)
+        {
+            marker_id = first_marker_of_card_id + cur_marker;
+            if (getValue<unordered_map<int, bool>, bool>(marker_id_matches, marker_id, false))
+                marker_bools[cur_marker] = true;
+        }
+        result[cur_hex] = marker_bools;
+       
+    }
+    GameLogic_Utilities::set_current_matched_markers_per_tiles(result);
 }

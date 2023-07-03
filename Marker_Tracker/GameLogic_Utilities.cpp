@@ -1,6 +1,8 @@
 #include "GameLogic_Utilities.h"
 
 const static std::unordered_map<int, std::string> color_names = { {0, "blue"}, { 1, "yellow" }, { 2, "purple" } };
+std::unordered_map<int, std::array<bool, 6>> GameLogic_Utilities::current_matched_markers_per_tiles;
+
 
 /**
  * \brief Determines the color for a specific marker based on its ArUco marker ID.
@@ -51,6 +53,15 @@ std::string GameLogic_Utilities::get_name_of_color_by_index(int idx)
 int GameLogic_Utilities::get_number_of_colors()
 {
     return color_names.size();
+}
+
+const std::unordered_map<int, std::array<bool, 6>> GameLogic_Utilities::get_current_matched_markers_per_tiles()
+{
+    return current_matched_markers_per_tiles;
+}
+void GameLogic_Utilities::set_current_matched_markers_per_tiles(const std::unordered_map<int, std::array<bool, 6>> current_matches)
+{
+    current_matched_markers_per_tiles = current_matches;
 }
 
 

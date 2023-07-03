@@ -1,6 +1,7 @@
 #pragma once
 #include <unordered_map>
 #include <string>
+#include <array>
 
 #define CARD_TYPE_ONE_COLOR 0
 #define CARD_TYPE_HALF_COLOR 1
@@ -21,5 +22,10 @@ public:
 
 	static std::string get_name_of_color_by_index(int idx);
 	static int get_number_of_colors();
+	static const std::unordered_map<int, std::array<bool, 6>> get_current_matched_markers_per_tiles() ;
+	static void set_current_matched_markers_per_tiles(const std::unordered_map<int, std::array<bool, 6>> current_matches);
+private:
+	static std::unordered_map<int, std::array<bool, 6>> current_matched_markers_per_tiles;
+
 };
 
