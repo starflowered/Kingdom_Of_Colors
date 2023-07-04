@@ -1,9 +1,5 @@
 ﻿#include "MarkerDetectionUtilities.h"
 
-#include <ranges>
-#include <utility>
-
-
 static void on_trackbar(const int pos, void* slider_value)
 {
     *static_cast<int*>(slider_value) = pos;
@@ -77,7 +73,7 @@ Mat compute_stripe(const double dx, const double dy, stripe* s)
 int read_frame(Mat& frame, VideoCapture* cap, bool& frame_empty, Mat& original_frame)
 {
 #if INPUT_IMAGE
-    frame = imread(samples::findFile("../Examples/Hexagonal_Cards_Horizontal.png", false));
+    frame = imread(samples::findFile("../Examples/real_life_markers/Four_Markers_Fully_Visible.png", false));
     // scaling frame to "normal" values -> full HD resolution
     resize(frame, frame, Size(1920, 1080));
     frame_empty = frame.empty();
@@ -89,7 +85,10 @@ int read_frame(Mat& frame, VideoCapture* cap, bool& frame_empty, Mat& original_f
     if (!cap->isOpened())
     {
         cout << "No webcam, using video file" << endl;
-        cap->open("../Examples/real_life_markers/Four_Markers_Rein_Raus.mp4");
+        // cap->open("../Examples/real_life_markers/One_Marker_Fully_Visible.mp4");
+        // cap->open("../Examples/real_life_markers/Four_Markers_Fully_Visible.mp4");
+        // cap->open("../Examples/real_life_markers/Four_Markers_Rein_Raus.mp4");
+        cap->open("../Examples/real_life_markers/Markers_With_Final_Camera.mp4");
         if (!cap->isOpened())
         {
             cout << "No video!" << endl;
@@ -108,7 +107,8 @@ void create_windows()
     // namedWindow(stripe_window, WINDOW_AUTOSIZE);
     // namedWindow(threshold_window, WINDOW_FREERATIO);
     // namedWindow(marker_window, WINDOW_AUTOSIZE);
-    namedWindow(contours_window, WINDOW_AUTOSIZE);
+    // namedWindow(contours_window, WINDOW_AUTOSIZE);
+    namedWindow(contours_window, WINDOW_FREERATIO);
 
     // is_first_stripe = true;
     // is_first_marker = true;
@@ -292,7 +292,7 @@ void compute_corners(Mat frame, float line_params[16], Point2f (&corners)[4])
         // Exact corner
         corners[first_line_index] = Point2f(a, b);
 
-        circle(frame, Point2f(a, b), 3, CV_RGB(255, 255, 0), -1);
+        // circle(frame, Point2f(a, b), 3, CV_RGB(255, 255, 0), -1);
     }
 }
 
@@ -454,7 +454,7 @@ bool update_marker_map(Mat frame, const aruco::Dictionary& aruco_dict, map<int, 
     if (!aruco_dict.identify(code_pixel_mat, marker_id, marker_rotation, 1))
     {
         cout << "Could not identify some marker" << endl;
-        circle(frame, img_marker_corners[0], 10, CV_RGB(0, 255, 255), -1);
+        // circle(frame, img_marker_corners[0], 10, CV_RGB(0, 255, 255), -1);
         return false;
     }
 
@@ -469,7 +469,16 @@ bool update_marker_map(Mat frame, const aruco::Dictionary& aruco_dict, map<int, 
     {
         // first time we see this hexagon
         h = hexagon{hexagon_id, vector<int>(), vector<int>(), Point2f()};
-        hexagon_map.try_emplace(h.hexagon_id, h);
+        hexagon_map.try_emplace(h.hexagon_id, h); 
+        // // check whether some other marker exists in the same hexagon! (error prevention)
+        // for (const auto& id : marker_map | views::keys)
+        // {
+        //     if (id != marker_id && id / 6 == hexagon_id)
+        //     {
+        //         h = hexagon{hexagon_id, vector<int>(), vector<int>(), Point2f()};
+        //         hexagon_map.try_emplace(h.hexagon_id, h);  
+        //     } 
+        // }
     }
     else
     {
@@ -481,6 +490,11 @@ bool update_marker_map(Mat frame, const aruco::Dictionary& aruco_dict, map<int, 
                                marker_id, h.hexagon_id, marker_rotation, marker_center, *img_marker_corners
                            });
 
+    // if this is last marker in this hexagon, sort its marker list
+    if (hexagon_map.at(hexagon_id).markers.size() == 6)
+    {
+        ranges::sort(hexagon_map.at(hexagon_id).markers.begin(), hexagon_map.at(hexagon_id).markers.end());
+    }
     //--------------------------------------
     return false;
 }
@@ -547,6 +561,32 @@ bool compute_pnp(const Mat& frame, const aruco::Dictionary& aruco_dict, map<int,
     return false;
 }
 
+void compute_hexagon_positions(const map<int, marker>& marker_map, map<int, hexagon>& hexagon_map)
+{
+    for (auto& [id, marker1] : marker_map)
+    {
+        if (id % 6 != 0) continue;
+
+        // catch case in which we see the zero-marker but don't see the opposing one -> skip in that case
+        if(!marker_map.contains(id+3))
+            continue;
+
+        marker marker2 = marker_map.at(id + 3);
+
+        // circle(frame, m1.center_position, 5, CV_RGB(255, 0, 0), -1);
+        // circle(frame, m2.center_position, 5, CV_RGB(255, 0, 0), -1);
+
+        Point2f distance_vec = (marker1.center_position - marker2.center_position) / 2;
+        const Point2f hexagon_center_position = marker2.center_position + distance_vec;
+        hexagon_map[marker1.hexagon_id].center_position.y = hexagon_center_position.y;
+        hexagon_map[marker1.hexagon_id].center_position.x = hexagon_center_position.x;
+        hexagon_map[marker1.hexagon_id].radius = sqrtf(
+            distance_vec.x * distance_vec.x + distance_vec.y * distance_vec.y);
+
+        // circle(frame, m1.parent_hexagon->center_position, 5, CV_RGB(0, 255, 0), -1);
+    }
+}
+
 vector<tuple<marker, marker>> compute_neighbours(Mat frame, const map<int, marker>& marker_map,
                                                  map<int, hexagon>& hexagon_map)
 {
@@ -558,49 +598,16 @@ vector<tuple<marker, marker>> compute_neighbours(Mat frame, const map<int, marke
     // list of all marker-pairs computed to be neighbours
     vector<tuple<marker, marker>> neighbours{};
 
-    // TODO test and check distances
-    // TODO currently in pixel, distance only in image future branch working in world coord.
     constexpr float marker_distance_threshold = 180; // sqrtf(2) * marker_size + 0.01f;
     constexpr float hexagon_distance_threshold = 450; // sqrtf(2) * marker_size + 0.01f;
 
     // --------------------- optimization 1 ---------------------
 
-    // for (const auto& [id, marker] : marker_map)
-    // {
-    //     // add current marker to respective hexagon
-    //     // TODO this should be doable somewhere else
-    //     marker.parent_hexagon->markers.push_back(id);
-    // }
-
-    /*  compute center_position (image coordinate) of all hexagons
-        NOTE - assume that marker ids within a hexagon are arranged ascending in clockwise!
-        -> two marker placed in front of each other must have id-distance of 3
-        iterate over all hexagons, compute vector and take half
-     */
-
     const int marker_map_size = static_cast<int>(marker_map.size());
 
     if (marker_map_size == 0 || marker_map_size % 6 != 0) return neighbours;
 
-    // scaling frame to "normal" values -> full HD resolution
-    // resize(frame, frame, Size(1920, 1080));
-
-    for (auto& [id, marker1] : marker_map)
-    {
-        if (id % 6 != 0) continue;
-
-        marker marker2 = marker_map.at(id + 3);
-
-        // circle(frame, m1.center_position, 5, CV_RGB(255, 0, 0), -1);
-        // circle(frame, m2.center_position, 5, CV_RGB(255, 0, 0), -1);
-
-        Point2f distance_vec = (marker1.center_position - marker2.center_position) / 2;
-        const Point2f hexagon_center_position = marker2.center_position + distance_vec;
-        hexagon_map[marker1.hexagon_id].center_position = hexagon_center_position;
-        hexagon_map[marker1.hexagon_id].radius = sqrtf(distance_vec.x * distance_vec.x + distance_vec.y * distance_vec.y);
-
-        // circle(frame, m1.parent_hexagon->center_position, 5, CV_RGB(0, 255, 0), -1);
-    }
+    compute_hexagon_positions(marker_map, hexagon_map);
 
     /*
     // for (int i = 0; i < marker_map_size; i += 6)
@@ -716,7 +723,7 @@ vector<tuple<marker, marker>> compute_neighbours(Mat frame, const map<int, marke
                     const Point2f distance_vector = marker1.center_position - marker2.center_position;
                     const float distance = sqrtf(powf(distance_vector.x, 2) + powf(distance_vector.y, 2));
 
-                    if (distance < 180) cout << distance << endl;
+                    // if (distance < 180) cout << distance << endl;
 
                     comparison_amount++;
 
@@ -786,12 +793,12 @@ vector<tuple<marker, marker>> compute_neighbours(Mat frame, const map<int, marke
     }
     */
 
-    cout << "Compared " << comparison_amount << " of 2916 possible times" << endl;
+    // cout << "Compared " << comparison_amount << " of 2916 possible times" << endl;
 
     return neighbours;
 }
 
-void draw_neighbouring_hexagon(Mat frame, map<int, hexagon>& hexagon_map)
+void draw_neighbouring_hexagon(Mat frame, map<int, hexagon>& hexagon_map, map<int, marker>& marker_map)
 {
     for (auto& [id1, hex1] : hexagon_map)
     {

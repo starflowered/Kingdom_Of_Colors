@@ -172,6 +172,7 @@
     <ClInclude Include="ogl_Routines.h" />
     <ClInclude Include="ogl_UI.h" />
     <ClInclude Include="Testing.h" />
+    <ClInclude Include="Structs.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

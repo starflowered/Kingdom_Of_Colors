@@ -1,8 +1,11 @@
 ﻿#include "DrawUtilities.h"
 
-//----------------------------------------------
+#include <ranges>
+#include <opencv2/stitching/detail/util_inl.hpp>
+
+#include "MarkerDetectionUtilities.h"
+
 void ogl_draw_background_image(const Mat& img, const int win_width, const int win_height)
-//----------------------------------------------
 {
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
     glDisable(GL_DEPTH_TEST);
@@ -87,8 +90,8 @@ void init_gl(int argc, char* argv[])
     glEnable(GL_LIGHT0);
 }
 
-void ogl_display_pnp(GLFWwindow* window, const Mat& img_bgr, const std::vector<int>& marker_id,
-                     const std::vector<Mat>& marker_p_mat)
+void ogl_display_pnp(GLFWwindow* window, const Mat& img_bgr, map<int, hexagon>& hexagon_map,
+                     map<int, marker>& marker_map)
 {
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
@@ -96,45 +99,16 @@ void ogl_display_pnp(GLFWwindow* window, const Mat& img_bgr, const std::vector<i
     glfwGetFramebufferSize(window, &win_width, &win_height);
     ogl_draw_background_image(img_bgr, win_width, win_height);
 
-    ogl_set_viewport_and_frustum_pnp(window, win_width, win_height);
-    const int marker_ids_size = static_cast<int>(marker_id.size());
-    for (int m = 0; m < marker_ids_size; m++)
+    // calling this prevented anything drawn to be visible when using an image! 
+    // ogl_set_viewport_and_frustum_pnp(window, win_width, win_height);
+
+    for (auto& hexagon : hexagon_map | views::values)
     {
-        const Mat& p_mat = marker_p_mat[m];
-        glMatrixMode(GL_MODELVIEW);
-        glPushMatrix();
-        ogl_setup_coord_sys_pnp(p_mat);
-
-        switch (marker_id[m])
-        {
-        case 0x272:
-            ogl_draw_snowman();
-            break;
-        case 0x1c44:
-            ogl_draw_triangle();
-            break;
-        case 0x005a:
-            draw_sphere(0.5f, CARROT_COLOR);
-            break;
-        case 0x0690:
-            ogl_draw_cube(0.5f, CYAN);
-            break;
-        case 0x1228:
-            ogl_draw_cube(0.25f, CYAN);
-            break;
-        case 0x0b44:
-            draw_sphere(0.75f, YELLOW);
-            break;
-        default: ;
-        }
-
-        glPopMatrix();
+        draw_hexagon(hexagon, marker_map);
     }
 }
 
-//---------------------------------------------------------------------------
 void ogl_set_viewport_and_frustum_pnp(GLFWwindow* window, int width, int height)
-//---------------------------------------------------------------------------
 {
     if (width == 0)
         glfwGetFramebufferSize(window, &width, &height);
@@ -176,9 +150,7 @@ void ogl_set_viewport_and_frustum_pnp(GLFWwindow* window, int width, int height)
     glLoadMatrixf(perspective_view);
 }
 
-//--------------------------------------
 void ogl_setup_coord_sys_pnp(Mat ocv_pmat)
-//--------------------------------------
 {
     // flip y-axis and z-axis
     // - to rotate CV-coordinate system (right-handed)
@@ -209,10 +181,7 @@ void ogl_setup_coord_sys_pnp(Mat ocv_pmat)
     glLoadMatrixf(ogl_p_mat);
 }
 
-
-//---------------------
 void ogl_draw_triangle()
-//---------------------
 {
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
@@ -236,27 +205,26 @@ void ogl_draw_triangle()
     glPopMatrix();
 }
 
-// //-------------------------------------------------------------------
-// void ogl_draw_sphere(float radius, float r, float g, float b, float a)
-// //-------------------------------------------------------------------
-// {
-//     glMatrixMode(GL_MODELVIEW);
-//     glPushMatrix();
-//     {
-//         constexpr float scale = 0.03f;
-//
-//         //----------------
-//         // draw the sphere
-//         //----------------
-//
-//         GLUquadricObj* quadratic = gluNewQuadric();
-//         glColor4f(r, g, b, a);
-//         radius *= scale;
-//         glTranslatef(0.0, 0.0, radius);
-//         gluSphere(quadratic, radius, 20, 20);
-//     }
-//     glPopMatrix();
-// }
+/* void ogl_draw_sphere(float radius, float r, float g, float b, float a)
+{
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    {
+        constexpr float scale = 0.03f;
+
+        //----------------
+        // draw the sphere
+        //----------------
+
+        GLUquadricObj* quadratic = gluNewQuadric();
+        glColor4f(r, g, b, a);
+        radius *= scale;
+        glTranslatef(0.0, 0.0, radius);
+        gluSphere(quadratic, radius, 20, 20);
+    }
+    glPopMatrix();
+}
+*/
 
 // alternate function supposed to replace ogl_draw_sphere bc deprecated and shit
 void draw_sphere(const float radius, const float r, const float g, const float b, const float a)
@@ -267,10 +235,7 @@ void draw_sphere(const float radius, const float r, const float g, const float b
     draw_sphere(radius, 20, 20);
 }
 
-
-//---------------------------------------------------------------
 void ogl_draw_cube(const float size, float r, float g, float b, float a)
-//---------------------------------------------------------------
 {
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
@@ -339,9 +304,7 @@ void ogl_draw_cube(const float size, float r, float g, float b, float a)
     glPopMatrix();
 }
 
-//--------------------
 void ogl_draw_snowman()
-//--------------------
 {
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
@@ -383,33 +346,103 @@ void ogl_draw_snowman()
     glPopMatrix();
 }
 
-void draw_hexagon(hexagon& hexagon)
+void draw_hexagon(hexagon& hexagon, map<int, marker>& marker_map)
 {
-    switch (hexagon.type)
+    // switch (hexagon.type)
+    // {
+    // default:
+    //     // case none: cout << "hexagon.type not initialized for hexagon " << endl;
+    // case none: draw_hexagon_by_color(hexagon, marker_map);
+    //     break;
+    // case full: draw_hexagon_full(hexagon, marker_map);
+    //     break;
+    // case half: draw_hexagon_by_color(hexagon, marker_map);
+    //     break;
+    // case third: draw_hexagon_third(hexagon, marker_map);
+    //     break;
+    // }
+    //
+
+    if(hexagon.type == hexagon_type::full)
     {
-    default:
-    case none: cout << "hexagon.type not initialized for hexagon " << hexagon.hexagon_id << "!" << endl;
-        break;
-    case full: draw_hexagon_full(hexagon);
-        break;
-    case half: draw_hexagon_half(hexagon);
-        break;
-    case third: draw_hexagon_third(hexagon);
-        break;
+        draw_hexagon_full(hexagon, marker_map);
+    }
+    else
+    {
+        draw_hexagon_by_color(hexagon, marker_map);
     }
 }
 
-void draw_hexagon_full(hexagon& hexagon)
+// draw 6 triangles, share center point and one corner each -> draw circle with 6 fans
+void draw_hexagon_full(hexagon& hexagon, map<int, marker>& marker_map)
 {
-    // draw 6 triangles, share center point and one corner each
-    // -> draw circle with 6 fans
-    draw_circle(hexagon.radius, 6);
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    // adapt y coordinate to opengl's coordinate system
+    glTranslatef(hexagon.center_position.x, -hexagon.center_position.y + camera_height, 0);
+    const float rotation = get_hexagon_rotation(hexagon, marker_map);
+    // rotate around z-axis
+    glRotatef(30.f - rotation, 0.0f, 0.0f, 1.0f);
+    glColor3f(0.5f, 0, 0);
+    draw_circle(hexagon.radius * 1.55f, 6);
+    glPopMatrix();
 }
 
-void draw_hexagon_half(hexagon& hexagon)
+void draw_hexagon_by_color(hexagon& hexagon, map<int, marker>& marker_map)
 {
+    const float rad = hexagon.radius * 1.55f;
+
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    
+    // adapt y coordinate to opengl's coordinate system
+    glTranslatef(hexagon.center_position.x, -hexagon.center_position.y + camera_height, 0);
+    const float hexagon_rotation = get_hexagon_rotation(hexagon, marker_map);
+
+    glRotatef(30.f - hexagon_rotation, 0.0f, 0.0f, 1.0f);
+    
+    // color_vector for testing purposes
+    const vector<color> colors{
+        color{0.9f, 0.f, 0.f, 1.f}, // start with red
+        color{0.f, 0.9f, 0.f, 1.f},
+        color{0.f, 0.f, 0.9f, 1.f},
+        color{0.9f, 0.9f, 0.f, 1.f},
+        color{0.f, 0.9f, 0.9f, 1.f},
+        color{0.9f, 0.f, 0.9f, 1.f}
+    };
+
+    constexpr double angle = (M_PI / 3);
+
+    const auto [r, g, b, a] = colors[0];
+    
+    for (int i = 0; i < 6; ++i)
+    {
+        // get each marker's colour and apply, start with 0
+        // const auto marker = marker_map[hexagon.markers[0]];
+        // const auto [r, g, b, a] = marker_map[hexagon.markers[0]].color;
+        const auto [r, g, b, a] = colors[i];
+    
+        glNormal3f(0.0f, 0.0f, 1.0f);
+        glBegin(GL_TRIANGLES);
+        {
+            glColor3f(r, g, b);
+            const auto total_angle = static_cast<float>(-i * angle);
+            glVertex2f(0,0);
+            glVertex2f(rad * cosf(total_angle), rad * sinf(total_angle));
+            glVertex2f(rad * cosf(total_angle - angle), rad * sinf(total_angle - angle));
+        }
+        glEnd();
+    }
+    
+    glPopMatrix();
 }
 
-void draw_hexagon_third(hexagon& hexagon)
+float get_hexagon_rotation(const hexagon& hexagon, map<int, marker>& marker_map)
 {
+    // find slope of line between zero_marker and center and use atan(m) to get angle between line and x axis (screen axis):
+    Point2f v = marker_map[hexagon.markers[0]].center_position - hexagon.center_position;
+    float angle = atan(abs(v.y) / abs(v.x)) * 180.f / M_PI;
+    if(v.x < 0 || v.y < 0)
+        return angle + 180;
+    return angle;
 }

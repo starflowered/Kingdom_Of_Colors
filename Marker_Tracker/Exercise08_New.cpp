@@ -129,7 +129,9 @@
 //     //-------------
 //
 //     // Get video stream
+//     #RINGO get the frame etc.: we do this ourselves at the #if...
 //     ocv_initVideoStream(cap);
+//     #RINGO this is set globally in our case
 //     const double kMarkerSize = 0.0435;
 //
 //     // Get first image to find out camera characteristics
@@ -180,6 +182,7 @@
 //     while (UI.contLoop()) {
 //
 //         // Capture here
+//          #RINGO we do this ourselves at #if...
 //         cap >> img;
 //
 //         // Make sure that we got a frame -> otherwise crash
@@ -198,6 +201,7 @@
 //         vector<Mat> MarkerPmat;
 //             
 //         markerTracker.findAllMarkers_pnp(img, MarkerID, MarkerPmat);
+//         #RINGO i suppose we do all that with our 'tutorial-legacy'-code
 //         ogl_display_pnp(window, img_bgr_raw, MarkerID, MarkerPmat);
 //
 //         glfwSwapBuffers(window);

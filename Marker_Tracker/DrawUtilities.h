@@ -19,8 +19,10 @@
 #define _USE_MATH_DEFINES
 #include "ogl_UI.h"
 #include "ogl_Routines.h"
-#include "MarkerDetectionUtilities.h"
+// #include "MarkerDetectionUtilities.h"
+#include <map>
 
+#include "Structs.h"
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
 
@@ -43,7 +45,7 @@ void ogl_draw_background_image(const Mat& img, int win_width, int win_height);
 
 void init_gl(int argc, char* argv[]);
 
-void ogl_display_pnp(GLFWwindow* window, const Mat& img_bgr, const std::vector<int>& marker_id, const std::vector<Mat>& marker_p_mat);
+void ogl_display_pnp(GLFWwindow* window, const Mat& img_bgr, map<int, hexagon>& hexagon_map, map<int, marker>& marker_map);
 
 void ogl_set_viewport_and_frustum_pnp(GLFWwindow* window, int width, int height);
 
@@ -57,10 +59,12 @@ void ogl_draw_cube(float size, float r, float g, float b, float a);
 
 void ogl_draw_snowman();
 
-void draw_hexagon(hexagon& hexagon);
+void draw_hexagon(hexagon& hexagon, map<int, marker>& marker_map);
 
-void draw_hexagon_full(hexagon& hexagon);
+void draw_hexagon_full(hexagon& hexagon, map<int, marker>& marker_map);
 
-void draw_hexagon_half(hexagon& hexagon);
+void draw_hexagon_by_color(hexagon& hexagon, map<int, marker>& marker_map);
 
-void draw_hexagon_third(hexagon& hexagon);
+void draw_hexagon_third(hexagon& hexagon, map<int, marker>& marker_map);
+
+float get_hexagon_rotation(const hexagon& hexagon, map<int, marker>& marker_map);

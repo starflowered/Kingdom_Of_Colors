@@ -53,6 +53,9 @@ inline void draw_cone_top(const GLfloat radius, const GLdouble height, const GLi
     glEnd();
 }
 
+/*
+ * Draws a circle with @radius and @slices amount of fans
+ */
 inline void draw_circle(const GLfloat radius, const GLint slices)
 {
     glBegin(GL_TRIANGLE_FAN);

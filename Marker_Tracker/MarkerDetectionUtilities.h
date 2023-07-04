@@ -1,6 +1,11 @@
 ﻿#pragma once
 #include <opencv2/opencv.hpp>
 
+#include <ranges>
+#include <utility>
+
+#include "DrawUtilities.h"
+
 #define FIND_CONTOURS 1;
 #define INPUT_IMAGE 0;
 
@@ -16,42 +21,14 @@ struct stripe
     Point2f stripe_vec_y;
 };
 
-// specifies whether hexagon is composed of 1,2 or 3 colors
-enum hexagon_type {none, full, half, third};
-
-struct color
-{
-    float r, g, b, a;
-};
-
-struct marker
-{
-    int marker_id = -1;
-    int hexagon_id = -1;
-    // rotation in degrees TODO ???
-    int marker_rotation = 0;
-    // all points in image space
-    Point2f center_position;
-    // bottom left, bottom right, upper right, upper left TODO ???
-    Point2f corner_positions[4];
-    color color = {0, 0, 0, 1};
-};
-
-struct hexagon
-{
-    int hexagon_id = -1;
-    vector<int> markers = vector<int>();
-    vector<int> neighbours = vector<int>();
-    Point2f center_position;
-    hexagon_type type = none;
-    float radius = 0;
-};
-
-
 // List of points
 typedef vector<Point> contour_t;
 // List of contours
 typedef vector<contour_t> contour_vector_t;
+
+// Camera resolution
+constexpr int camera_height = 1080;
+constexpr int camera_width = 1920;
 
 constexpr int fps = 30;
 constexpr float marker_size = 0.02f;
@@ -104,8 +81,10 @@ bool update_marker_map(Mat frame, const aruco::Dictionary& aruco_dict, map<int, 
 bool compute_pnp(const Mat& frame, const aruco::Dictionary& aruco_dict, map<int, marker>& marker_map, map<int, hexagon>& hexagon_map, Point2f corners[4],
                  const Mat& code_pixel_mat, Mat_<float>& t_vec);
 
+void compute_hexagon_positions(const map<int, marker>& marker_map, map<int, hexagon>& hexagon_map);
+
 vector<tuple<marker, marker>> compute_neighbours(Mat frame, const map<int, marker>& marker_map, map<int, hexagon>& hexagon_map);
 
-void draw_neighbouring_hexagon(Mat frame, map<int, hexagon>& hexagon_map);
+void draw_neighbouring_hexagon(Mat frame, map<int, hexagon>& hexagon_map, map<int, marker>& marker_map);
 
 void draw_neighbouring_markers(Mat frame, const vector<tuple<marker, marker>>& neighbours);

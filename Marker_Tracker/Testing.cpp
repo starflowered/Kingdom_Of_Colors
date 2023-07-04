@@ -137,42 +137,42 @@ void test_missions()
 
 void test_processing_of_matches()
 {
-	vector<tuple<marker, marker>> matches;
-	marker m1, m2, m3, m4,m5;
-	m1.hexagon_id = 0;
-	m1.marker_id = 0;
-	m2.marker_id = 1;
-	m2.hexagon_id = 0;
-	m3.hexagon_id = 1;
-	m3.marker_id = 7;
-	m4.hexagon_id = 9;
-	m4.marker_id = 56;
-	m5.marker_id = 19;
-	m5.hexagon_id = 6;
-	matches.push_back(std::make_tuple(m1, m2));
-	matches.push_back(std::make_tuple(m1, m3));
-	matches.push_back(std::make_tuple(m1, m4));
-	matches.push_back(std::make_tuple(m4, m5));
-	GameLogic game_logic;
-	std::cout << "Max hex id " << game_logic.process_matches_of_next_frame(matches) << std::endl;
-
-	for (auto m : game_logic.marker_id_matches)
-	{
-		std::cout << "Tile " << m.first << " matched " << std::endl;
-	}
-	for (auto m : game_logic.hex_tile_scores)
-	{
-		std::cout << "Hex Score of " <<m.first <<": " << m.second << std::endl;
-	}
+	// vector<tuple<marker, marker>> matches;
+	// marker m1, m2, m3, m4,m5;
+	// m1.hexagon_id = 0;
+	// m1.marker_id = 0;
+	// m2.marker_id = 1;
+	// m2.hexagon_id = 0;
+	// m3.hexagon_id = 1;
+	// m3.marker_id = 7;
+	// m4.hexagon_id = 9;
+	// m4.marker_id = 56;
+	// m5.marker_id = 19;
+	// m5.hexagon_id = 6;
+	// matches.push_back(std::make_tuple(m1, m2));
+	// matches.push_back(std::make_tuple(m1, m3));
+	// matches.push_back(std::make_tuple(m1, m4));
+	// matches.push_back(std::make_tuple(m4, m5));
+	// GameLogic game_logic;
+	// std::cout << "Max hex id " << game_logic.process_matches_of_next_frame(matches) << std::endl;
+	//
+	// for (auto m : game_logic.marker_id_matches)
+	// {
+	// 	std::cout << "Tile " << m.first << " matched " << std::endl;
+	// }
+	// for (auto m : game_logic.hex_tile_scores)
+	// {
+	// 	std::cout << "Hex Score of " <<m.first <<": " << m.second << std::endl;
+	// }
 }
 
-int main()
-{
-	
-	//testCalcSingleMultiplier();
-	//viewMissions(game_logic);
-	//test_missions();
-	test_processing_of_matches();
-	marker_color_output();
-	
-}
+// int main()
+// {
+// 	
+// 	//testCalcSingleMultiplier();
+// 	//viewMissions(game_logic);
+// 	//test_missions();
+// 	// test_processing_of_matches();
+// 	// marker_color_output();
+// 	
+// }
