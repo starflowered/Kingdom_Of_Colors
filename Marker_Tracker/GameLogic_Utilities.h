@@ -2,6 +2,7 @@
 #include <unordered_map>
 #include <string>
 #include <array>
+#include "Structs.h"
 
 #define CARD_TYPE_ONE_COLOR 0
 #define CARD_TYPE_HALF_COLOR 1
@@ -24,6 +25,7 @@ public:
 	static int get_number_of_colors();
 	static const std::unordered_map<int, std::array<bool, 6>> get_current_matched_markers_per_tiles() ;
 	static void set_current_matched_markers_per_tiles(const std::unordered_map<int, std::array<bool, 6>> current_matches);
+	static color determine_marker_color_values(const int marker_id);
 private:
 	static std::unordered_map<int, std::array<bool, 6>> current_matched_markers_per_tiles;
 
