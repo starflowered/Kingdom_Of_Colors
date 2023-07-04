@@ -26,10 +26,6 @@ typedef vector<Point> contour_t;
 // List of contours
 typedef vector<contour_t> contour_vector_t;
 
-// Camera resolution
-constexpr int camera_height = 1080;
-constexpr int camera_width = 1920;
-
 constexpr int fps = 30;
 constexpr float marker_size = 0.02f;
 

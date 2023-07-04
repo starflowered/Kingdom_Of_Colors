@@ -1,30 +1,13 @@
 ﻿#pragma once
 
-#include <iostream>
-#include <cstdio>
-#include <string>
-#include <fstream>
-#include <vector>
-#include <algorithm>
-
-#define _USE_MATH_DEFINES
-#include <math.h>
-
-#include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "../OpenGLTutoials/DrawPrimitives.h"
-#include <iostream>
-#include <opencv2/highgui.hpp>
-#include <opencv2/imgproc.hpp>
-#define _USE_MATH_DEFINES
-#include "ogl_UI.h"
-#include "ogl_Routines.h"
-// #include "MarkerDetectionUtilities.h"
 #include <map>
+#include <math.h>
+#include <ranges>
+#include <opencv2/stitching/detail/util_inl.hpp>
 
+#include "../OpenGLTutoials/DrawPrimitives.h"
 #include "Structs.h"
-#include <opencv2/highgui.hpp>
-#include <opencv2/imgproc.hpp>
 
 using namespace cv;
 using namespace std;
@@ -40,6 +23,10 @@ using namespace std;
 #define BALL3_COLOR 0.8f, 0.9f, 1.0f, 1.0f
 #define COAL_COLOR 0.0f, 0.0f, 0.0f, 1.0f
 #define CARROT_COLOR 0.7f, 0.5f, 0.15f, 1.0f
+
+// Camera resolution
+constexpr int camera_height = 720;
+constexpr int camera_width = 1080;
 
 void ogl_draw_background_image(const Mat& img, int win_width, int win_height);
 

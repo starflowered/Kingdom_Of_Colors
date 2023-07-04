@@ -1,5 +1,4 @@
-#include "GameLogic_Utilities.h"
-#include "MarkerDetectionUtilities.h"
+#include "GameLogic.h"
 
 bool update(Mat frame, VideoCapture* cap, bool frame_empty, Mat original_frame, GLFWwindow* window)
 {

@@ -1,5 +1,7 @@
 ﻿#include "DrawUtilities.h"
 
+#include <iostream>
+
 void ogl_draw_background_image(const Mat& img, const int win_width, const int win_height)
 {
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
@@ -30,24 +32,6 @@ void ogl_draw_background_image(const Mat& img, const int win_width, const int wi
     // Activate depth -> that snowman can be scaled with depth
     glEnable(GL_DEPTH_TEST);
 }
-
-// void ocv_init_video_stream(VideoCapture& cap)
-// {
-//     if (cap.isOpened())
-//         cap.release();
-//
-//     cap.open(0, CAP_DSHOW);
-//     if (cap.isOpened() == false)
-//     {
-//         std::cout << "No webcam found, using a video file" << std::endl;
-//         cap.open("MarkerMovie.mp4");
-//         if (cap.isOpened() == false)
-//         {
-//             std::cout << "No video file found. Exiting." << std::endl;
-//             exit(0);
-//         }
-//     }
-// }
 
 void init_gl(int argc, char* argv[])
 {
@@ -188,7 +172,7 @@ void draw_hexagon(hexagon& hexagon, map<int, marker>& marker_map)
     }
 }
 
-// draw 6 triangles, share center point and one corner each -> draw circle with 6 fans
+// draw 6 triangles, share center point and one corner each
 void draw_hexagon_full(hexagon& hexagon, map<int, marker>& marker_map)
 {
     glMatrixMode(GL_MODELVIEW);
@@ -245,8 +229,13 @@ float get_hexagon_rotation(const hexagon& hexagon, map<int, marker>& marker_map)
 {
     // find slope of line between zero_marker and center and use atan(m) to get angle between line and x axis (screen axis):
     Point2f v = marker_map[hexagon.markers[0]].center_position - hexagon.center_position;
-    float angle = atan(abs(v.y) / abs(v.x)) * 180.f / M_PI;
-    if(v.x < 0 || v.y < 0)
+    float angle = atan(v.y / v.x) * 180.f / M_PI;
+    if(v.y < 0 || v.x < 0)
+    {
+        if(v.x > 0)
+            return angle;
+
         return angle + 180;
+    }
     return angle;
 }

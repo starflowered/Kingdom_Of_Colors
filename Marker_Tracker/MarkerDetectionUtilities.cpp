@@ -218,34 +218,12 @@ void fit_line_to_edge(Mat frame, float line_params[16], const Mat& line_params_m
     // Norm 2, 0 and 0.01 -> Optimal parameters
     // i -> Edge points
     fitLine(high_intensity_points, line_params_matrix.col(i), DIST_L2, 0, 0.01, 0.01);
-
-    // We need two points to draw the line
-    // We have to jump through the 4x4 matrix, meaning the next value for the wanted line is in the next row -> +4
-    // d = -50 is the scalar -> Length of the line, g: Point + d*Vector
-    // p1<----Middle---->p2
-    //   <-----100----->
-    /* TASK: Visualize the lines from both edges -> HINT: Comments above */
-    // Point edge_start_point, edge_end_point;
-    // constexpr int visualized_line_length = 50;
-    // edge_start_point.x = static_cast<int>(line_params[8 + i]) - static_cast<int>(visualized_line_length *
-    //     line_params[i]);
-    // edge_start_point.y = static_cast<int>(line_params[12 + i]) - static_cast<int>(visualized_line_length *
-    //     line_params[4 + i]);
-    //
-    // edge_end_point.x = static_cast<int>(line_params[8 + i]) + static_cast<int>(visualized_line_length *
-    //     line_params[i]);
-    // edge_end_point.y = static_cast<int>(line_params[12 + i]) + static_cast<int>(visualized_line_length *
-    //     line_params[4 + i]);
-
-    // Draw line
-    // line(frame, edge_start_point, edge_end_point, CV_RGB(0, 255, 255), 1, 8, 0);
 }
 
 
 void compute_corners(Mat frame, float line_params[16], Point2f (&corners)[4])
 {
     // Calculate the intersection points of both lines
-    /* TASK: How does the loop work? */
     for (int first_line_index = 0; first_line_index < 4; first_line_index++)
     {
         // Go through the corners of the rectangle, 3 -> 0
@@ -359,88 +337,6 @@ bool get_marker_bit_matrix(Mat image_marker, Mat& code_pixel_mat)
             code_pixel_mat.at<uchar>(i - 1, j - 1) = image_marker.at<uchar>(i, j) ? 1 : 0;
         }
     }
-
-    /*
-    // NOT NEEDED DUE TO      aruco::identify()
-    // Save the ID of the marker, for each side
-    
-    int codes[4];
-    codes[0] = codes[1] = codes[2] = codes[3] = 0;
-    
-    // Calculate the code from all sides in one loop
-    for (int i = 0; i < 16; i++)
-    {
-        // /4 to go through the rows
-        int row = i >> 2;
-        int col = i % 4;
-    
-        // Multiplied by 2 to check for black values -> 0*2 = 0
-        codes[0] <<= 1;
-        codes[0] |= code_pixel_mat.at<uchar>(row, col); // 0°
-    
-        // 4x4 structure -> Each column represents one side
-        codes[1] <<= 1;
-        codes[1] |= code_pixel_mat.at<uchar>(3 - col, row); // 90°
-    
-        codes[2] <<= 1;
-        codes[2] |= code_pixel_mat.at<uchar>(3 - row, 3 - col); // 180°
-    
-        codes[3] <<= 1;
-        codes[3] |= code_pixel_mat.at<uchar>(col, 3 - row); // 270°
-    }
-    
-    // TASK: What do we need to look for and avoid? -> HINT: Slides with how the unique marker works
-    if (codes[0] == codes[1] || codes[0] == codes[2] || codes[0] == codes[3] ||
-        codes[1] == codes[2] || codes[1] == codes[3] ||
-        codes[2] == codes[3])
-    {
-        continue;
-    }
-    
-    Search for the smallest marker ID
-    code = *min_element(std::begin(codes), std::end(codes));
-
-    int angle = 0;
-    // Search for the smallest marker ID
-    code = codes[0];
-    for (int i = 1; i < 4; ++i)
-    {
-        if (codes[i] < code)
-        {
-            code = codes[i];
-            angle = i;
-        }
-    }
-    
-    Print ID
-    cout << "Code 0: " << hex << code << endl;
-    
-    Show the first detected marker in the image
-    
-    
-    Correct the order of the corners, if 0 -> already have the 0 degree position
-    if (angle != 0)
-    {
-        Point2f corrected_corners[4];
-        // Smallest id represents the x-axis, we put the values in the corrected_corners array
-        for (int i = 0; i < 4; i++)
-            corrected_corners[(i + angle) % 4] = corners[i];
-    
-        // We put the values back in the array in the sorted order
-        for (int i = 0; i < 4; i++)
-            corners[i] = corrected_corners[i];
-    }
-
-    */
-    /* shows first marker in a window
-    // if (is_first_marker)
-    // {
-    //     Mat marker_tmp;
-    //     resize(image_marker, marker_tmp, Size(200, 200));
-    //     imshow(marker_window, marker_tmp);
-    //     is_first_marker = false;
-    }
-    */
     return false;
 }
 
@@ -470,15 +366,6 @@ bool update_marker_map(Mat frame, const aruco::Dictionary& aruco_dict, map<int, 
         // first time we see this hexagon
         h = hexagon{hexagon_id, vector<int>(), vector<int>(), Point2f()};
         hexagon_map.try_emplace(h.hexagon_id, h); 
-        // // check whether some other marker exists in the same hexagon! (error prevention)
-        // for (const auto& id : marker_map | views::keys)
-        // {
-        //     if (id != marker_id && id / 6 == hexagon_id)
-        //     {
-        //         h = hexagon{hexagon_id, vector<int>(), vector<int>(), Point2f()};
-        //         hexagon_map.try_emplace(h.hexagon_id, h);  
-        //     } 
-        // }
     }
     else
     {
