@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <opencv2/core/types.hpp>
 
 // specifies whether hexagon is composed of 1,2 or 3 colors
 enum hexagon_type { none, full, half, third };

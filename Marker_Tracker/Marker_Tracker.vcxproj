@@ -144,7 +144,6 @@
     <ClCompile Include="MarkerTracker.cpp" />
     <ClCompile Include="Missions.cpp" />
     <ClCompile Include="ogl_UI.cpp" />
-    <ClCompile Include="Testing.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />
@@ -171,7 +170,6 @@
     <ClInclude Include="Missions.h" />
     <ClInclude Include="ogl_Routines.h" />
     <ClInclude Include="ogl_UI.h" />
-    <ClInclude Include="Testing.h" />
     <ClInclude Include="Structs.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,10 +1,5 @@
 ﻿#include "DrawUtilities.h"
 
-#include <ranges>
-#include <opencv2/stitching/detail/util_inl.hpp>
-
-#include "MarkerDetectionUtilities.h"
-
 void ogl_draw_background_image(const Mat& img, const int win_width, const int win_height)
 {
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
@@ -181,188 +176,8 @@ void ogl_setup_coord_sys_pnp(Mat ocv_pmat)
     glLoadMatrixf(ogl_p_mat);
 }
 
-void ogl_draw_triangle()
-{
-    glMatrixMode(GL_MODELVIEW);
-    glPushMatrix();
-    {
-        constexpr float scale = 0.03f;
-
-        // draw the triangle on the floor
-        glNormal3f(0.0f, 0.0f, 1.0f);
-        glBegin(GL_TRIANGLES);
-        glColor4f(RED);
-        glVertex3f(-1.2f * scale, -0.8f * scale, 0.0);
-        //    glVertex3f(-0.6, -0.4, 0.0);
-        glColor4f(GREEN);
-        glVertex3f(1.2f * scale, -0.8f * scale, 0.0);
-        //    glVertex3f(0.6, -0.4, 0.0);
-        glColor4f(BLUE);
-        glVertex3f(0.0f, 1.2f * scale, 0.0);
-        //    glVertex3f(0.0, 0.6, 0.0);
-        glEnd();
-    }
-    glPopMatrix();
-}
-
-/* void ogl_draw_sphere(float radius, float r, float g, float b, float a)
-{
-    glMatrixMode(GL_MODELVIEW);
-    glPushMatrix();
-    {
-        constexpr float scale = 0.03f;
-
-        //----------------
-        // draw the sphere
-        //----------------
-
-        GLUquadricObj* quadratic = gluNewQuadric();
-        glColor4f(r, g, b, a);
-        radius *= scale;
-        glTranslatef(0.0, 0.0, radius);
-        gluSphere(quadratic, radius, 20, 20);
-    }
-    glPopMatrix();
-}
-*/
-
-// alternate function supposed to replace ogl_draw_sphere bc deprecated and shit
-void draw_sphere(const float radius, const float r, const float g, const float b, const float a)
-{
-    // change colour
-    glColor4f(r, g, b, a);
-    // call own draw_sphere
-    draw_sphere(radius, 20, 20);
-}
-
-void ogl_draw_cube(const float size, float r, float g, float b, float a)
-{
-    glMatrixMode(GL_MODELVIEW);
-    glPushMatrix();
-    {
-        const float scale = 0.03f;
-
-        //--------------
-        // draw the cube
-        //--------------
-        const float a = -size * scale;
-        const float b = size * scale;
-
-        glTranslatef(0.0f, 0.0f, b);
-
-        // front: xz-plane; y = 0
-        glBegin(GL_QUADS);
-        glColor4f(GREEN);
-        glVertex3f(a, a, a);
-        glVertex3f(b, a, a);
-        glVertex3f(b, a, b);
-        glVertex3f(a, a, b);
-        glEnd();
-        // back: xz-plane; y = size
-        glBegin(GL_QUADS);
-        glColor4f(YELLOW);
-        glVertex3f(a, b, a);
-        glVertex3f(b, b, a);
-        glVertex3f(b, b, b);
-        glVertex3f(a, b, b);
-        glEnd();
-
-        // left: yz-plane; x = 0
-        glBegin(GL_QUADS);
-        glColor4f(RED);
-        glVertex3f(a, a, a);
-        glVertex3f(a, b, a);
-        glVertex3f(a, b, b);
-        glVertex3f(a, a, b);
-        glEnd();
-        // right: yz-plane; x = size
-        glBegin(GL_QUADS);
-        glColor4f(MAGENTA);
-        glVertex3f(b, a, a);
-        glVertex3f(b, b, a);
-        glVertex3f(b, b, b);
-        glVertex3f(b, a, b);
-        glEnd();
-
-        // bottom: xy-plane; z = 0
-        glBegin(GL_QUADS);
-        glColor4f(CYAN);
-        glVertex3f(a, a, a);
-        glVertex3f(b, a, a);
-        glVertex3f(b, b, a);
-        glVertex3f(a, b, a);
-        glEnd();
-        // top: xy-plane; z = size
-        glBegin(GL_QUADS);
-        glColor4f(BLUE);
-        glVertex3f(a, a, b);
-        glVertex3f(b, a, b);
-        glVertex3f(b, b, b);
-        glVertex3f(a, b, b);
-        glEnd();
-    }
-    glPopMatrix();
-}
-
-void ogl_draw_snowman()
-{
-    glMatrixMode(GL_MODELVIEW);
-    glPushMatrix();
-    {
-        //-----------------
-        // draw the snowman
-        //-----------------
-
-        // animated rotation around z-axis (dependent on time)
-        const float cam_rotz = 50.0f * static_cast<float>(glfwGetTime()); // rotate by 50 degrees per second
-        glRotatef(cam_rotz, 0.0, 0.0, 1.0);
-
-        glRotatef(90, 1, 0, 0);
-        glScalef(0.03f, 0.03f, 0.03f);
-
-        // Draw 3 white spheres
-        glColor4f(BALL2_COLOR);
-        draw_sphere(0.8, 10, 10);
-        glTranslatef(0.0, 0.8f, 0.0);
-        draw_sphere(0.6, 10, 10);
-        glTranslatef(0.0, 0.6f, 0.0);
-        draw_sphere(0.4, 10, 10);
-
-        // Draw the eyes
-        glPushMatrix();
-        glColor4f(0.0, 0.0, 0.0, 1.0);
-        glTranslatef(0.2f, 0.2f, 0.2f);
-        draw_sphere(0.066, 10, 10);
-        glTranslatef(0, 0, -0.4f);
-        draw_sphere(0.066, 10, 10);
-        glPopMatrix();
-
-        // Draw a nose
-        glColor4f(1.0, 0.5, 0.0, 1.0);
-        glTranslatef(0.3f, 0.0, 0.0);
-        glRotatef(90, 0, 1, 0);
-        draw_cone(0.1f, 0.3, 10);
-    }
-    glPopMatrix();
-}
-
 void draw_hexagon(hexagon& hexagon, map<int, marker>& marker_map)
 {
-    // switch (hexagon.type)
-    // {
-    // default:
-    //     // case none: cout << "hexagon.type not initialized for hexagon " << endl;
-    // case none: draw_hexagon_by_color(hexagon, marker_map);
-    //     break;
-    // case full: draw_hexagon_full(hexagon, marker_map);
-    //     break;
-    // case half: draw_hexagon_by_color(hexagon, marker_map);
-    //     break;
-    // case third: draw_hexagon_third(hexagon, marker_map);
-    //     break;
-    // }
-    //
-
     if(hexagon.type == hexagon_type::full)
     {
         draw_hexagon_full(hexagon, marker_map);
@@ -401,26 +216,15 @@ void draw_hexagon_by_color(hexagon& hexagon, map<int, marker>& marker_map)
 
     glRotatef(30.f - hexagon_rotation, 0.0f, 0.0f, 1.0f);
     
-    // color_vector for testing purposes
-    const vector<color> colors{
-        color{0.9f, 0.f, 0.f, 1.f}, // start with red
-        color{0.f, 0.9f, 0.f, 1.f},
-        color{0.f, 0.f, 0.9f, 1.f},
-        color{0.9f, 0.9f, 0.f, 1.f},
-        color{0.f, 0.9f, 0.9f, 1.f},
-        color{0.9f, 0.f, 0.9f, 1.f}
-    };
-
     constexpr double angle = (M_PI / 3);
 
-    const auto [r, g, b, a] = colors[0];
+    // const auto [r, g, b, a] = colors[0];
     
     for (int i = 0; i < 6; ++i)
     {
         // get each marker's colour and apply, start with 0
-        // const auto marker = marker_map[hexagon.markers[0]];
-        // const auto [r, g, b, a] = marker_map[hexagon.markers[0]].color;
-        const auto [r, g, b, a] = colors[i];
+        // const auto marker = marker_map[hexagon.markers[i]];
+        const auto [r, g, b, a] = marker_map[hexagon.markers[i]].color;
     
         glNormal3f(0.0f, 0.0f, 1.0f);
         glBegin(GL_TRIANGLES);

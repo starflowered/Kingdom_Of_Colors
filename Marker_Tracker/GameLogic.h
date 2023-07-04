@@ -1,11 +1,7 @@
 ﻿#pragma once
 #include <vector>
 #include <unordered_map>
-#include "GameLogic_Utilities.h"
 #include "Missions.h"
-
-//it is kind of fucked we are including this, we should theoretically use pointers and forward declaration
-#include "MarkerDetectionUtilities.h"
 
 using namespace std;
 
