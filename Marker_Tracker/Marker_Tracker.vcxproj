@@ -138,6 +138,7 @@
   <ItemGroup>
     <ClCompile Include="DrawUtilities.cpp" />
     <ClCompile Include="Exercise08_New.cpp" />
+    <ClCompile Include="FontUtilities.cpp" />
     <ClCompile Include="GameLogic.cpp" />
     <ClCompile Include="GameLogic_Utilities.cpp" />
     <ClCompile Include="MarkerDetectionUtilities.cpp" />
@@ -163,6 +164,7 @@
     <Content Include="MarkerTest.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FontUtilities.h" />
     <ClInclude Include="GameLogic.h" />
     <ClInclude Include="GameLogic_Utilities.h" />
     <ClInclude Include="DrawUtilities.h" />
@@ -171,6 +173,10 @@
     <ClInclude Include="ogl_Routines.h" />
     <ClInclude Include="ogl_UI.h" />
     <ClInclude Include="Structs.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\fs.glsl" />
+    <None Include="shaders\vs.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

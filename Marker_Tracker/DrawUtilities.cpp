@@ -67,16 +67,18 @@ void init_gl(int argc, char* argv[])
     glLightfv(GL_LIGHT0, GL_DIFFUSE, light_dif);
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
+
 }
 
 void ogl_display_pnp(GLFWwindow* window, const Mat& img_bgr, map<int, hexagon>& hexagon_map,
-                     map<int, marker>& marker_map)
+    map<int, marker>& marker_map)
 {
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
     int win_width, win_height;
     glfwGetFramebufferSize(window, &win_width, &win_height);
     ogl_draw_background_image(img_bgr, win_width, win_height);
+
 
     // calling this prevented anything drawn to be visible when using an image! 
     // ogl_set_viewport_and_frustum_pnp(window, win_width, win_height);
@@ -85,6 +87,8 @@ void ogl_display_pnp(GLFWwindow* window, const Mat& img_bgr, map<int, hexagon>& 
     {
         draw_hexagon(hexagon, marker_map);
     }
+
+    FontUtilities::render_text(window, win_width, win_height,img_bgr);
 }
 
 void ogl_set_viewport_and_frustum_pnp(GLFWwindow* window, int width, int height)

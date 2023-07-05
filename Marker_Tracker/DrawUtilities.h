@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#include "FontUtilities.h"                                                      
 #include <GLFW/glfw3.h>
 #include <map>
 #include <math.h>
@@ -8,6 +9,7 @@
 
 #include "../OpenGLTutoials/DrawPrimitives.h"
 #include "Structs.h"
+
 
 using namespace cv;
 using namespace std;

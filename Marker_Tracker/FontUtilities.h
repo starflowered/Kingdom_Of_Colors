@@ -1,0 +1,40 @@
+#pragma once
+#define _CRT_SECURE_NO_WARNINGS
+#define _USE_MATH_DEFINES
+
+#include <stdio.h>
+#include <math.h>
+#include <iostream>
+#include <map>
+
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
+#include <glm/mat4x4.hpp>
+#include <glm/ext.hpp>
+
+#include <ft2build.h>
+#include <opencv2/core/mat.hpp>
+#include FT_FREETYPE_H
+using namespace cv;
+
+class FontUtilities
+{
+private: 
+
+public:
+
+	static GLuint CompileShaders(bool vs_b, bool tcs_b, bool tes_b, bool gs_b, bool fs_b);
+
+
+	static void init(GLFWwindow* window, int width, int height);
+	static int render_text(GLFWwindow* window, int width, int height,const Mat& image);
+
+};
+struct Character {
+	GLuint     TextureID;  // ID handle of the glyph texture
+	glm::ivec2 Size;       // Size of glyph
+	glm::ivec2 Bearing;    // Offset from baseline to left/top of glyph
+	GLuint     Advance;    // Offset to advance to next glyph
+};
+

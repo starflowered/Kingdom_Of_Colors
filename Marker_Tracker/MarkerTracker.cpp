@@ -1,3 +1,4 @@
+
 #include "GameLogic.h"
 
 bool update(Mat frame, VideoCapture* cap, bool frame_empty, Mat original_frame, GLFWwindow* window)
@@ -213,7 +214,7 @@ bool update(Mat frame, VideoCapture* cap, bool frame_empty, Mat original_frame, 
         Mat background_img = frame.clone();
         ogl_display_pnp(window, background_img, hexagon_map, marker_map);
         glfwSwapBuffers(window);
-
+       
 #endif
 
 #if INPUT_IMAGE
@@ -259,8 +260,10 @@ int main()
     glfwSwapInterval(1);
 
     init_gl(__argc, __argv);
+    FontUtilities::init(window, camera_width, camera_height);
 
     // --------------------------OpenGL setup--------------------------
+
 
     vector<tuple<marker, marker>> neighbours;
 
