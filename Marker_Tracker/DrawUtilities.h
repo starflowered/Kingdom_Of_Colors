@@ -25,8 +25,8 @@ using namespace std;
 #define CARROT_COLOR 0.7f, 0.5f, 0.15f, 1.0f
 
 // Camera resolution
-constexpr int camera_height = 720;
-constexpr int camera_width = 1080;
+constexpr int camera_height = 1080;
+constexpr int camera_width = 1920;
 
 void ogl_draw_background_image(const Mat& img, int win_width, int win_height);
 

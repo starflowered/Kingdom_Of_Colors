@@ -162,6 +162,7 @@ void ogl_setup_coord_sys_pnp(Mat ocv_pmat)
 
 void draw_hexagon(hexagon& hexagon, map<int, marker>& marker_map)
 {
+    cout << "draw_hexagon" << endl; 
     if(hexagon.type == hexagon_type::full)
     {
         draw_hexagon_full(hexagon, marker_map);
