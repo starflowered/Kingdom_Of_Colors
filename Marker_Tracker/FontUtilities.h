@@ -25,11 +25,11 @@ private:
 
 public:
 
-	static GLuint CompileShaders(bool vs_b, bool tcs_b, bool tes_b, bool gs_b, bool fs_b, const char* vs_path, const char* fs_path);
+	static GLuint CompileShaders( const char* vs_path, const char* fs_path);
 
 
 	static void init(int width, int height);
-	static int render_text(GLFWwindow* window, int width, int height,int color_img);
+	static int render_text( int width, int height);
 
 };
 struct Character {

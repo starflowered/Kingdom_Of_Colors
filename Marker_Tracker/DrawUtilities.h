@@ -58,5 +58,3 @@ void draw_hexagon_by_color(hexagon& hexagon, map<int, marker>& marker_map);
 void draw_hexagon_third(hexagon& hexagon, map<int, marker>& marker_map);
 
 float get_hexagon_rotation(const hexagon& hexagon, map<int, marker>& marker_map);
-
-int setup_framebuffer();

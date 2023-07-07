@@ -260,7 +260,6 @@ int main()
     glfwSwapInterval(1);
     
     init_gl(__argc, __argv);
-    setup_framebuffer();
  
     
 
