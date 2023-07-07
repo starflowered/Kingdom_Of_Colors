@@ -29,7 +29,7 @@ public:
 
 
 	static void init(int width, int height);
-	static int render_text( int width, int height);
+	static int render_text(std::string text, GLfloat xOffset, GLfloat yOffset, GLfloat scale);
 
 };
 struct Character {

@@ -99,15 +99,14 @@ void FontUtilities::init(int width, int height)
 	glUniform3f(6, 0.88f, 0.59f, 0.07f);
 }
 
-int  FontUtilities::render_text(int width, int height) {
+int  FontUtilities::render_text(std::string text, GLfloat xOffset, GLfloat yOffset, GLfloat scale ) {
 
 
 
-	std::string text("Super");
 
-	GLfloat x = 1.0f;
-	GLfloat y = 300.0f;
-	GLfloat scale = 1.0f;
+
+	GLfloat x = xOffset;
+	GLfloat y = yOffset;
 
 
 	glUseProgram(shader);

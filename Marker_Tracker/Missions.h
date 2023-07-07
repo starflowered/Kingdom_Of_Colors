@@ -15,16 +15,17 @@ struct marker;
 
 #define SCORE_PER_MISSION 100
 
-
+using Mission = std::tuple<std::string, std::function<int(int, std::unordered_map<int, std::array<bool, 6>>)>, int>;
 class Missions
 {
 public:
 	//tuples of the form <task formulation, number of function, chosen color>
-	std::array<std::tuple<std::string, std::function<int(int, std::unordered_map<int, std::array<bool, 6>>)>, int> ,3> get_current_random_missions();
+	std::array<Mission ,3> get_current_random_missions();
 	int computeMissionScore();
 	Missions();
 	void output_missions();
-
+	std::string get_mission_status_as_string(int missionNr);
+	
 
 private:
 	//state of current missions (has the player completed them or not?)
@@ -32,7 +33,7 @@ private:
 
 	//array with the current missions of this game's playthrough. stores their formulation, the function to check whether mission is successfully
 	//achieved and the color index of the mission (e.g. mission uses red tiles -> stores color index for red)
-	std::array<std::tuple<std::string, std::function<int(int, std::unordered_map<int, std::array<bool, 6>>)>, int>, 3> current_missions;
+	std::array<Mission, 3> current_missions;
 	
 	
 	std::function<int(int, std::unordered_map<int, std::array<bool, 6>>)> f_three_tiles= std::bind(&three_tiles_in_a_row, std::placeholders::_1, std::placeholders::_2);

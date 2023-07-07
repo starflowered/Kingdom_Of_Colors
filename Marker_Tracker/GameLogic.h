@@ -39,6 +39,6 @@ private:
 public:
     
     int calculate_game_score(const vector<tuple<marker, marker>>& matches);
-    
+    Missions& get_missions();
     
 };

@@ -13,7 +13,7 @@ void main()
 {
 
     if(texture(text,TexCoords).r==1)
-        color= vec4(1.0,0.0,0.0,1.0);
+        color= vec4(1.0,1.0,1.0,1.0);
     else
         discard;
 

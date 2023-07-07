@@ -226,3 +226,8 @@ void GameLogic::update_tile_matches_per_marker(int max_hex_id)
     }
     GameLogic_Utilities::set_current_matched_markers_per_tiles(result);
 }
+
+Missions& GameLogic::get_missions()
+{
+    return missions;
+}

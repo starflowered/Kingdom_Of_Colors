@@ -1,7 +1,7 @@
 #include "Missions.h"
 
 
-std::array<std::tuple<std::string, std::function<int(int, std::unordered_map<int, std::array<bool, 6>>)>, int>, 3> Missions::get_current_random_missions()
+std::array<Mission, 3> Missions::get_current_random_missions()
 {
 	return current_missions;
 }
@@ -10,7 +10,7 @@ std::array<std::tuple<std::string, std::function<int(int, std::unordered_map<int
 //chooses 3 random questions for our missions, and returns <question text, function of question, color of that mission>
 Missions::Missions()
 {
-	std::array<std::tuple<std::string, std::function<int(int, std::unordered_map<int, std::array<bool, 6>>)>, int>, 3> result;
+	std::array<Mission, 3> result;
 	for (int i = 0; i < 3; i++)
 	{
 		int selected_question = std::rand() % possible_missions.size();
@@ -147,18 +147,27 @@ void Missions::output_missions()
 {
 	std::cout << "---------Update of current mission status----------" << std::endl;
 	int i = 0;
-	for (auto m : current_missions)
+	for (int i =0; i< current_missions.size();i++)
 	{
-		std::string status;
-		if (finished_missions[i])
-			status = "DONE";
-		else
-			status = "TODO";
-		i++;
-		std::cout << "Mission " << i << ": " << std::get<0>(m) << " (" << status << "), Points for Mission: " << SCORE_PER_MISSION << std::endl;
+		
+		std::cout << get_mission_status_as_string(i) << std::endl;
 	}
 	std::cout << "---------------------------------------------------" << std::endl;
 }
 
+std::string Missions::get_mission_status_as_string(int missionNr)
+{
+	if (missionNr < 0 || missionNr >= current_missions.size())
+		return "";
+	std::string status;
+	Mission m = current_missions.at(missionNr);
+	if (finished_missions[missionNr])
+		status = "DONE";
+	else
+		status = "TODO";
+	std::string result = "Mission " + to_string(missionNr + 1) + ": " + std::get<0>(m)
+		+ " (" + status + "), Points for Mission: " + to_string(SCORE_PER_MISSION);
+	return result;
+}
 
 

@@ -12,6 +12,7 @@ bool update(Mat frame, VideoCapture* cap, bool frame_empty, Mat original_frame, 
     constexpr int stripe_amount = 8;
     constexpr int max_frame_count = 10;
     int frame_count = max_frame_count - 1;
+    GameLogic gamelogic;
 
 #if INPUT_IMAGE
     while (!frame_empty || cap->read(frame))
@@ -213,6 +214,18 @@ bool update(Mat frame, VideoCapture* cap, bool frame_empty, Mat original_frame, 
 
         Mat background_img = frame.clone();
         ogl_display_pnp(window, background_img, hexagon_map, marker_map);
+        GLfloat xOffset = 1.0f;
+        GLfloat yOffset = 200.0f;
+        GLfloat textScale = 1.0f;
+        FontUtilities::render_text("Score: " +std::to_string( gamelogic.calculate_game_score(marker_neighbours)),xOffset,yOffset, textScale);
+        yOffset -= 50;
+        textScale = 0.5f;
+        for (int i =0; i< gamelogic.get_missions().get_current_random_missions().size();i++)
+        {
+            std::string missionString = gamelogic.get_missions().get_mission_status_as_string(i);
+            FontUtilities::render_text(missionString, xOffset, yOffset, textScale);
+            yOffset -= 30;
+        }
         glfwSwapBuffers(window);
        
 #endif
