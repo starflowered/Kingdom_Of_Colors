@@ -15,6 +15,7 @@
 
 #include <ft2build.h>
 #include <opencv2/core/mat.hpp>
+#include <algorithm>
 #include FT_FREETYPE_H
 using namespace cv;
 
@@ -24,11 +25,11 @@ private:
 
 public:
 
-	static GLuint CompileShaders(bool vs_b, bool tcs_b, bool tes_b, bool gs_b, bool fs_b);
+	static GLuint CompileShaders(bool vs_b, bool tcs_b, bool tes_b, bool gs_b, bool fs_b, const char* vs_path, const char* fs_path);
 
 
-	static void init(GLFWwindow* window, int width, int height);
-	static int render_text(GLFWwindow* window, int width, int height,const Mat& image);
+	static void init(int width, int height);
+	static int render_text(GLFWwindow* window, int width, int height,int color_img);
 
 };
 struct Character {

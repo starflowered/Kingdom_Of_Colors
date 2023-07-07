@@ -261,7 +261,7 @@ int main()
     
     init_gl(__argc, __argv);
     setup_framebuffer();
-    //FontUtilities::init(window, camera_width, camera_height);
+ 
     
 
     // --------------------------OpenGL setup--------------------------

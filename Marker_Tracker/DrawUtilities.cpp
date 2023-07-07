@@ -183,31 +183,28 @@ void init_gl(int argc, char* argv[])
 void ogl_display_pnp(GLFWwindow* window, const Mat& img_bgr, map<int, hexagon>& hexagon_map,
     map<int, marker>& marker_map)
 {
-    glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
+    glActiveTexture(GL_TEXTURE1);
+    glBindFramebuffer(GL_FRAMEBUFFER,0);
     glUseProgram(0);
-    glClearColor(0.7f, 0.7f, 0.7f, 1.0f);
+    glClearColor(0.7f, 0.7f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     int win_width, win_height;
     glfwGetFramebufferSize(window, &win_width, &win_height);
     ogl_draw_background_image(img_bgr, win_width, win_height);
+    
 
     // calling this prevented anything drawn to be visible when using an image! 
-    //ogl_set_viewport_and_frustum_pnp(window, win_width, win_height);
+    ogl_set_viewport_and_frustum_pnp(window, win_width, win_height);
 
     for (auto& hexagon : hexagon_map | views::values)
     {
         draw_hexagon(hexagon, marker_map);
     }
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    glDisable(GL_DEPTH_TEST);
-    glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glUseProgram(drawShader);
-    int uniform_WindowSize = glGetUniformLocation(drawShader, "WindowSize");
-    glUniform2f(uniform_WindowSize, win_width, win_height);
-    glBindVertexArray(quadVAO);
-    glBindTexture(GL_TEXTURE_2D, textureColorbuffer);	// use the color attachment texture as the texture of the quad plane
-    glDrawArrays(GL_TRIANGLES, 0, 6);
+    
+
+   // FontUtilities::render_text(window, win_width, win_height, textureColorbuffer);
+    
     
 /*    glUseProgram(drawShader);
     glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
@@ -295,12 +292,15 @@ int setup_framebuffer()
     int height = camera_height;
     glewInit();
     glfwInit();
-   // drawShader= createShader("shaders//vs_drawing.glsl", "shaders//fs_drawing.glsl");
+   // drawShader= createShader("shaders//vs_projection.glsl", "shaders//fs_projection.glsl");
    // texShader = createShader("shaders//vs.glsl", "shaders//fs.glsl");
 
-    drawShader=FontUtilities::CompileShaders(true, false, false, false, true);
+    drawShader=FontUtilities::CompileShaders(true, false, false, false, true,"shaders//vs.glsl", "shaders//fs_projection.glsl");
     checkCompileErrors(drawShader, "PROGRAM");
     glUseProgram(drawShader);
+
+    int uniform_WindowSize = glGetUniformLocation(drawShader, "WindowSize");
+    glUniform2f(uniform_WindowSize, width, height);
 
     glGenVertexArrays(1, &quadVAO);
     glGenBuffers(1, &quadVBO);
@@ -316,13 +316,13 @@ int setup_framebuffer()
     glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
 
     // generate texture
-
+    glActiveTexture(GL_TEXTURE1);
     glGenTextures(1, &textureColorbuffer);
     glBindTexture(GL_TEXTURE_2D, textureColorbuffer);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width,height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glBindTexture(GL_TEXTURE_2D, 0);
+    glBindTexture(GL_TEXTURE_2D, 1);
 
     // attach it to currently bound framebuffer object
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureColorbuffer, 0);
@@ -344,7 +344,9 @@ int setup_framebuffer()
     }
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-    cout << "done setup " << endl;
+    cout << "done setup framebuffer " << endl;
+    FontUtilities::init(width, height);
+    cout << "done fontutilities init" << endl;
     return 0;
 }
 

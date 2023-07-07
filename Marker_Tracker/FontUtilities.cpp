@@ -8,35 +8,28 @@ FT_Face face;
 std::map<GLchar, Character> Characters;
 GLuint buffer;
 
-void BindCVMat2GLTexture(const cv::Mat& image, GLuint& imageTexture)
+
+void checkCompileErrors1(GLuint shader, std::string type)
 {
-	if (image.empty()) {
-		std::cout << "image empty" << std::endl;
+	GLint success;
+	GLchar infoLog[1024];
+	if (type != "PROGRAM")
+	{
+		glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+		if (!success)
+		{
+			glGetShaderInfoLog(shader, 1024, NULL, infoLog);
+			std::cout << "ERROR::SHADER_COMPILATION_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
+		}
 	}
-	else {
-		//glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-		glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-		glGenTextures(1, &imageTexture);
-		glBindTexture(GL_TEXTURE_2D, imageTexture);
-
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-		// Set texture clamping method
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-
-		cv::cvtColor(image, image, cv::COLOR_RGB2BGR);
-
-		glTexImage2D(GL_TEXTURE_2D,         // Type of texture
-			0,                   // Pyramid level (for mip-mapping) - 0 is the top level
-			GL_RGB,              // Internal colour format to convert to
-			image.cols,          // Image width  i.e. 640 for Kinect in standard mode
-			image.rows,          // Image height i.e. 480 for Kinect in standard mode
-			0,                   // Border width in pixels (can either be 1 or 0)
-			GL_RGB,              // Input image format (i.e. GL_RGB, GL_RGBA, GL_BGR etc.)
-			GL_UNSIGNED_BYTE,    // Image data type
-			image.ptr());        // The actual image data itself
+	else
+	{
+		glGetProgramiv(shader, GL_LINK_STATUS, &success);
+		if (!success)
+		{
+			glGetProgramInfoLog(shader, 1024, NULL, infoLog);
+			std::cout << "ERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
+		}
 	}
 }
 
@@ -44,63 +37,72 @@ void BindCVMat2GLTexture(const cv::Mat& image, GLuint& imageTexture)
 void APIENTRY GLDebugMessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* msg, const void* data) {
 	printf("%d: %s\n", id, msg);
 }
-void FontUtilities::init(GLFWwindow* window, int width, int height)
+void FontUtilities::init(int width, int height)
 {
-	glfwInit();
-	glfwMakeContextCurrent(window);
-
-	glewInit();
+	glActiveTexture(GL_TEXTURE0);
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_DEBUG_OUTPUT);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glDebugMessageCallback(GLDebugMessageCallback, NULL);
 	glViewport(0, 0, width, height);
 
-	shader = FontUtilities::CompileShaders(true, false, false, false, true);
-
-	glUseProgram(shader);
-	int uniform_WindowSize = glGetUniformLocation(shader, "WindowSize");
-	glUniform2f(uniform_WindowSize, width,height);
-
 	FT_Init_FreeType(&ft);
-
 
 	FT_New_Face(ft, "Fonts/FreeSans.ttf", 0, &face);
 
 	FT_Set_Pixel_Sizes(face, 0, 48);
 
-	
+	shader = CompileShaders(true, false, false, false, true, "shaders//vs_projection.glsl", "shaders//fs.glsl");
+	checkCompileErrors1(shader, "PROGRAM");
 
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // disable byte-alignment restriction
 
-	for (GLubyte c = 0; c < 128; c++) {
-		FT_Load_Char(face, c, FT_LOAD_RENDER);
-
-		GLuint texture;
-		glCreateTextures(GL_TEXTURE_2D, 1, &texture);
-		glTextureStorage2D(texture, 1, GL_R8, face->glyph->bitmap.width, face->glyph->bitmap.rows);
-		glTextureSubImage2D(texture, 0, 0, 0, face->glyph->bitmap.width, face->glyph->bitmap.rows, GL_RED, GL_UNSIGNED_BYTE, face->glyph->bitmap.buffer);
-
+	for (unsigned char c = 0; c < 128; c++)
+	{
+		// load character glyph 
+		if (FT_Load_Char(face, c, FT_LOAD_RENDER))
+		{
+			std::cout << "ERROR::FREETYTPE: Failed to load Glyph" << std::endl;
+			continue;
+		}
+		// generate texture
+		unsigned int texture;
+		glGenTextures(1, &texture);
 		glBindTexture(GL_TEXTURE_2D, texture);
+		glTexImage2D(
+			GL_TEXTURE_2D,
+			0,
+			GL_RED,
+			face->glyph->bitmap.width,
+			face->glyph->bitmap.rows,
+			0,
+			GL_RED,
+			GL_UNSIGNED_BYTE,
+			face->glyph->bitmap.buffer
+		);
+		// set texture options
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glBindTexture(GL_TEXTURE_2D, 0);
-
+		// now store character for later use
 		Character character = {
-		texture,
-		glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
-		glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
-		face->glyph->advance.x
+			texture,
+			glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
+			glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
+			face->glyph->advance.x
 		};
-		Characters.insert(std::pair<GLchar, Character>(c, character));
+		Characters.insert(std::pair<char, Character>(c, character));
 	}
 
 	FT_Done_Face(face);
 	FT_Done_FreeType(ft);
 
-	glm::mat4 projection = glm::ortho(0.0f, (float)width, 0.0f, (float)height);
-	glUniformMatrix4fv(1, 1, GL_FALSE, glm::value_ptr(projection));
+	glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(width), 0.0f, static_cast<float>(height));
+	glUseProgram(shader);
+	glUniformMatrix4fv(glGetUniformLocation(shader, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+	
 
 	GLuint vao;
 	glCreateVertexArrays(1, &vao);
@@ -116,19 +118,36 @@ void FontUtilities::init(GLFWwindow* window, int width, int height)
 	glEnableVertexArrayAttrib(vao, 0);
 
 	glUniform3f(6, 0.88f, 0.59f, 0.07f);
+	glActiveTexture(GL_TEXTURE1);
 }
 
-int  FontUtilities::render_text(GLFWwindow* window, int width, int height,const Mat& image){
+int  FontUtilities::render_text(GLFWwindow* window, int width, int height,int color_img){
 
-	std::string text("Super long text longer than initial");
-	
-	
-		glClear(GL_COLOR_BUFFER_BIT);
+
+	float quadVertices[] = { // vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
+		// positions   // texCoords
+		-1.0f,  1.0f,  0.0f, 1.0f,
+		-1.0f, -1.0f,  0.0f, 0.0f,
+		 1.0f, -1.0f,  1.0f, 0.0f,
+
+		-1.0f,  1.0f,  0.0f, 1.0f,
+		 1.0f, -1.0f,  1.0f, 0.0f,
+		 1.0f,  1.0f,  1.0f, 1.0f
+	};
+
+	std::string text("Super");
+
 		GLfloat x = 1.0f;
 		GLfloat y = 300.0f;
 		GLfloat scale = 1.0f;
-
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, color_img);
+		glNamedBufferSubData(buffer, 0, sizeof(GLfloat) * 6 * 4, quadVertices);
+		glBindTexture(GL_TEXTURE_2D, 1);
+		glDrawArrays(GL_TRIANGLES, 0, 6);
+		glUseProgram(shader);
 		glActiveTexture(GL_TEXTURE0);
+
 		std::string::const_iterator c;
 		for (c = text.begin(); c != text.end(); c++) {
 			Character ch = Characters[*c];
@@ -155,17 +174,15 @@ int  FontUtilities::render_text(GLFWwindow* window, int width, int height,const 
 
 		}
 		
-		glActiveTexture(GL_TEXTURE1);
-		GLuint texture;
-		BindCVMat2GLTexture(image, texture);
-		glBindTexture(GL_TEXTURE_2D, texture);	
 
+		
+		glActiveTexture(GL_TEXTURE1);
 	return 0;
 }
 
 
 
-GLuint  FontUtilities::CompileShaders(bool vs_b, bool tcs_b, bool tes_b, bool gs_b, bool fs_b) {
+GLuint  FontUtilities::CompileShaders(bool vs_b, bool tcs_b, bool tes_b, bool gs_b, bool fs_b, const char* vs_path, const char* fs_path) {
 
 	GLuint shader_programme = glCreateProgram();
 
@@ -176,7 +193,7 @@ GLuint  FontUtilities::CompileShaders(bool vs_b, bool tcs_b, bool tes_b, bool gs
 		long vs_file_len;
 		char* vertex_shader;
 
-		vs_file = fopen("shaders//vs.glsl", "rb");
+		vs_file = fopen(vs_path, "rb");
 
 		fseek(vs_file, 0, SEEK_END);
 		vs_file_len = ftell(vs_file);
@@ -334,7 +351,7 @@ GLuint  FontUtilities::CompileShaders(bool vs_b, bool tcs_b, bool tes_b, bool gs
 		long fs_file_len;
 		char* fragment_shader;
 
-		fs_file = fopen("shaders//fs.glsl", "rb");
+		fs_file = fopen(fs_path, "rb");
 
 		fseek(fs_file, 0, SEEK_END);
 		fs_file_len = ftell(fs_file);
