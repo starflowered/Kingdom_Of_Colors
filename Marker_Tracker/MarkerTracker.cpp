@@ -258,9 +258,11 @@ int main()
 
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
-
+    
     init_gl(__argc, __argv);
-    FontUtilities::init(window, camera_width, camera_height);
+    setup_framebuffer();
+    //FontUtilities::init(window, camera_width, camera_height);
+    
 
     // --------------------------OpenGL setup--------------------------
 

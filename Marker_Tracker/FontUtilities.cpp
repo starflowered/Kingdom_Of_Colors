@@ -123,7 +123,7 @@ int  FontUtilities::render_text(GLFWwindow* window, int width, int height,const 
 	std::string text("Super long text longer than initial");
 	
 	
-		//glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT);
 		GLfloat x = 1.0f;
 		GLfloat y = 300.0f;
 		GLfloat scale = 1.0f;

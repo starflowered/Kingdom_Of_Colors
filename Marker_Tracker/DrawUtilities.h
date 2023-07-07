@@ -30,6 +30,7 @@ using namespace std;
 constexpr int camera_height = 1080;
 constexpr int camera_width = 1920;
 
+
 void ogl_draw_background_image(const Mat& img, int win_width, int win_height);
 
 void init_gl(int argc, char* argv[]);
@@ -57,3 +58,5 @@ void draw_hexagon_by_color(hexagon& hexagon, map<int, marker>& marker_map);
 void draw_hexagon_third(hexagon& hexagon, map<int, marker>& marker_map);
 
 float get_hexagon_rotation(const hexagon& hexagon, map<int, marker>& marker_map);
+
+int setup_framebuffer();
