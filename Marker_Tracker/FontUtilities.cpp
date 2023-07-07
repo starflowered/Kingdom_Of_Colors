@@ -40,10 +40,9 @@ void APIENTRY GLDebugMessageCallback(GLenum source, GLenum type, GLuint id, GLen
 void FontUtilities::init(int width, int height)
 {
 	glActiveTexture(GL_TEXTURE0);
-	glEnable(GL_CULL_FACE);
 	glEnable(GL_DEBUG_OUTPUT);
 	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glDebugMessageCallback(GLDebugMessageCallback, NULL);
 	glViewport(0, 0, width, height);
 
@@ -101,6 +100,7 @@ void FontUtilities::init(int width, int height)
 
 	glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(width), 0.0f, static_cast<float>(height));
 	glUseProgram(shader);
+	std::cout << " draw shader: " <<shader << std::endl;
 	glUniformMatrix4fv(glGetUniformLocation(shader, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 	
 
@@ -118,33 +118,19 @@ void FontUtilities::init(int width, int height)
 	glEnableVertexArrayAttrib(vao, 0);
 
 	glUniform3f(6, 0.88f, 0.59f, 0.07f);
-	glActiveTexture(GL_TEXTURE1);
 }
 
 int  FontUtilities::render_text(GLFWwindow* window, int width, int height,int color_img){
 
 
-	float quadVertices[] = { // vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
-		// positions   // texCoords
-		-1.0f,  1.0f,  0.0f, 1.0f,
-		-1.0f, -1.0f,  0.0f, 0.0f,
-		 1.0f, -1.0f,  1.0f, 0.0f,
-
-		-1.0f,  1.0f,  0.0f, 1.0f,
-		 1.0f, -1.0f,  1.0f, 0.0f,
-		 1.0f,  1.0f,  1.0f, 1.0f
-	};
 
 	std::string text("Super");
 
 		GLfloat x = 1.0f;
 		GLfloat y = 300.0f;
 		GLfloat scale = 1.0f;
-		glActiveTexture(GL_TEXTURE1);
-		glBindTexture(GL_TEXTURE_2D, color_img);
-		glNamedBufferSubData(buffer, 0, sizeof(GLfloat) * 6 * 4, quadVertices);
-		glBindTexture(GL_TEXTURE_2D, 1);
-		glDrawArrays(GL_TRIANGLES, 0, 6);
+		
+
 		glUseProgram(shader);
 		glActiveTexture(GL_TEXTURE0);
 
@@ -173,10 +159,7 @@ int  FontUtilities::render_text(GLFWwindow* window, int width, int height,int co
 			x += (ch.Advance >> 6) * scale;
 
 		}
-		
 
-		
-		glActiveTexture(GL_TEXTURE1);
 	return 0;
 }
 

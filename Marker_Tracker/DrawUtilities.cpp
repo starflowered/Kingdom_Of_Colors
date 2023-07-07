@@ -11,6 +11,7 @@ unsigned int framebuffer;
 unsigned int textureColorbuffer;
 unsigned int rbo;
 unsigned int quadVAO, quadVBO;
+unsigned int defaultShader;
 
 float quadVertices[] = { // vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
     // positions   // texCoords
@@ -102,12 +103,12 @@ unsigned int createShader(const char* vertexPath, const char* fragmentPath)
     glLinkProgram(ID);
     checkCompileErrors(ID, "PROGRAM");
     // delete the shaders as they're linked into our program now and no longer necessary
-   // glDeleteShader(vertex);
-   // glDeleteShader(fragment);
+    glDeleteShader(vertex);
+    glDeleteShader(fragment);
     return ID;
 
 }
-unsigned int drawShader;
+GLint drawShader;
 
 
 void ogl_draw_background_image(const Mat& img, const int win_width, const int win_height)
@@ -183,27 +184,29 @@ void init_gl(int argc, char* argv[])
 void ogl_display_pnp(GLFWwindow* window, const Mat& img_bgr, map<int, hexagon>& hexagon_map,
     map<int, marker>& marker_map)
 {
-    glActiveTexture(GL_TEXTURE1);
+ //   glActiveTexture(GL_TEXTURE1);
     glBindFramebuffer(GL_FRAMEBUFFER,0);
     glUseProgram(0);
     glClearColor(0.7f, 0.7f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     int win_width, win_height;
     glfwGetFramebufferSize(window, &win_width, &win_height);
+    
     ogl_draw_background_image(img_bgr, win_width, win_height);
     
 
     // calling this prevented anything drawn to be visible when using an image! 
-    ogl_set_viewport_and_frustum_pnp(window, win_width, win_height);
+    //ogl_set_viewport_and_frustum_pnp(window, win_width, win_height);
 
     for (auto& hexagon : hexagon_map | views::values)
     {
         draw_hexagon(hexagon, marker_map);
     }
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    
 
-   // FontUtilities::render_text(window, win_width, win_height, textureColorbuffer);
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    glClear(GL_DEPTH_BUFFER_BIT);
+    glDisable(GL_DEPTH_TEST);
+    FontUtilities::render_text(window, win_width, win_height, textureColorbuffer);
     
     
 /*    glUseProgram(drawShader);
@@ -295,9 +298,8 @@ int setup_framebuffer()
    // drawShader= createShader("shaders//vs_projection.glsl", "shaders//fs_projection.glsl");
    // texShader = createShader("shaders//vs.glsl", "shaders//fs.glsl");
 
-    drawShader=FontUtilities::CompileShaders(true, false, false, false, true,"shaders//vs.glsl", "shaders//fs_projection.glsl");
+    drawShader = FontUtilities::CompileShaders(true, false, false, false, true, "shaders//vs.glsl", "shaders//fs_projection.glsl");
     checkCompileErrors(drawShader, "PROGRAM");
-    glUseProgram(drawShader);
 
     int uniform_WindowSize = glGetUniformLocation(drawShader, "WindowSize");
     glUniform2f(uniform_WindowSize, width, height);
@@ -342,11 +344,12 @@ int setup_framebuffer()
         std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
         return -1;
     }
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    
 
     cout << "done setup framebuffer " << endl;
     FontUtilities::init(width, height);
     cout << "done fontutilities init" << endl;
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
     return 0;
 }
 
