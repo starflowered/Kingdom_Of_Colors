@@ -194,11 +194,13 @@ bool update(Mat frame, VideoCapture* cap, bool frame_empty, Mat original_frame, 
             compute_hexagon_positions(marker_map, hexagon_map);
             const int current_amount_hexagons = marker_map.size() / 6;
             // cout << current_amount_hexagons << " " << marker_map.size() << endl;
-            if (current_amount_hexagons > amount_hexagons)
+            //this condition doesn't work well if camera is bad, one hexagon could be skipped, another one could appear in the same frame
+            /*if (current_amount_hexagons > amount_hexagons)
             {
                 amount_hexagons = current_amount_hexagons;
                 marker_neighbours = compute_neighbours(frame, marker_map, hexagon_map);
-            }
+            }*/
+            marker_neighbours = compute_neighbours(frame, marker_map, hexagon_map);
             
             // for (auto & [id, hexagon] : hexagon_map)
             // {
@@ -217,7 +219,10 @@ bool update(Mat frame, VideoCapture* cap, bool frame_empty, Mat original_frame, 
         GLfloat xOffset = 1.0f;
         GLfloat yOffset = 200.0f;
         GLfloat textScale = 1.0f;
-        FontUtilities::render_text("Score: " +std::to_string( gamelogic.calculate_game_score(marker_neighbours)),xOffset,yOffset, textScale);
+        int game_score = gamelogic.calculate_game_score(marker_neighbours);
+        FontUtilities::render_text("Score: " +std::to_string(game_score) ,xOffset,yOffset, textScale);
+        std::cout << "Number neighbors " << marker_neighbours.size() << std::endl;
+        std::cout << "game_score: " << game_score << std::endl;
         yOffset -= 50;
         textScale = 0.5f;
         for (int i =0; i< gamelogic.get_missions().get_current_random_missions().size();i++)

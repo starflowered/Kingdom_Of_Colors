@@ -485,8 +485,8 @@ vector<tuple<marker, marker>> compute_neighbours(Mat frame, const map<int, marke
     // list of all marker-pairs computed to be neighbours
     vector<tuple<marker, marker>> neighbours{};
 
-    constexpr float marker_distance_threshold = 180; // sqrtf(2) * marker_size + 0.01f;
-    constexpr float hexagon_distance_threshold = 450; // sqrtf(2) * marker_size + 0.01f;
+    constexpr float marker_distance_threshold = 50; // sqrtf(2) * marker_size + 0.01f;
+    constexpr float hexagon_distance_threshold = 200; // sqrtf(2) * marker_size + 0.01f;
 
     // --------------------- optimization 1 ---------------------
 
@@ -517,7 +517,7 @@ vector<tuple<marker, marker>> compute_neighbours(Mat frame, const map<int, marke
     for (auto& [id1, hex1] : hexagon_map)
     {
         hexagon* hexagon1 = &hex1;
-        // circle(frame, hexagon1->center_position, 10, CV_RGB(255, 0, 255), -1);
+        //circle(frame, hexagon1->center_position, 10, CV_RGB(255, 0, 255), -1);
         // create an empty entry for all hexagons for future matching
         matched_hexagons.try_emplace(id1, vector<int>());
 
@@ -530,7 +530,7 @@ vector<tuple<marker, marker>> compute_neighbours(Mat frame, const map<int, marke
             // probe distance
             const Point2f distance_vector = hexagon1->center_position - hexagon2->center_position;
             const float distance = sqrtf(powf(distance_vector.x, 2) + powf(distance_vector.y, 2));
-
+            cout << "hexagon distance " << distance << endl;
             comparison_amount++;
 
             // update hexagons' neighbours list to later use as condition to check markers
@@ -610,7 +610,7 @@ vector<tuple<marker, marker>> compute_neighbours(Mat frame, const map<int, marke
                     const Point2f distance_vector = marker1.center_position - marker2.center_position;
                     const float distance = sqrtf(powf(distance_vector.x, 2) + powf(distance_vector.y, 2));
 
-                    // if (distance < 180) cout << distance << endl;
+                    if (distance < 500) cout << distance << endl;
 
                     comparison_amount++;
 
