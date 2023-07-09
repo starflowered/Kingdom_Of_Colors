@@ -175,4 +175,11 @@ std::string Missions::get_mission_status_as_string(int missionNr)
 	return result;
 }
 
+bool Missions::status_of_mission(int index)
+{
+	if(current_missions.size()<= index || index <0)
+		return false;
+	return finished_missions[index];
+}
+
 

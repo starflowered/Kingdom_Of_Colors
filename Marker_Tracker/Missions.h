@@ -25,6 +25,7 @@ public:
 	Missions();
 	void output_missions();
 	std::string get_mission_status_as_string(int missionNr);
+	bool status_of_mission(int index);
 	
 
 private:

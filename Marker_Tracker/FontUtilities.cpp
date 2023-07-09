@@ -118,14 +118,17 @@ void FontUtilities::init(int width, int height)
  * \param scale How big the text should be. 1.0 = 48pixel height per symbol
  */
 
-void  FontUtilities::render_text(std::string text, GLfloat xOffset, GLfloat yOffset, GLfloat scale )
+void  FontUtilities::render_text(std::string text, GLfloat xOffset, GLfloat yOffset, GLfloat scale, color color )
 {
 
 	GLfloat x = xOffset;
 	GLfloat y = yOffset;
 
+	
 
 	glUseProgram(shader);
+	glUniform4f(2, color.r, color.g, color.b, color.a);
+	
 
 	//Write character for character on the screen
 	std::string::const_iterator c;

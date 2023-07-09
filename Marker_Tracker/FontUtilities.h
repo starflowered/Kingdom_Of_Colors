@@ -16,6 +16,7 @@
 #include <ft2build.h>
 #include <opencv2/core/mat.hpp>
 #include <algorithm>
+#include "Structs.h"
 #include FT_FREETYPE_H
 using namespace cv;
 
@@ -44,7 +45,7 @@ public:
 
 
 	static void init(int width, int height);
-	static void render_text(std::string text, GLfloat xOffset, GLfloat yOffset, GLfloat scale);
+	static void render_text(std::string text, GLfloat xOffset, GLfloat yOffset, GLfloat scale, color color);
 
 };
 

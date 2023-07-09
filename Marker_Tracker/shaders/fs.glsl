@@ -5,15 +5,14 @@ in vec2 TexCoords;
 out vec4 color;
 
 layout (binding = 0) uniform sampler2D text;
+layout (location = 2) uniform vec4 colorText;
 
-
-uniform vec2 WindowSize;
 
 void main()
 {
 
     if(texture(text,TexCoords).r==1)
-        color= vec4(1.0,1.0,1.0,1.0);
+        color= colorText;
     else
         discard;
 

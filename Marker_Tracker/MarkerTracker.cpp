@@ -220,7 +220,8 @@ bool update(Mat frame, VideoCapture* cap, bool frame_empty, Mat original_frame, 
         GLfloat yOffset = 200.0f;
         GLfloat textScale = 1.0f;
         int game_score = gamelogic.calculate_game_score(marker_neighbours);
-        FontUtilities::render_text("Score: " +std::to_string(game_score) ,xOffset,yOffset, textScale);
+        color c(1.0f, 1.0f, 1.0f, 1.0f);
+        FontUtilities::render_text("Score: " +std::to_string(game_score) ,xOffset,yOffset, textScale,c);
         std::cout << "Number neighbors " << marker_neighbours.size() << std::endl;
         std::cout << "game_score: " << game_score << std::endl;
         yOffset -= 50;
@@ -228,7 +229,11 @@ bool update(Mat frame, VideoCapture* cap, bool frame_empty, Mat original_frame, 
         for (int i =0; i< gamelogic.get_missions().get_current_random_missions().size();i++)
         {
             std::string missionString = gamelogic.get_missions().get_mission_status_as_string(i);
-            FontUtilities::render_text(missionString, xOffset, yOffset, textScale);
+            if (gamelogic.get_missions().status_of_mission(i))
+                c = color(0.0f, 0.8f, 0.2f, 1.0f);
+            else
+                c = color(0.7f, 0.7f, 0.0f, 1.0f);
+            FontUtilities::render_text(missionString, xOffset, yOffset, textScale,c);
             yOffset -= 30;
         }
         glfwSwapBuffers(window);
