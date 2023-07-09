@@ -19,9 +19,24 @@
 #include FT_FREETYPE_H
 using namespace cv;
 
+struct Character {
+	GLuint     TextureID;  // ID handle of the glyph texture
+	glm::ivec2 Size;       // Size of glyph
+	glm::ivec2 Bearing;    // Offset from baseline to left/top of glyph
+	GLuint     Advance;    // Offset to advance to next glyph
+};
+
+
 class FontUtilities
 {
 private: 
+
+	static GLuint shader;
+	static FT_Library ft;
+	static FT_Face face;
+	static std::map<GLchar, Character> Characters;
+	static GLuint buffer;
+
 
 public:
 
@@ -29,13 +44,7 @@ public:
 
 
 	static void init(int width, int height);
-	static int render_text(std::string text, GLfloat xOffset, GLfloat yOffset, GLfloat scale);
+	static void render_text(std::string text, GLfloat xOffset, GLfloat yOffset, GLfloat scale);
 
-};
-struct Character {
-	GLuint     TextureID;  // ID handle of the glyph texture
-	glm::ivec2 Size;       // Size of glyph
-	glm::ivec2 Bearing;    // Offset from baseline to left/top of glyph
-	GLuint     Advance;    // Offset to advance to next glyph
 };
 

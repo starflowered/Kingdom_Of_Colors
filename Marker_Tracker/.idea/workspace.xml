@@ -19,10 +19,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="12547be8-8a4f-41ce-a647-c49318e0e17b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/DrawUtilities.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/DrawUtilities.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DrawUtilities.h" beforeDir="false" afterPath="$PROJECT_DIR$/DrawUtilities.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MarkerTracker.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/MarkerTracker.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Marker_Tracker.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/Marker_Tracker.vcxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FontUtilities.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/FontUtilities.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FontUtilities.h" beforeDir="false" afterPath="$PROJECT_DIR$/FontUtilities.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Missions.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Missions.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,6 +69,7 @@
       <updated>1687797017902</updated>
       <workItem from="1687797018927" duration="182000" />
       <workItem from="1688520264992" duration="6890000" />
+      <workItem from="1688683666507" duration="20124000" />
     </task>
     <servers />
   </component>

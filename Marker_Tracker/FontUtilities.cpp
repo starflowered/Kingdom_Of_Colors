@@ -2,18 +2,30 @@
 #include <opencv2/imgproc.hpp>
 
 
-GLuint shader;
-FT_Library ft;
-FT_Face face;
-std::map<GLchar, Character> Characters;
-GLuint buffer;
+/*
+	This class is responsible for the text Output on the screen.
+*/
 
 
+
+GLuint FontUtilities::shader;
+FT_Library FontUtilities::ft;
+FT_Face FontUtilities::face;
+std::map<GLchar, Character> FontUtilities::Characters;
+GLuint FontUtilities::buffer;
 
 
 void APIENTRY GLDebugMessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* msg, const void* data) {
 	printf("%d: %s\n", id, msg);
 }
+
+/**
+ * \brief initializes this class by creating textures of the character symbols and preparing the shader
+ * that writes the text on the screen.
+ * \param width camera width
+ * \param height camera height
+ */
+
 void FontUtilities::init(int width, int height)
 {
 	//for some odd reasons, I have to init them here again
@@ -99,11 +111,15 @@ void FontUtilities::init(int width, int height)
 	glUniform3f(6, 0.88f, 0.59f, 0.07f);
 }
 
-int  FontUtilities::render_text(std::string text, GLfloat xOffset, GLfloat yOffset, GLfloat scale ) {
+/**
+ * \brief Renders a given text on top of whatever currently is in the window frame buffer
+ * \param xOffset x-offset of where the text should start in the image
+ * \param yOffset y-offset of where the text should start in the image
+ * \param scale How big the text should be. 1.0 = 48pixel height per symbol
+ */
 
-
-
-
+void  FontUtilities::render_text(std::string text, GLfloat xOffset, GLfloat yOffset, GLfloat scale )
+{
 
 	GLfloat x = xOffset;
 	GLfloat y = yOffset;
@@ -111,7 +127,7 @@ int  FontUtilities::render_text(std::string text, GLfloat xOffset, GLfloat yOffs
 
 	glUseProgram(shader);
 
-
+	//Write character for character on the screen
 	std::string::const_iterator c;
 	for (c = text.begin(); c != text.end(); c++) {
 		Character ch = Characters[*c];
@@ -137,11 +153,14 @@ int  FontUtilities::render_text(std::string text, GLfloat xOffset, GLfloat yOffs
 		x += (ch.Advance >> 6) * scale;
 
 	}
-
-	return 0;
 }
 
 
+/**
+ * \brief creates a gl-program with the given vertex and fragment shader
+ * \param vs_path path of the vertex-shader file
+ * \param fs_path path of the fragment-shader file
+ */
 
 GLuint  FontUtilities::CompileShaders(const char* vs_path, const char* fs_path) {
 

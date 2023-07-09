@@ -1,13 +1,18 @@
 #include "Missions.h"
 
-
+/*
+* \brief returns the currently active missions of the game
+*/
 std::array<Mission, 3> Missions::get_current_random_missions()
 {
 	return current_missions;
 }
 
-//initializes the missions object with 3 random questions of the form
-//chooses 3 random questions for our missions, and returns <question text, function of question, color of that mission>
+/**
+	initializes the missions object with 3 random questions of the form
+	chooses 3 random questions for our missions and stores them in current_mission.
+	The missions are stored in the format: <question text, function of question, color of that mission>
+*/
 Missions::Missions()
 {
 	std::array<Mission, 3> result;
