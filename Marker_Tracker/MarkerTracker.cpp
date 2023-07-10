@@ -27,6 +27,7 @@ bool update(Mat frame, VideoCapture* cap, bool frame_empty, Mat original_frame, 
 
         // --- Process Frame ---
         Mat gray_scale;
+        flip(frame, frame, 1);
         Mat img_filtered = frame.clone();
 #endif
 
@@ -220,11 +221,23 @@ bool update(Mat frame, VideoCapture* cap, bool frame_empty, Mat original_frame, 
         GLfloat yOffset = 200.0f;
         GLfloat textScale = 1.0f;
         int game_score = gamelogic.calculate_game_score(marker_neighbours);
-        color c(1.0f, 1.0f, 1.0f, 1.0f);
+        color c(0.0f, 0.0f, 1.0f, 1.0f);
         FontUtilities::render_text("Score: " +std::to_string(game_score) ,xOffset,yOffset, textScale,c);
-        std::cout << "Number neighbors " << marker_neighbours.size() << std::endl;
-        std::cout << "game_score: " << game_score << std::endl;
-        yOffset -= 50;
+        //std::cout << "Number neighbors " << marker_neighbours.size() << std::endl;
+        //std::cout << "game_score: " << game_score << std::endl;
+        textScale = 0.5f;
+        yOffset =1000.0f;
+        FontUtilities::render_text("Points awarded per correctly matched tile edge: 1",xOffset,yOffset,textScale, c);
+        yOffset -= 35.0f;
+        FontUtilities::render_text("Multiplier for correctly matched one-color tile: 12", xOffset, yOffset, textScale, c);
+        yOffset -= 35.0f;
+        FontUtilities::render_text("Multiplier per correctly matched half of a two-color tile: 4", xOffset, yOffset, textScale, c);
+        yOffset -= 35.0f;
+        FontUtilities::render_text("Multiplier per correctly matched third of a three-color tile: 2", xOffset, yOffset, textScale, c);
+
+
+
+        yOffset =150.0f;
         textScale = 0.5f;
         for (int i =0; i< gamelogic.get_missions().get_current_random_missions().size();i++)
         {
@@ -232,7 +245,7 @@ bool update(Mat frame, VideoCapture* cap, bool frame_empty, Mat original_frame, 
             if (gamelogic.get_missions().status_of_mission(i))
                 c = color(0.0f, 0.8f, 0.2f, 1.0f);
             else
-                c = color(0.7f, 0.7f, 0.0f, 1.0f);
+                c = color(1.0f, 0.0f, 0.0f, 1.0f);
             FontUtilities::render_text(missionString, xOffset, yOffset, textScale,c);
             yOffset -= 30;
         }

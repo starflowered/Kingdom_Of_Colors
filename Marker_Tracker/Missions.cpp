@@ -18,7 +18,10 @@ Missions::Missions()
 	std::array<Mission, 3> result;
 	for (int i = 0; i < 3; i++)
 	{
-		int selected_question = std::rand() % possible_missions.size();
+		/*int selected_question = std::rand() % possible_missions.size();
+		int selected_color = i;
+		*/
+		int selected_question = i;
 		int selected_color = i;
 		auto chosen_question = possible_missions.at(selected_question);
 
@@ -27,7 +30,6 @@ Missions::Missions()
 		result[i] = next_tuple;
 
 	}
-
 	current_missions = result;
 	output_missions();
 }
@@ -175,6 +177,8 @@ std::string Missions::get_mission_status_as_string(int missionNr)
 	return result;
 }
 
+
+//returns whether the mission of index i is completed by the player
 bool Missions::status_of_mission(int index)
 {
 	if(current_missions.size()<= index || index <0)

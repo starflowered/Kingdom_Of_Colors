@@ -40,7 +40,7 @@ void FontUtilities::init(int width, int height)
 
 	FT_Init_FreeType(&ft);
 
-	FT_New_Face(ft, "Fonts/FreeSans.ttf", 0, &face);
+	FT_New_Face(ft, "Fonts/OpenSans-ExtraBold.ttf", 0, &face);
 
 	FT_Set_Pixel_Sizes(face, 0, 48);
 
