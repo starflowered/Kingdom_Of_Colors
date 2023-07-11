@@ -2,6 +2,7 @@
 
 /*
 * \brief returns the currently active missions of the game
+* \return the array containing the missions
 */
 std::array<Mission, 3> Missions::get_current_random_missions()
 {
@@ -9,7 +10,7 @@ std::array<Mission, 3> Missions::get_current_random_missions()
 }
 
 /**
-	initializes the missions object with 3 random questions of the form
+	\brief initializes the missions object with 3 random questions of the form
 	chooses 3 random questions for our missions and stores them in current_mission.
 	The missions are stored in the format: <question text, function of question, color of that mission>
 */
@@ -35,9 +36,10 @@ Missions::Missions()
 }
 
 /*
-	Definition of three tiles in a row: It means that you match a tile with another one in one color,
+	\brief Definition of three tiles in a row: It means that you match a tile with another one in one color,
 	and then match the marker opposite of that match again with the same color with a third tile. Requires 
 	the tile in the middle to be full color, so that the two opposing markers are of the same color.
+	\return if mission accomplished, the number of points you get for the mission, otherwise 0
 */
 int Missions::three_tiles_in_a_row(int color, std::unordered_map<int, std::array<bool, 6>> matches_of_tiles)
 {
@@ -64,6 +66,7 @@ int Missions::three_tiles_in_a_row(int color, std::unordered_map<int, std::array
 /*
 	We want that in the game, there are three half-color tiles that are matched with all sides 
 	All three of those tiles should have one side with the given color
+	\return if mission accomplished, the number of points you get for the mission, otherwise 0
 */
 int Missions::three_half_color(int color, std::unordered_map<int, std::array<bool, 6>> matches_of_tiles)
 {
@@ -90,7 +93,11 @@ int Missions::three_half_color(int color, std::unordered_map<int, std::array<boo
 	return 0;
 }
 
-//We want to check whether 7 independent tiles have all their sides of a certain color matched
+/**
+* \brief We want to check whether 7 independent tiles have all their sides of a certain color matched
+* \return if mission accomplished, the number of points you get for the mission, otherwise 0
+* 
+*/
 int Missions::seven_of_color(int color, std::unordered_map<int, std::array<bool, 6>> matches_of_tiles)
 {
 	int number_of_matched_tiles = 0;
@@ -120,7 +127,10 @@ int Missions::seven_of_color(int color, std::unordered_map<int, std::array<bool,
 	return 0;
 }
 
-//computes how many points you get for achieved missions
+/**
+* \brief computes how many points you get for achieved missions
+* \return if mission accomplished, the number of points you get for the mission, otherwise 0
+*/
 int Missions::computeMissionScore()
 {
 	int score = 0;
@@ -149,7 +159,9 @@ int Missions::computeMissionScore()
 
 
 
-//console output of mission status
+/**
+* \brief console output of the missions
+*/
 void Missions::output_missions()
 {
 	std::cout << "---------Update of current mission status----------" << std::endl;
@@ -161,7 +173,10 @@ void Missions::output_missions()
 	}
 	std::cout << "---------------------------------------------------" << std::endl;
 }
-
+/**
+* \brief creates a formatted summary of the mission's status
+* \return formatted string
+*/
 std::string Missions::get_mission_status_as_string(int missionNr)
 {
 	if (missionNr < 0 || missionNr >= current_missions.size())
@@ -178,7 +193,9 @@ std::string Missions::get_mission_status_as_string(int missionNr)
 }
 
 
-//returns whether the mission of index i is completed by the player
+/**
+* \return whether the mission of index i is completed by the player
+*/
 bool Missions::status_of_mission(int index)
 {
 	if(current_missions.size()<= index || index <0)

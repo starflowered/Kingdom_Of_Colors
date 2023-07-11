@@ -9,7 +9,7 @@ bool update(Mat frame, VideoCapture* cap, bool frame_empty, Mat original_frame, 
     vector<tuple<marker, marker>> marker_neighbours;
     int amount_hexagons = 0;
     map<int, hexagon> hexagon_map{};
-    constexpr int stripe_amount = 8;
+    constexpr int stripe_amount = 12;
     constexpr int max_frame_count = 10;
     int frame_count = max_frame_count - 1;
     GameLogic gamelogic;
@@ -285,7 +285,7 @@ int main()
     if (!glfwInit())
         return -1;
 
-    GLFWwindow* window = glfwCreateWindow(camera_width, camera_height, "COLORS", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(camera_width, camera_height, "KINGDOM OF COLORS", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
