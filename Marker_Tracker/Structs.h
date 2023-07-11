@@ -6,19 +6,21 @@ enum hexagon_type { none, full, half, third };
 
 struct color
 {
-    color(float r, float g, float b, float a) : r(r),g(g),b(b),a(a){}
+    color(const float r, const float g, const float b, const float a) : r(r), g(g), b(b), a(a) {}
     float r, g, b, a;
 };
 
 struct marker
 {
+    marker(int marker_id, int hexagon_id, int marker_rotation, cv::Point2f point, cv::Point2f img_marker_corners,
+           color color);
+    
     int marker_id = -1;
     int hexagon_id = -1;
-    // rotation in degrees TODO ???
+    // rotation in degrees
     int marker_rotation = 0;
     // all points in image space
     cv::Point2f center_position;
-    // bottom left, bottom right, upper right, upper left TODO ???
     cv::Point2f corner_positions[4];
     color color = {0, 0, 0, 1};
 };

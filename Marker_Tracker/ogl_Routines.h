@@ -30,9 +30,9 @@
 #define YELLOW 1.0f, 1.0f, 0.0f, 1.0f
 
 void ogl_initGL(GLFWwindow* window);
-void ogl_draw_background_image(const cv::Mat& img, int win_width, int win_height);
+void ogl_draw_background_image(const cv::Mat& background_image, int win_width, int win_height);
 void ogl_initWindow(GLFWwindow* window);
-void ogl_display_pnp(GLFWwindow* window, const cv::Mat& img_bgr, const std::vector<int>& marker_id, const std::vector<cv::Mat>& marker_p_mat);
+void ogl_display(GLFWwindow* window, const cv::Mat& img_bgr, const std::vector<int>& marker_id, const std::vector<cv::Mat>& marker_p_mat);
 void ogl_set_viewport_and_frustum_pnp(GLFWwindow* window, int width = 0, int height = 0);
 
 void ogl_setup_coord_sys_pnp(cv::Mat ocv_pmat);

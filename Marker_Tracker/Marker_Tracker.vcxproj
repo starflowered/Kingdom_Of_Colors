@@ -137,7 +137,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DrawUtilities.cpp" />
-    <ClCompile Include="Exercise08_New.cpp" />
     <ClCompile Include="FontUtilities.cpp" />
     <ClCompile Include="GameLogic.cpp" />
     <ClCompile Include="GameLogic_Utilities.cpp" />

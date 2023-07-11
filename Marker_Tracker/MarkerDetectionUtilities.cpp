@@ -1,84 +1,28 @@
 ﻿#include "MarkerDetectionUtilities.h"
 
-static void on_trackbar(const int pos, void* slider_value)
-{
-    *static_cast<int*>(slider_value) = pos;
-}
 
-
-void bw_trackbar_handler(const int pos, void* slider_value)
-{
-    *static_cast<int*>(slider_value) = pos;
-}
-
-
-uchar sub_pixel_sample_safe(const Mat& p_src, const Point2f& p)
-{
-    // TASK: Why do we use the floorf function here and not a simple conversion to int?
-    const int fx = static_cast<int>(floorf(p.x));
-    const int fy = static_cast<int>(floorf(p.y));
-
-    // TASK: Why do we check this?
-    if (fx < 0 || fx >= p_src.cols - 1 || fy < 0 || fy >= p_src.rows - 1)
-        return 127;
-
-    /* Fairly complicated approach -> Why could this be a useful approach here? HINT: How of then is this function called? */
-    /* If this is too complex, you can build your own solution by simply implementing the functions from slide 15+ */
-    const Point2f point{p.x - static_cast<float>(fx), p.y - static_cast<float>(fy)};
-
-    // TASK: What do we do here? HINT: What are .data and .step? What is the result of this operation?
-    const auto* i = p_src.data + fy * p_src.step + fx;
-
-    const auto point_x = static_cast<uchar>(point.x);
-    const auto point_y = static_cast<uchar>(point.y);
-
-    const uchar intensity = point_x * point_y * i[0]
-        + (1 - point_x * point_y) * i[1]
-        + (point_x * 1 - point_y) * i[p_src.cols]
-        + (1 - point_x * 1 - point_y) * i[p_src.cols + 1];
-
-    return intensity;
-}
-
-
-Mat compute_stripe(const double dx, const double dy, stripe* s)
-{
-    int l = static_cast<int>(sqrt(dx * dx + dy * dy) * 0.8);
-
-    if (l < 5)
-        l = 5;
-
-    else if (l % 2 == 0)
-        l += 1;
-
-    s->stripe_length = l;
-
-    const Size stripe_size{3, s->stripe_length};
-    Point2d stripe_vec_x, stripe_vec_y;
-
-    const double length = sqrt(dx * dx + dy * dy);
-    stripe_vec_x.x = dx / length;
-    stripe_vec_x.y = dy / length;
-    stripe_vec_y.x = stripe_vec_x.y;
-    stripe_vec_y.y = -stripe_vec_x.x;
-
-    s->stripe_vec_x = stripe_vec_x;
-    s->stripe_vec_y = stripe_vec_y;
-
-    return Mat{stripe_size, CV_8UC1};
-    // return Mat{3, s->stripe_length, CV_8UC1};
-}
-
-
+/**
+ * \brief Read the frame of an image or opens the camera/video feed.
+ * \param frame The data of the image is saved to here
+ * \param cap The VideoCapture that is opened and tested. If no camera was found, a video is opened
+ * \param frame_empty Whether or not the image is empty
+ * \param original_frame If an image is used, the original frame has to be saved, otherwise all drawing happens on one frame
+ * \return 0 if successful, 1 otherwise.
+ */
 int read_frame(Mat& frame, VideoCapture* cap, bool& frame_empty, Mat& original_frame)
 {
 #if INPUT_IMAGE
+    // get the frame of the image
     frame = imread(samples::findFile("../Examples/real_life_markers/Four_Markers_Fully_Visible.png", false));
-    // scaling frame to "normal" values -> full HD resolution
-    resize(frame, frame, Size(1920, 1080));
+    
+    // scaling frame to full HD resolution
+    resize(frame, frame, Size(camera_width, camera_height));
+    // if the image was not found, the frame is empty
     frame_empty = frame.empty();
+    // the original frame is just a copy of the first read frame
     original_frame = frame.clone();
 
+    // if the frame is empty, fall back to camera or video
     if (frame_empty)
     {
 #endif
@@ -102,32 +46,99 @@ int read_frame(Mat& frame, VideoCapture* cap, bool& frame_empty, Mat& original_f
 }
 
 
-void create_windows()
+/**
+ * \brief Get the sub pixel intensity of a given point.
+ * \param img_filtered The image
+ * \param p The point of which the intensity should be calculated
+ * \return The computed intensity value.
+ */
+uchar sub_pixel_sample_safe(const Mat& img_filtered, const Point2f& p)
 {
-    // namedWindow(stripe_window, WINDOW_AUTOSIZE);
-    // namedWindow(threshold_window, WINDOW_FREERATIO);
-    // namedWindow(marker_window, WINDOW_AUTOSIZE);
-    // namedWindow(contours_window, WINDOW_AUTOSIZE);
-    namedWindow(contours_window, WINDOW_FREERATIO);
+    // get the coordinate of the pixel
+    const int fx = static_cast<int>(floorf(p.x));
+    const int fy = static_cast<int>(floorf(p.y));
 
-    // is_first_stripe = true;
-    // is_first_marker = true;
+    // check if the point is 
+    if (fx < 0 || fx >= img_filtered.cols - 1 || fy < 0 || fy >= img_filtered.rows - 1)
+        return 127;
 
-    // createTrackbar(threshold_label, threshold_window, &thresh, 255, on_trackbar, &thresh);
-    // createTrackbar(bw_threshold_label, threshold_window, &bw_thresh, 255, bw_trackbar_handler, &bw_thresh);
+    const Point2f point{p.x - static_cast<float>(fx), p.y - static_cast<float>(fy)};
+
+    const auto* i = img_filtered.data + fy * img_filtered.step + fx;
+
+    const auto point_x = static_cast<uchar>(point.x);
+    const auto point_y = static_cast<uchar>(point.y);
+
+    // calculate intensity like in the tutorials formula
+    const uchar intensity = point_x * point_y * i[0]
+        + (1 - point_x * point_y) * i[1]
+        + (point_x * 1 - point_y) * i[img_filtered.cols]
+        + (1 - point_x * 1 - point_y) * i[img_filtered.cols + 1];
+
+    return intensity;
 }
 
 
-void compute_stripe_intensities(const Mat& img_filtered, const stripe& stripe, Mat image_pixel_stripe, const Point2f p,
-                                const int height)
+/**
+ * \brief Fill a given stripe with pixel data.
+ * \param dx x difference between stripes
+ * \param dy y difference between stripes
+ * \param stripe The stripe struct that should be filled with data
+ * \return An empty matrix with the size of the stripe.
+ */
+Mat compute_stripe(const double dx, const double dy, stripe* stripe)
 {
-    // loop over columns of stripe, p has coordinate (0,0)
+    // calculate length of the stripe
+    int l = static_cast<int>(sqrt(dx * dx + dy * dy) * 0.8);
+
+    // minimum length: 5
+    if (l < 5)
+        l = 5;
+
+        // the stripe needs an uneven length for later calculations
+    else if (l % 2 == 0)
+        l += 1;
+
+    stripe->stripe_length = l;
+
+    // stripe width is always 3, easy to apply the Sobel filter
+    const Size stripe_size{3, stripe->stripe_length};
+    Point2d stripe_vec_x, stripe_vec_y;
+
+    // calculate the step size on the stripe
+    const double length = sqrt(dx * dx + dy * dy);
+    stripe_vec_x.x = dx / length;
+    stripe_vec_x.y = dy / length;
+    // rotate the x vector 90°, then the y vector is orthogonal
+    stripe_vec_y.x = stripe_vec_x.y;
+    stripe_vec_y.y = -stripe_vec_x.x;
+
+    stripe->stripe_vec_x = stripe_vec_x;
+    stripe->stripe_vec_y = stripe_vec_y;
+
+    return Mat{stripe_size, CV_8UC1};
+}
+
+
+/**
+ * \brief Compute the intensity of every pixel in the stripe.
+ * \param img_filtered The gray scale image 
+ * \param stripe The stripe data for the current stripe
+ * \param image_pixel_stripe The matrix that is filled with the intensities
+ * \param stripe_position The position of the stripe
+ */
+void compute_stripe_intensities(const Mat& img_filtered, const stripe& stripe, Mat& image_pixel_stripe, const Point2f stripe_position)
+{
+    // get half the height of the stripe -> remember that height is always uneven
+    const int half_height = (stripe.stripe_length - 1) / 2;
+    
+    // loop over columns of stripe, p is (0,0) of the stripe, stripe has always width 3
     for (int x = -1; x < 2; x++)
     {
         // loop over rows
-        for (int y = -height; y < height + 1; y++)
+        for (int y = -half_height; y < half_height + 1; y++)
         {
-            Point2f sub_pixel = x * stripe.stripe_vec_x + y * stripe.stripe_vec_y + p;
+            Point2f sub_pixel = x * stripe.stripe_vec_x + y * stripe.stripe_vec_y + stripe_position;
 
             // calculate pixel intensities
             const uchar pixel_intensity = sub_pixel_sample_safe(img_filtered, sub_pixel);
@@ -135,7 +146,7 @@ void compute_stripe_intensities(const Mat& img_filtered, const stripe& stripe, M
             // convert from index to pixel coordinate
             // origin is now at bottom left
             const int w = x + 1;
-            const int h = y + height;
+            const int h = y + half_height;
 
             // set pointer to correct position and safe subpixel intensity
             image_pixel_stripe.at<uchar>(h, w) = pixel_intensity;
@@ -144,6 +155,13 @@ void compute_stripe_intensities(const Mat& img_filtered, const stripe& stripe, M
 }
 
 
+/**
+ * \brief Apply the Sobel filter to get the intensity changes of the stripe. Because the stripe lies orthogonal to the
+ * edge, we know that only the 0-column is the most important to get the highest intensity change.
+ * \param image_pixel_stripe A matrix filled with pixel intensities
+ * \param grad_y The Sobel matrix. It is filled inside this function
+ * \param max_intensity_index The index of the highest intensity change
+ */
 void apply_sobel_y(const Mat& image_pixel_stripe, Mat& grad_y, int& max_intensity_index)
 {
     Sobel(image_pixel_stripe, grad_y, CV_8U, 0, 1);
@@ -165,8 +183,17 @@ void apply_sobel_y(const Mat& image_pixel_stripe, Mat& grad_y, int& max_intensit
 }
 
 
-void compute_stripe_edge_center(Mat frame, const stripe& stripe, Point2f edge_point_centers[], const int j,
-                                const Point2f p, Mat grad_y, int& max_intensity_index)
+/**
+ * \brief Compute the exact edge position of the the stripe using the highest intensity change.
+ * \param stripe The current stripe
+ * \param edge_point_centers An array where the exact point is saved to
+ * \param stripe_index The index of the current stripe on the current edge
+ * \param stripe_position The position of the stripe
+ * \param grad_y The Sobel matrix
+ * \param max_intensity_index The index of the stripe with the highest intensity change
+ */
+void compute_stripe_edge_center(const stripe& stripe, Point2f edge_point_centers[], const int stripe_index,
+                                const Point2f stripe_position, Mat& grad_y, int& max_intensity_index)
 {
     // calculate point indices of point above and below max intensity point
     max_intensity_index /= 3;
@@ -190,25 +217,30 @@ void compute_stripe_edge_center(Mat frame, const stripe& stripe, Point2f edge_po
         return;
     }
 
-    const double pos = (y2 - y0) / denominator;
-
     // exact point with subpixel accuracy
+    const double pos = (y2 - y0) / denominator;
 
     // get amount of shifts needed to calculate exact position 
     const int max_index_shift = max_intensity_index - (stripe.stripe_length - 1) / 2;
 
     // calculate position
-    const Point2d edge_center = p + max_index_shift * stripe.stripe_vec_y * pos;
+    const Point2d edge_center = stripe_position + max_index_shift * stripe.stripe_vec_y * pos;
 
     // highlight the subpixel
     // circle(frame, edge_center, 3, CV_RGB(0, 0, 255), -1);
 
-    edge_point_centers[j - 1] = edge_center;
+    // save the point to the array
+    edge_point_centers[stripe_index - 1] = edge_center;
 }
 
 
-void fit_line_to_edge(Mat frame, float line_params[16], const Mat& line_params_matrix, const int i,
-                      Point2f edge_point_centers[])
+/**
+ * \brief Approximate a line by using the exact edge points that were computed before.
+ * \param line_params_matrix The points of the new line are saved here
+ * \param edge_index The index of the edge that is currently "upgraded"
+ * \param edge_point_centers All of the newly computed edge points 
+ */
+void fit_line_to_edge(const Mat& line_params_matrix, const int edge_index, Point2f edge_point_centers[])
 {
     // We now have the array of exact edge centers stored in "points", every row has two values -> 2 channels!
     const Mat high_intensity_points(Size(1, 6), CV_32FC2, edge_point_centers);
@@ -217,11 +249,16 @@ void fit_line_to_edge(Mat frame, float line_params[16], const Mat& line_params_m
     // vec.x, vec.y, point.x, point.y
     // Norm 2, 0 and 0.01 -> Optimal parameters
     // i -> Edge points
-    fitLine(high_intensity_points, line_params_matrix.col(i), DIST_L2, 0, 0.01, 0.01);
+    fitLine(high_intensity_points, line_params_matrix.col(edge_index), DIST_L2, 0, 0.01, 0.01);
 }
 
 
-void compute_corners(Mat frame, float line_params[16], Point2f (&corners)[4])
+/**
+ * \brief Compute the exact corners.
+ * \param line_params The lines of the four edges
+ * \param corners An array where the corners are saved to
+ */
+void compute_corners(float line_params[16], Point2f (&corners)[4])
 {
     // Calculate the intersection points of both lines
     for (int first_line_index = 0; first_line_index < 4; first_line_index++)
@@ -275,6 +312,12 @@ void compute_corners(Mat frame, float line_params[16], Point2f (&corners)[4])
 }
 
 
+/**
+ * \brief Map the marker, defined by its 4 exact corners, to a 6 by 6 pixel image.
+ * \param img_filtered The current gray scale image
+ * \param corners The exact corners of the marker
+ * \param image_marker The resulting 6 by 6 code matrix
+ */
 void map_marker_to_6x6_image(const Mat& img_filtered, Point2f corners[4], Mat& image_marker)
 {
     // Coordinates on the original marker images to go to the actual center of the first pixel -> 6x6
@@ -306,7 +349,13 @@ void map_marker_to_6x6_image(const Mat& img_filtered, Point2f corners[4], Mat& i
 }
 
 
-bool get_marker_bit_matrix(Mat image_marker, Mat& code_pixel_mat)
+/**
+ * \brief Get the code matrix of a recognized marker.
+ * \param image_marker The pixels of the marker
+ * \param code_pixel_mat The code resulting from that image
+ * \return True if the code is valid, false otherwise
+ */
+bool get_marker_bit_matrix(const Mat& image_marker, Mat& code_pixel_mat)
 {
     int code = 0;
     for (int i = 0; i < 6; ++i)
@@ -325,7 +374,7 @@ bool get_marker_bit_matrix(Mat image_marker, Mat& code_pixel_mat)
     }
 
     if (code < 0)
-        return true;
+        return false;
 
     code_pixel_mat = Mat(Size(4, 4), CV_8UC1);
     for (int i = 1; i < 5; i++)
@@ -337,14 +386,22 @@ bool get_marker_bit_matrix(Mat image_marker, Mat& code_pixel_mat)
             code_pixel_mat.at<uchar>(i - 1, j - 1) = image_marker.at<uchar>(i, j) ? 1 : 0;
         }
     }
-    return false;
+    return true;
 }
 
 
-bool update_marker_map(Mat frame, const aruco::Dictionary& aruco_dict, map<int, marker>& marker_map,
-                       map<int, hexagon>& hexagon_map, Point2f img_marker_corners[4], const Mat& code_pixel_mat)
+/**
+ * \brief Adds a marker to the current list of recognized markers.
+ * \param aruco_dict The dictionary with the aruco marker information. This should be able to identify the marker
+ * \param marker_map A map with all markers
+ * \param hexagon_map A map with all hexagons
+ * \param img_marker_corners The corners of the marker that is added
+ * \param code_pixel_mat The code of the marker that is added
+ * \return true if successful, false otherwise
+ */
+bool update_marker_map(const aruco::Dictionary& aruco_dict, map<int, marker>& marker_map,
+                       map<int, hexagon>& hexagon_map, Point2f img_marker_corners[], const Mat& code_pixel_mat)
 {
-    // ---------------------- update marker list
     int marker_id, marker_rotation;
 
     if (!aruco_dict.identify(code_pixel_mat, marker_id, marker_rotation, 1))
@@ -365,16 +422,19 @@ bool update_marker_map(Mat frame, const aruco::Dictionary& aruco_dict, map<int, 
     {
         // first time we see this hexagon
         h = hexagon{hexagon_id, vector<int>(), vector<int>(), Point2f()};
-        hexagon_map.try_emplace(h.hexagon_id, h); 
+        hexagon_map.try_emplace(h.hexagon_id, h);
     }
     else
     {
         h = hexagon_map.at(hexagon_id);
     }
 
+    // add the marker id to the hexagon struct
     hexagon_map[hexagon_id].markers.push_back(marker_id);
+    // add a new marker to the marker map
     marker_map.try_emplace(marker_id, marker{
-                               marker_id, h.hexagon_id, marker_rotation, marker_center, *img_marker_corners
+                               marker_id, h.hexagon_id, marker_rotation, marker_center, *img_marker_corners,
+                               GameLogic_Utilities::determine_marker_color_values(marker_id)
                            });
 
     // if this is last marker in this hexagon, sort its marker list
@@ -382,72 +442,16 @@ bool update_marker_map(Mat frame, const aruco::Dictionary& aruco_dict, map<int, 
     {
         ranges::sort(hexagon_map.at(hexagon_id).markers.begin(), hexagon_map.at(hexagon_id).markers.end());
     }
-    //--------------------------------------
-    return false;
+    
+    return true;
 }
 
-bool compute_pnp(const Mat& frame, const aruco::Dictionary& aruco_dict, map<int, marker>& marker_map,
-                 map<int, hexagon>& hexagon_map, Point2f corners[4],
-                 const Mat& code_pixel_mat, Mat_<float>& t_vec)
-{
-    // maximum dimension
-    int max_d = max(frame.rows, frame.cols);
 
-    // center pixel coordinates
-    int cx = frame.cols / 2;
-    int cy = frame.rows / 2;
-
-    auto fx = static_cast<float>(max_d);
-    auto fy = static_cast<float>(max_d);
-
-    // camera matrix
-    Mat k_mat = (Mat_<double>(3, 3) <<
-        fx, 0., cx,
-        0., fy, cy,
-        0., 0., 1.);
-
-    auto dist_coefficients = Mat(1, 4, CV_64FC1, {0.0, 0.0, 0.0, 0.0}); // no distortions
-
-    float k_marker_size = marker_size;
-    float pos0 = k_marker_size / 2.0f; // half the marker size
-
-    // calculate real-life size corner coordinates
-    Point3f mc_ll(-pos0, -pos0, 0.0); // lower left
-    Point3f mc_lr(pos0, -pos0, 0.0); // lower right
-    Point3f mc_ur(pos0, pos0, 0.0); // upper right
-    Point3f mc_ul(-pos0, pos0, 0.0); // upper left
-
-    vector<Point3f> model_marker_corners{mc_ll, mc_lr, mc_ur, mc_ul};
-
-    // marker corners in the image
-    vector<Point2f> img_marker_corners = {corners[0], corners[1], corners[2], corners[3]};
-
-    // bool value1;
-    // if (update_marker_map(frame, aruco_dict, marker_map, hexagon_map, corners, code_pixel_mat, img_marker_corners, value1))
-    //     return value1;
-
-    Mat r_vec_temp, t_vec_temp;
-    solvePnP(model_marker_corners, img_marker_corners, k_mat, dist_coefficients, r_vec_temp, t_vec_temp, false);
-
-    // PnP calculated rotation
-    Mat r_vec;
-    r_vec_temp.convertTo(r_vec, CV_32F);
-    Mat_<float> r_mat(3, 3);
-    Rodrigues(r_vec, r_mat);
-
-    t_vec_temp.convertTo(t_vec, CV_32F);
-
-    // projection matrix = rotation matrix and translation matrix
-    Mat p_mat = (Mat_<double>(4, 4) <<
-        r_mat.at<float>(0, 0), r_mat.at<float>(0, 1), r_mat.at<float>(0, 2), t_vec.at<float>(0),
-        r_mat.at<float>(1, 0), r_mat.at<float>(1, 1), r_mat.at<float>(1, 2), t_vec.at<float>(1),
-        r_mat.at<float>(2, 0), r_mat.at<float>(2, 1), r_mat.at<float>(2, 2), t_vec.at<float>(2),
-        0.0f, 0.0f, 0.0f, 1.0f
-    );
-
-    return false;
-}
-
+/**
+ * \brief Compute the positions of all hexagons.
+ * \param marker_map All found markers
+ * \param hexagon_map ALl found hexagons
+ */
 void compute_hexagon_positions(const map<int, marker>& marker_map, map<int, hexagon>& hexagon_map)
 {
     for (auto& [id, marker1] : marker_map)
@@ -455,7 +459,7 @@ void compute_hexagon_positions(const map<int, marker>& marker_map, map<int, hexa
         if (id % 6 != 0) continue;
 
         // catch case in which we see the zero-marker but don't see the opposing one -> skip in that case
-        if(!marker_map.contains(id+3))
+        if (!marker_map.contains(id + 3))
             continue;
 
         marker marker2 = marker_map.at(id + 3);
@@ -474,50 +478,39 @@ void compute_hexagon_positions(const map<int, marker>& marker_map, map<int, hexa
     }
 }
 
-vector<tuple<marker, marker>> compute_neighbours(Mat frame, const map<int, marker>& marker_map,
-                                                 map<int, hexagon>& hexagon_map)
-{
-    // NOTE hexagon map should already contain all hexagons as keys at this point ?
 
+/**
+*  \brief Compute all neighbouring hexagons.
+ * \param marker_map All found markers
+ * \param hexagon_map ALl found hexagons
+ * \return A list of neighbours
+ */
+vector<tuple<marker, marker>> compute_neighbours(const map<int, marker>& marker_map, map<int, hexagon>& hexagon_map)
+{
     // map mapping the id of each hexagon to the ids of all hexagons with which a neighboring marker has been found
     map<int, vector<int>> matched_hexagons{};
 
     // list of all marker-pairs computed to be neighbours
     vector<tuple<marker, marker>> neighbours{};
 
-    constexpr float marker_distance_threshold = 85; // sqrtf(2) * marker_size + 0.01f;
-    constexpr float hexagon_distance_threshold = 230; // sqrtf(2) * marker_size + 0.01f;
-
-    // --------------------- optimization 1 ---------------------
-
+    constexpr float marker_distance_threshold = 85;
+    constexpr float hexagon_distance_threshold = 230;
+    
     const int marker_map_size = static_cast<int>(marker_map.size());
 
-    if (marker_map_size == 0 || marker_map_size % 6 != 0) return neighbours;
+    // return no neighbours because error
+    if (marker_map_size == 0 || marker_map_size % 6 != 0)
+        return neighbours;
 
+    // get the hexagon positions 
     compute_hexagon_positions(marker_map, hexagon_map);
-
-    /*
-    // for (int i = 0; i < marker_map_size; i += 6)
-    // {
-    //     marker m1 = marker_map.at(i);
-    //     marker m2 = marker_map.at(i+3);
-    //
-    //     // circle(frame, m1.center_position, 5, CV_RGB(255, 0, 0), -1);
-    //     // circle(frame, m2.center_position, 5, CV_RGB(255, 0, 0), -1);
-    //     
-    //     Point2f distance_vector = (m1.center_position - m2.center_position) / 2;
-    //     Point2f hexagon_center_position = m2.center_position + distance_vector;
-    //     hexagon_map[m1.hexagon_id].center_position = hexagon_center_position;
-    //     // circle(frame, m1.parent_hexagon->center_position, 5, CV_RGB(0, 255, 0), -1);
-    // }
-    */
-
-    int comparison_amount = 0;
-
+    
+    // rule out all hexagons that are too far away from another
     for (auto& [id1, hex1] : hexagon_map)
     {
         hexagon* hexagon1 = &hex1;
-        //circle(frame, hexagon1->center_position, 10, CV_RGB(255, 0, 255), -1);
+        
+        // circle(frame, hexagon1->center_position, 10, CV_RGB(255, 0, 255), -1);
         // create an empty entry for all hexagons for future matching
         matched_hexagons.try_emplace(id1, vector<int>());
 
@@ -531,7 +524,6 @@ vector<tuple<marker, marker>> compute_neighbours(Mat frame, const map<int, marke
             const Point2f distance_vector = hexagon1->center_position - hexagon2->center_position;
             const float distance = sqrtf(powf(distance_vector.x, 2) + powf(distance_vector.y, 2));
             //cout << "hexagon distance " << distance << endl;
-            comparison_amount++;
 
             // update hexagons' neighbours list to later use as condition to check markers
             if (distance > hexagon_distance_threshold)
@@ -541,41 +533,9 @@ vector<tuple<marker, marker>> compute_neighbours(Mat frame, const map<int, marke
             hexagon2->neighbours.push_back(id1);
         }
     }
-
+    
     /*
-    // find neighboring hexagons
-    // for (int id1 = 0; id1 < hexagon_map_size; ++id1)
-    // {
-    //     hexagon* hexagon1 = &hexagon_map[id1];
-    //     circle(frame, hexagon1->center_position, 10, CV_RGB(255, 0, 255), -1);
-    //     // create an empty entry for all hexagons for future matching
-    //     matched_hexagons.try_emplace(id1, vector<int>());
-    //     
-    //     for (int id2 = 1; id2 < hexagon_map_size; ++id2)
-    //     {
-    //         if(id1 == id2)
-    //             continue;
-    //         
-    //         hexagon* hexagon2 = &hexagon_map[id2];
-    //         
-    //         // probe distance
-    //         const Point2f distance_vector = hexagon1->center_position - hexagon2->center_position;
-    //         const float distance = sqrtf(powf(distance_vector.x, 2) + powf(distance_vector.y, 2));
-    //         
-    //         comparison_amount++;
-    //
-    //         // update hexagons' neighbours list to later use as condition to check markers
-    //         if(distance > hexagon_distance_threshold)
-    //             continue;
-    //         
-    //         hexagon1->neighbours.push_back(id2);
-    //         hexagon2->neighbours.push_back(id1);
-    //     }
-    // }
-     */
-
-    /* TODO --------------------- optimization 2 ---------------------
-        check with each hexagon-distance-vector whether neighbor is left/right/up/down
+         check with each hexagon-distance-vector whether neighbor is left/right/up/down
         -> select markers to check accordingly
     */
 
@@ -593,7 +553,7 @@ vector<tuple<marker, marker>> compute_neighbours(Mat frame, const map<int, marke
 
             // check hexagons' markers already matched
             auto list = matched_hexagons[id1];
-            if (std::find(list.begin(), list.end(), hexagon_id2) != list.end())
+            if (ranges::find(list, hexagon_id2) != list.end())
             {
                 continue;
             }
@@ -609,11 +569,7 @@ vector<tuple<marker, marker>> compute_neighbours(Mat frame, const map<int, marke
 
                     const Point2f distance_vector = marker1.center_position - marker2.center_position;
                     const float distance = sqrtf(powf(distance_vector.x, 2) + powf(distance_vector.y, 2));
-
-                   // if (distance < 500) cout << distance << endl;
-
-                    comparison_amount++;
-
+                    
                     // if neighbours --> update both map entries
                     if (distance < marker_distance_threshold)
                     {
@@ -628,64 +584,18 @@ vector<tuple<marker, marker>> compute_neighbours(Mat frame, const map<int, marke
             }
         }
     }
-
-    /* obsolete code from before optimization 1, kept for reference
-    const int size = static_cast<int>(marker_map.size());
-    for (int id1 = 0; id1 < size; ++id1)
-    {
-        const marker& marker1 = marker_map.at(id1);
-        int hexagon_id_1 = marker1.parent_hexagon->hexagon_id;
-        
-        for (int id2 = 1; id2 < size; ++id2)
-        {
-            const marker& marker2 = marker_map.at(id2);
-            const int hexagon_id_2 = marker2.parent_hexagon->hexagon_id;
-
-            // check for same hexagon
-            if (hexagon_id_1 == hexagon_id_2)
-                continue;
-
-            // or already matched hexagon
-            if (matched_hexagons.count(hexagon_id_1) == 1)
-            {
-                auto list = matched_hexagons[hexagon_id_1];
-                if (std::find(list.begin(), list.end(), id2) != list.end()) {
-                    continue;
-                } 
-            }
-            else
-            {
-                matched_hexagons.try_emplace(hexagon_id_1, vector<int>());
-            }
-            
-            // probe distance
-            const Point2f distance_vector = marker1.center_position - marker2.center_position;
-            const float distance = sqrtf(powf(distance_vector.x, 2) + powf(distance_vector.y, 2));
-            // cout << "Distance between Marker1 " << marker1.marker_id << "," << hexagon_id_1 << " and Marker2 "  << marker2.marker_id << "," << hexagon_id_2 << endl;
-            comparison_amount++;
-            
-            // if neighbours --> update both map entries
-            if (distance < marker_distance_threshold)
-            {
-                // add tuple of neighbours to list
-                neighbours.emplace_back(marker1, marker2);
-
-                // add hexagon ids to dictionary
-                hexagon_to_marker_ids.at(hexagon_id_1).emplace_back(hexagon_id_2);
-
-                hexagon_to_marker_ids.try_emplace(hexagon_id_2, vector<int>());
-                hexagon_to_marker_ids.at(hexagon_id_2).emplace_back(hexagon_id_1);
-            }
-        }
-    }
-    */
-
-    // cout << "Compared " << comparison_amount << " of 2916 possible times" << endl;
-
+    
     return neighbours;
 }
 
-void draw_neighbouring_hexagon(Mat frame, map<int, hexagon>& hexagon_map, map<int, marker>& marker_map)
+
+// ------------------- FOR DEBUGGING ONLY -------------------
+/**
+ * \brief Draw lines between neighbouring hexagons.
+ * \param frame The current frame to draw on
+ * \param hexagon_map The map containing all found hexagons
+ */
+void draw_neighbouring_hexagon(const Mat& frame, map<int, hexagon>& hexagon_map)
 {
     for (auto& [id1, hex1] : hexagon_map)
     {
@@ -699,6 +609,12 @@ void draw_neighbouring_hexagon(Mat frame, map<int, hexagon>& hexagon_map, map<in
     }
 }
 
+
+/**
+ * \brief Draw lines between neighbouring markers.
+ * \param frame The current frame to draw on
+ * \param neighbours The map containing all found markers
+ */
 void draw_neighbouring_markers(Mat frame, const vector<tuple<marker, marker>>& neighbours)
 {
     const size_t neighbours_size = neighbours.size();
@@ -712,3 +628,4 @@ void draw_neighbouring_markers(Mat frame, const vector<tuple<marker, marker>>& n
              CV_RGB(color_value, 0, color_value), 10, 8, 0);
     }
 }
+// ------------------- FOR DEBUGGING ONLY -------------------
