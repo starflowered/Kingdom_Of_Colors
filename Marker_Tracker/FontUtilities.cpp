@@ -7,7 +7,6 @@
 */
 
 
-
 GLuint FontUtilities::shader;
 FT_Library FontUtilities::ft;
 FT_Face FontUtilities::face;
@@ -49,6 +48,8 @@ void FontUtilities::init(int width, int height)
 
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // disable byte-alignment restriction
 
+
+	//Store the first 128 ascii symbols as a texture in a map
 	for (unsigned char c = 0; c < 128; c++)
 	{
 		// load character glyph 
@@ -90,6 +91,8 @@ void FontUtilities::init(int width, int height)
 	FT_Done_Face(face);
 	FT_Done_FreeType(ft);
 
+
+	//necessary projection so that text gets rendered at the correct position
 	glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(width), 0.0f, static_cast<float>(height));
 	glUseProgram(shader);
 	glUniformMatrix4fv(glGetUniformLocation(shader, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
@@ -125,8 +128,10 @@ void  FontUtilities::render_text(std::string text, GLfloat xOffset, GLfloat yOff
 	GLfloat y = yOffset;
 
 	
-
+	//shader that renders text over current image in framebuffer
 	glUseProgram(shader);
+
+	//set correct color in shader
 	glUniform4f(2, color.r, color.g, color.b, color.a);
 	
 
@@ -169,13 +174,15 @@ GLuint  FontUtilities::CompileShaders(const char* vs_path, const char* fs_path) 
 
 	GLuint shader_programme = glCreateProgram();
 
-	GLuint vs, tcs, tes, gs, fs;
+	GLuint vs,  fs;
 
 
 	FILE* vs_file;
 	long vs_file_len;
 	char* vertex_shader;
+	
 
+	//create vertex shader
 	vs_file = fopen(vs_path, "rb");
 
 	fseek(vs_file, 0, SEEK_END);
@@ -208,9 +215,11 @@ GLuint  FontUtilities::CompileShaders(const char* vs_path, const char* fs_path) 
 		free(error);
 	}
 
+
 	glAttachShader(shader_programme, vs);
 	free(vertex_shader);
 
+	//create fragment shader
 
 	FILE* fs_file;
 	long fs_file_len;
@@ -253,10 +262,9 @@ GLuint  FontUtilities::CompileShaders(const char* vs_path, const char* fs_path) 
 	glLinkProgram(shader_programme);
 
 
+
+	// we no longer need the shaders as they are already bound to the program
 	glDeleteShader(vs);
-
-
-
 	glDeleteShader(fs);
 
 
