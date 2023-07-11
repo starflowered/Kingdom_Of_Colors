@@ -12,7 +12,7 @@
 bool update(Mat& frame, VideoCapture* cap, bool frame_empty, Mat& original_frame, GLFWwindow* window)
 {
     // amount of stripes per edge
-    constexpr int stripe_amount = 8;
+    constexpr int stripe_amount = 12;
     
     // aruco dictionary for identification of markers
     auto aruco_dict = getPredefinedDictionary(aruco::DICT_4X4_250);
@@ -280,7 +280,7 @@ int main()
     if (!glfwInit())
         return -1; // OpenGL init failed
 
-    GLFWwindow* window = glfwCreateWindow(camera_width, camera_height, "Kingdom Of Colors", nullptr, nullptr);
+    GLFWwindow* window = glfwCreateWindow(camera_width, camera_height, "KINGDOM OF COLOURS", nullptr, nullptr);
     if (!window)
     {
         glfwTerminate();
@@ -290,7 +290,7 @@ int main()
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
 
-    init_gl(__argv,);
+    init_gl();
 
     // -------------------------- setup OpenGL ----------------------
         

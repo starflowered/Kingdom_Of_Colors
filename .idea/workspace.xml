@@ -18,15 +18,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="13d3b8ad-3dbe-40b4-a428-e87bd21f7ef2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Marker_Tracker/FontUtilities.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Marker_Tracker/FontUtilities.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Marker_Tracker/FontUtilities.h" beforeDir="false" afterPath="$PROJECT_DIR$/Marker_Tracker/FontUtilities.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Marker_Tracker/MarkerTracker.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Marker_Tracker/MarkerTracker.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Marker_Tracker/Missions.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Marker_Tracker/Missions.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Marker_Tracker/Missions.h" beforeDir="false" afterPath="$PROJECT_DIR$/Marker_Tracker/Missions.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Marker_Tracker/shaders/fs.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/Marker_Tracker/shaders/fs.glsl" afterDir="false" />
-    </list>
+    <list default="true" id="13d3b8ad-3dbe-40b4-a428-e87bd21f7ef2" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
